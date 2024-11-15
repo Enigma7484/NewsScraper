@@ -1,131 +1,114 @@
 from newspaper import Article
+import enchant
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import string
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import LatentDirichletAllocation
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
 import nltk
 
+# Download necessary NLTK resources
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
+nltk.download('punkt_tab')
+
+# Initialize an English dictionary
+dictionary = enchant.Dict("en_US")
+
+# Initialize VADER sentiment analyzer
+analyzer = SentimentIntensityAnalyzer()
+
+# Custom lexicon adjustments for sensitive terms
+sensitive_words = {
+    "death": -1.0, "tragedy": -1.5, "violence": -1.0, "conflict": -1.5,
+    "controversy": -1.5, "scandal": -1.5, "accident": -1.5, "crisis": -1.0,
+    "injury": -1.0, "catastrophe": -1.5, "victim": -1.0
+}
+analyzer.lexicon.update(sensitive_words)
+
+# Define focused positive words
+positive_words = ["excellent", "achievement", "success", "celebrate"]
+
+def filter_words_in_dictionary(text):
+    """
+    Filters and returns only words found in the English dictionary.
+    """
+    words = word_tokenize(text)
+    valid_words = [word for word in words if dictionary.check(word)]
+    return ' '.join(valid_words)
 
 # 1. Scraping News Article
 def scrape_news(url):
-    """
-    This function scrapes a news article from the given URL using the newspaper3k library.
-    It returns the title and the full text of the article.
-    """
     article = Article(url)
     article.download()
     article.parse()
-    article.nlp()  # Optional: for keywords and summary extraction
+    article.nlp()
     return article.title, article.text
 
 # 2. Preprocessing Text
 def preprocess_text(text):
-    """
-    Preprocesses the text by tokenizing, removing stop words, and performing lemmatization.
-    """
     lemmatizer = WordNetLemmatizer()
-    tokens = word_tokenize(text.lower())  # Tokenize and convert to lowercase
+    tokens = word_tokenize(text.lower())
     tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stopwords.words('english') and word not in string.punctuation]
     return ' '.join(tokens)
 
-# 3a. Sentiment Analysis using TextBlob
+# 3a. Refined Sentiment Analysis using TextBlob with Threshold
 def analyze_sentiment_textblob(text):
-    """
-    Analyzes the sentiment using TextBlob, returns 'positive', 'negative', or 'neutral'.
-    """
     blob = TextBlob(text)
     sentiment = blob.sentiment.polarity
-    return 'positive' if sentiment > 0 else 'negative' if sentiment < 0 else 'neutral'
+    return 'positive' if sentiment > 0.2 else 'negative' if sentiment < -0.2 else 'neutral'
 
-# 3b. Sentiment Analysis using VADER
+# 3b. Hybrid Sentiment Analysis using VADER with Custom Lexicon and Higher Positive Threshold
 def analyze_sentiment_vader(text):
-    """
-    Analyzes the sentiment using VADER, returns 'positive', 'negative', or 'neutral'.
-    """
-    analyzer = SentimentIntensityAnalyzer()
     sentiment_dict = analyzer.polarity_scores(text)
-    if sentiment_dict['compound'] >= 0.05:
+    
+    # Sensitive word check and positive override
+    sensitive_flag = any(word in text.lower() for word in sensitive_words.keys())
+    positive_override = any(word in text.lower() for word in positive_words)
+
+    # Threshold-based sentiment classification with higher positive threshold
+    if positive_override or sentiment_dict['compound'] >= 0.75:
         return 'positive'
-    elif sentiment_dict['compound'] <= -0.05:
+    elif sensitive_flag or sentiment_dict['compound'] <= -0.2:
         return 'negative'
     else:
         return 'neutral'
 
-# 4. Grouping Articles by Sentiment
-def group_articles_by_sentiment(articles):
-    """
-    Groups articles into categories based on their sentiment.
-    """
-    sentiment_groups = {'positive': [], 'negative': [], 'neutral': []}
-    for title, text in articles:
-        sentiment = analyze_sentiment_vader(preprocess_text(text))  # Using VADER for sentiment analysis
-        sentiment_groups[sentiment].append((title, text))
-    return sentiment_groups
-
-# 5. Topic Modeling using LDA
-def topic_modeling(articles, num_topics=5):
-    """
-    Clusters articles into topics using Latent Dirichlet Allocation (LDA).
-    """
-    texts = [text for _, text in articles]
-    vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, stop_words='english')
-    tfidf_matrix = vectorizer.fit_transform(texts)
-    
-    lda = LatentDirichletAllocation(n_components=num_topics, random_state=42)
-    lda.fit(tfidf_matrix)
-    
-    for i, topic in enumerate(lda.components_):
-        print(f'Topic {i}:', [vectorizer.get_feature_names_out()[i] for i in topic.argsort()[-10:]])
-
-# 6. Visualization: Word Cloud
-def visualize_word_cloud(text, sentiment):
-    """
-    Creates and displays a word cloud for a given sentiment category.
-    """
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-    plt.figure(figsize=(10, 5))
-    plt.imshow(wordcloud, interpolation='bilinear')
-    plt.title(f'{sentiment.capitalize()} Sentiment Word Cloud')
-    plt.axis('off')
-    plt.show()
-
-# Example flow of the complete script
-if _name_ == "_main_":
-    # Step 1: Scrape a sample article
-    url = 'https://example-news-site.com/sample-news-article'
-    title, text = scrape_news(url)
-
-    # Step 2: Preprocess the article's text
+# 4. Analyze and Store Positive Articles
+def analyze_and_store_article(title, text):
     cleaned_text = preprocess_text(text)
-    print(f"Preprocessed Text:\n{cleaned_text}\n")
+    sentiment_vader = analyze_sentiment_vader(cleaned_text)
+    sentiment_textblob = analyze_sentiment_textblob(cleaned_text)
+    
+    # Hybrid scoring: only classify as negative if both models indicate negative
+    final_sentiment = 'positive' if (sentiment_vader == 'positive' or sentiment_textblob == 'positive') else 'negative' if (sentiment_vader == 'negative' and sentiment_textblob == 'negative') else 'neutral'
+    
+    print(f"Article Title: '{title}' | Final Sentiment: {final_sentiment}")
+    
+    # If positive, store the article
+    if final_sentiment == 'positive':
+        with open("positive_articles.txt", "a") as file:
+            file.write(f"Title: {title}\n")
+            file.write(f"Text: {text}\n")
+            file.write("\n" + "="*80 + "\n\n")  # Separator for readability
+        print("Article stored as positive.")
 
-    # Step 3: Perform sentiment analysis on the article
-    sentiment = analyze_sentiment_vader(cleaned_text)  # You can switch between VADER and TextBlob
-    print(f"Article Sentiment: {sentiment}\n")
+# Example flow of the script
+if __name__ == "__main__":
+    url = 'https://www.mirror.co.uk/3am/celebrity-news/matthew-perry-death-sentencing-live-33994178'
+    print("Starting news scraping...")
+    try:
+        title, text = scrape_news(url)
+        if not text:
+            raise ValueError("Scraped content is empty.")
+    except Exception as e:
+        print(f"Error during scraping: {e}")
+        text = None
 
-    # Step 4: Example of processing multiple articles
-    # Simulating multiple articles (you would scrape multiple URLs in practice)
-    articles = [
-        (title, text),
-        ('Another Article', 'This is another sample article for testing purposes.'),
-        # Add more articles
-    ]
-    grouped_articles = group_articles_by_sentiment(articles)
-    print(f"Grouped Articles by Sentiment: {grouped_articles}\n")
+    if text:
+        print(f"Scraped Title: {title}\nScraped Text: {text[:500]}...\n")
 
-    # Step 5: Topic Modeling (optional, if you want to find themes in articles)
-    topic_modeling(articles)
-
-    # Step 6: Visualization: Word Cloud for Positive Sentiment
-    all_positive_text = ' '.join([text for _, text in grouped_articles['positive']])
-    if all_positive_text:  # Generate word cloud only if there's positive content
-        visualize_word_cloud(all_positive_text, 'positive')
+        # Analyze and store if the article is positive
+        analyze_and_store_article(title, text)

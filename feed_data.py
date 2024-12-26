@@ -6,14 +6,16 @@ import headline_scraper
 # response = requests.post(url, json=data)
 # print(response.json())
 
-positive_links = []
-for headline_data in headline_scraper.all_headlines:
-    response = requests.post(
-        "http://localhost:5000/analyze-keywords",  # Your sentiment API endpoint
-        json={"keywords": headline_data["headline"].split()}
-    )
-    sentiment = response.json()["final_sentiment"]
-    if sentiment == "positive":
-        positive_links.append(headline_data["link"])
+def filter_positive_headlines(headlines):
 
-print("Positive Links:", positive_links)
+    positive_links = []
+    for headline_data in headlines:
+        response = requests.post(
+            "http://localhost:5000/analyze-keywords",  # Your sentiment API endpoint
+            json={"keywords": headline_data["headline"].split()}
+        )
+        sentiment = response.json().get("final_sentiment", "neutral")
+        if sentiment == "positive":
+            positive_links.append(headline_data["link"])
+
+    return positive_links

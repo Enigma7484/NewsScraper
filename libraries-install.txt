@@ -1,4 +1,0 @@
-pip install beautifulsoup4 requests textblob vaderSentiment newspaper3k scikit-learn matplotlib wordcloud nltk
-pip install lxml_html_clean
-
-pip install flask flask-cors textblob vaderSentiment

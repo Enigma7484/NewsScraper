@@ -6,11 +6,18 @@ from textblob import TextBlob
 app = Flask(__name__)
 analyzer = SentimentIntensityAnalyzer()
 
-# Custom words for better scoring
-analyzer.lexicon.update({"celebration": 2.0, "achievement": 2.0, "conflict": -2.0, "death": -3.0})
+# Custom lexicon for better scoring adjustments
+analyzer.lexicon.update({
+    "celebration": 2.0, "achievement": 2.0, 
+    "conflict": -2.0, "death": -3.0
+})
 
 def analyze_sentiment_vader(keywords):
-    text = " ".join(keywords)  # Combine keywords into a single text
+    """
+    Analyzes sentiment using VADER.
+    Returns sentiment label ('positive', 'negative', 'neutral') and the compound score.
+    """
+    text = " ".join(keywords)  # Convert list to text
     sentiment_dict = analyzer.polarity_scores(text)
     compound = sentiment_dict['compound']
 
@@ -22,7 +29,11 @@ def analyze_sentiment_vader(keywords):
         return "neutral", compound
 
 def analyze_sentiment_textblob(keywords):
-    text = " ".join(keywords)  # Combine keywords into a single text
+    """
+    Analyzes sentiment using TextBlob.
+    Returns sentiment label ('positive', 'negative', 'neutral') and polarity score.
+    """
+    text = " ".join(keywords)
     blob = TextBlob(text)
     polarity = blob.sentiment.polarity
 
@@ -35,16 +46,36 @@ def analyze_sentiment_textblob(keywords):
 
 @app.route('/analyze-keywords', methods=['POST'])
 def analyze_keywords():
+    """
+    API endpoint for analyzing sentiment based on given keywords.
+    Expected input: {"keywords": ["example", "words"]}
+    """
     data = request.json
     keywords = data.get("keywords", [])
 
+    # Validate input: Ensure it's a non-empty list of strings
     if not isinstance(keywords, list) or not keywords:
-        return jsonify({"error": "Invalid input. Provide a list of keywords."}), 400
+        return jsonify({"error": "Invalid input. Provide a non-empty list of keywords."}), 400
+    
+    # Normalize keywords: Convert to lowercase and filter out non-string elements
+    keywords = [str(word).lower() for word in keywords if isinstance(word, str)]
 
+    if not keywords:  # Ensure we have valid keywords after filtering
+        return jsonify({"error": "No valid keywords found."}), 400
+
+    # Get sentiment results from both models
     vader_sentiment, vader_score = analyze_sentiment_vader(keywords)
     textblob_sentiment, textblob_score = analyze_sentiment_textblob(keywords)
 
-    final_sentiment = vader_sentiment if vader_sentiment == textblob_sentiment else "mixed"
+    # Determine final sentiment
+    if vader_sentiment == textblob_sentiment:
+        final_sentiment = vader_sentiment
+    else:
+        # Choose the sentiment with the stronger score
+        if abs(vader_score) > abs(textblob_score):
+            final_sentiment = vader_sentiment
+        else:
+            final_sentiment = textblob_sentiment
 
     return jsonify({
         "keywords": keywords,

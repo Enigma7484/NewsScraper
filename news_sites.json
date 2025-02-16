@@ -1,0 +1,44 @@
+{
+    "bbc": {
+        "base_url": "https://www.bbc.com/news",
+        "headline_xpath": "//h2[@data-testid='card-headline']",
+        "link_xpath": ".//ancestor::a/@href",
+        "dynamic": false
+    },
+    "cnn": {
+        "base_url": "https://www.cnn.com/",
+        "headline_xpath": "//a[.//span[contains(@class, 'container__headline-text')]]",
+        "link_xpath": "./@href",
+        "dynamic": false
+    },
+    "guardian": {
+        "base_url": "https://www.theguardian.com/international",
+        "headline_xpath": "//a[@data-link-name]",
+        "link_xpath": "./@href",
+        "dynamic": false
+    },
+    "nytimes": {
+        "base_url": "https://www.nytimes.com/",
+        "headline_xpath": "//a[contains(@class, 'css-9mylee')]",
+        "link_xpath": "./@href",
+        "dynamic": false
+    },
+    "aljazeera": {
+        "base_url": "https://www.aljazeera.com/",
+        "headline_xpath": "//a[contains(@class, 'u-clickable-card__link') or h3[@class='article-card__title']]",
+        "link_xpath": "./@href",
+        "dynamic": false
+    },
+    "cbc": {
+        "base_url": "https://www.cbc.ca/news",
+        "headline_xpath": "//a[contains(@class, 'card') and .//h3]",
+        "link_xpath": "./@href",
+        "dynamic": true
+    },
+    "reuters": {
+        "base_url": "https://www.reuters.com/",
+        "headline_xpath": "//a[.//span[@data-testid='TitleHeading']]",
+        "link_xpath": "./@href",
+        "dynamic": true
+    }
+}

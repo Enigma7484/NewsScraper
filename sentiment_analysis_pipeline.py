@@ -150,6 +150,7 @@ def clean_summary(text):
         return text
 
 
+# ✅ Adjust `max_length` for Summarization
 def generate_summary(text):
     """Generates a cleaned and formatted summary using Hugging Face's T5 model."""
     try:

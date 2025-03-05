@@ -1,10 +1,15 @@
 from pymongo import MongoClient
 import json
+import os
+from dotenv import load_dotenv
 
-# MongoDB connection details
-MONGO_URI = "mongodb://localhost:27017"  # Update if using a remote MongoDB instance
-DB_NAME = "news_scraper"
-COLLECTION_NAME = "articles"
+# Load environment variables
+load_dotenv()
+
+# MongoDB Connection
+MONGO_URI = os.getenv('MONGO_URL')
+DB_NAME = os.getenv('DB_NAME')
+COLLECTION_NAME = os.getenv('COLLECTION_NAME')
 
 # Connect to MongoDB
 client = MongoClient(MONGO_URI)

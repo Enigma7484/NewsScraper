@@ -1,6 +1,6 @@
 {
     "bbc": {
-        "base_url": "https://www.bbc.com/news",
+        "base_url": "https://www.bbc.com/",
         "headline_xpath": "//h2[@data-testid='card-headline']",
         "link_xpath": ".//ancestor::a/@href",
         "dynamic": false
@@ -12,7 +12,7 @@
         "dynamic": false
     },
     "guardian": {
-        "base_url": "https://www.theguardian.com/international",
+        "base_url": "https://www.theguardian.com/",
         "headline_xpath": "//a[@data-link-name]",
         "link_xpath": "./@href",
         "dynamic": false
@@ -32,12 +32,6 @@
     "cbc": {
         "base_url": "https://www.cbc.ca/news",
         "headline_xpath": "//a[contains(@class, 'card') and .//h3]",
-        "link_xpath": "./@href",
-        "dynamic": true
-    },
-    "reuters": {
-        "base_url": "https://www.reuters.com/",
-        "headline_xpath": "//a[.//span[@data-testid='TitleHeading']]",
         "link_xpath": "./@href",
         "dynamic": true
     }

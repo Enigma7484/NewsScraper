@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import json
 import os
+import datetime
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -33,13 +34,14 @@ def save_articles_to_db(json_file="sentiment_results.json"):
                     "headline": article["headline"],
                     "url": article["url"],
                     "sentiment": sentiment,
-                    "summary": article["summary"]
+                    "summary": article["summary"],
+                    "timestamp": datetime.datetime.now(datetime.timezone.utc) # Store timestamp in UTC
                 }
                 articles_to_insert.append(article_entry)
 
         if articles_to_insert:
             collection.insert_many(articles_to_insert)
-            print("✅ Articles saved to MongoDB successfully.")
+            print("✅ Articles saved to MongoDB successfully with timestamps.")
         else:
             print("⚠️ No articles found to save.")
 

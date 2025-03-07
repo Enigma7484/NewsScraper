@@ -3,11 +3,14 @@ import requests
 import time
 import unicodedata
 import re
+import traceback
+import datetime
 from lxml import html
 from transformers import pipeline
 from selector_scraper import scrape_static_website, scrape_dynamic_website
-from feed_data import API_URL, analyze_keywords
-import traceback
+from feed_data import analyze_keywords
+from save2db import save_articles_to_db
+import ftfy
 
 # Load news site configurations
 with open("news_sites.json", "r", encoding="utf-8") as file:
@@ -16,24 +19,25 @@ with open("news_sites.json", "r", encoding="utf-8") as file:
 # Load the T5 Summarization Model
 summarizer = pipeline("summarization", model="t5-large")
 
+
 # ✅ Fix Encoding Issues & Normalize Text
 def clean_text(text):
     """Fix encoding issues, restore apostrophes, and normalize text properly."""
     try:
         text = unicodedata.normalize("NFKC", text)  # Normalize Unicode characters
         text = text.encode("utf-8", "ignore").decode("utf-8")  # Fix encoding artifacts
-        
+
         # Restore contractions (e.g., "Trump s" → "Trump's")
-        text = re.sub(r"\b([A-Za-z]+)\s([smtd])\b", r"\1'\2", text)
-        text = re.sub(r"\b([A-Za-z]+)\s([l])\b", r"\1'\2", text)  
-        
+        text = re.sub(r"\b([A-Za-z]+)\s([smtdl])\b", r"\1'\2", text)
+
         # Remove non-ASCII characters
         text = re.sub(r"[^\x00-\x7F]+", " ", text)
         text = re.sub(r"\s+", " ", text).strip()  # Remove extra spaces
         return text
     except Exception as e:
         print(f"❌ Error cleaning text: {e}")
-        return text  
+        return text
+
 
 # ✅ Convert The Guardian's relative URLs to absolute
 def fix_guardian_link(link):
@@ -41,87 +45,124 @@ def fix_guardian_link(link):
         return "https://www.theguardian.com" + link.split("#")[0]  # Remove #comments
     return link
 
+
 # ✅ Filter Out Non-Article Headlines
 def filter_headlines(headlines):
     """Remove unwanted headlines such as videos, short titles, and advertisements."""
     filtered = []
     for headline in headlines:
-        cleaned_headline = clean_text(headline)  
-        
+        cleaned_headline = clean_text(headline)
+
         # ❌ Skip short headlines
         if len(cleaned_headline.split()) <= 2:
-            continue  
-        
+            continue
+
         # ❌ Skip "Video" & "Advertisement"
         if "video" in cleaned_headline.lower() or "advertisement" in cleaned_headline.lower():
-            continue  
-        
+            continue
+
         filtered.append(cleaned_headline)
     return filtered
 
-# ✅ Fetch Full Article Content
+
+# ✅ Extract Article Images
+def extract_image(tree):
+    """Extracts the first available image from the article page."""
+    try:
+        img_url = tree.xpath("//meta[@property='og:image']/@content")
+        return img_url[0] if img_url else None
+    except Exception as e:
+        print(f"❌ Error extracting image: {e}")
+        return None
+
+
+# ✅ Fetch Full Article Content & Image
 def fetch_full_article(url):
-    # Custom headers (Pretend to be a real user)
+    """Fetches the full content and image of an article given its URL."""
     HEADERS = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
         "Accept-Language": "en-US,en;q=0.9",
         "Referer": "https://www.google.com/",
     }
-    """Fetches the full content of an article given its URL."""
     try:
         session = requests.Session()
         response = session.get(url, headers=HEADERS)
 
-        # Handle 403 Forbidden by trying a different approach
+        # Handle 403 Forbidden by retrying
         if response.status_code == 403:
             print(f"⚠️ Warning: Access denied for {url}. Trying alternative method...")
-            time.sleep(2)  # Wait before retrying
-
-            # Try again with a different approach
+            time.sleep(2)  
             response = session.get(url, headers=HEADERS, cookies=session.cookies)
 
         response.raise_for_status()
         tree = html.fromstring(response.content)
 
-        # Extract main article text based on common HTML tags
+        # Extract main article text
         paragraphs = tree.xpath("//p/text()")
-        content = " ".join(paragraphs).strip
+        content = " ".join(paragraphs).strip()
 
-        return content if content else "Content not available"
+        # Extract image if available
+        image_url = extract_image(tree)
+
+        return content if content else "Content not available", image_url
     except Exception as e:
         print(f"❌ Error fetching article from {url}: {e}")
-        return "Content not available"
+        return "Content not available", None
 
-# ✅ Adjust `max_length` for Summarization
-def generate_summary(text):
-    """
-    Generates a summary of the article using Hugging Face's T5 model.
-    Ensures the input is a valid string.
-    """
+def clean_summary(text):
+    """Cleans up summary text, fixing encoding issues, capitalization, and punctuation."""
     try:
-        # ✅ Convert text to string explicitly
+        # ✅ Fix character encoding issues (removes `â` and restores proper characters)
+        text = ftfy.fix_text(text)
+
+        # ✅ Normalize Unicode characters
+        text = unicodedata.normalize("NFKC", text)
+
+        # ✅ Remove excessive spaces and fix punctuation spacing
+        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r'\s([.,!?;:])', r'\1', text)  # Remove space before punctuation
+
+        # ✅ Capitalize first letter of every sentence
+        text = re.sub(r'(^|[.!?]\s+)([a-z])', lambda m: m.group(1) + m.group(2).upper(), text)
+
+        # ✅ Ensure proper apostrophe formatting ("Trump s" → "Trump’s")
+        text = re.sub(r"\b([A-Za-z]+)\s([smtdl])\b", r"\1'\2", text)
+
+        # ✅ Ensure the summary ends properly with a period
+        if text and text[-1] not in ".!?":
+            text += "."
+
+        return text.strip()
+
+    except Exception as e:
+        print(f"❌ Error cleaning summary: {e}")
+        return text
+
+def generate_summary(text):
+    """Generates a cleaned and formatted summary using Hugging Face's T5 model."""
+    try:
         if not isinstance(text, str):
             text = str(text)  # Force conversion to string
 
-        # ✅ Ensure non-empty text
         text = text.strip()
         if not text:
             return "No content available to summarize."
 
-        # ✅ Check if text length is sufficient
         input_length = len(text.split())
         if input_length < 10:
-            return text  # If text is too short, return as is
+            return text.capitalize()  
 
-        # ✅ Generate Summary
-        input_text = "summarize: " + text[:2048]  # Trim input to avoid overflow
+        input_text = "summarize: " + text[:2048]  
         summary = summarizer(input_text, max_length=150, min_length=50, do_sample=False)
-        return summary[0]["summary_text"]
-    
+        
+        cleaned_summary = clean_summary(summary[0]["summary_text"])  
+        return cleaned_summary
+
     except Exception as e:
         print(f"❌ Error generating summary: {e}")
-        print(traceback.format_exc())  # Print full error trace
-        return text[:300] + "..."  # Return truncated original text if error occurs
+        print(traceback.format_exc())
+        return clean_summary(text[:300] + "...")  
+
 
 # ✅ Sentiment Analysis & Processing
 def process_news():
@@ -140,66 +181,54 @@ def process_news():
         else:
             articles = scrape_static_website(base_url, headline_xpath, link_xpath)
 
-        # ✅ Filter & Clean Headlines
+        seen_articles = set()
         filtered_articles = []
         for a in articles:
             cleaned_headline = clean_text(a["headline"])
             cleaned_link = fix_guardian_link(a["link"]) if site == "guardian" else a["link"]
 
-            # ❌ Skip comment sections (`#comments`)
-            if "#comments" in cleaned_link:
-                print(f"⚠ Skipping comment section: {cleaned_link}")
+            if cleaned_link in seen_articles:
                 continue  
 
+            seen_articles.add(cleaned_link)
             filtered_articles.append({"headline": cleaned_headline, "link": cleaned_link})
 
-        # ✅ Process Each Article
         for article in filtered_articles:
             headline = clean_text(article["headline"])
             url = article["link"]
 
             print(f"🔍 Fetching article: {headline} ({url})")
-            full_content = fetch_full_article(url)
+            full_content, image_url = fetch_full_article(url)
 
             if full_content == "Content not available":
-                continue  
+                continue
 
-            # 🔍 Run Sentiment Analysis
-            sentiment_response = analyze_keywords(headline.split())
+            sentiment_response = analyze_keywords(headline)
             sentiment = sentiment_response.get("final_sentiment", "neutral")
 
-            # 🔍 Generate Summary
             summary = generate_summary(full_content)
 
-            # ✅ Categorize Articles
             article_data = {
                 "headline": headline,
                 "url": url,
                 "sentiment": sentiment,
-                "summary": summary
+                "summary": summary,
+                "image": image_url,
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()  # ✅ Timestamp for sorting
             }
 
-            if sentiment == "positive":
-                results["positive"].append(article_data)
-                print(f"✅ Positive: {headline}")
+            results[sentiment].append(article_data)
+            print(f"{sentiment.capitalize()}: {headline}")
 
-            elif sentiment == "negative":
-                results["negative"].append(article_data)
-                print(f"❌ Negative: {headline}")
+            time.sleep(2)  # Add a short delay to prevent rate limiting
 
-            else:
-                results["neutral"].append(article_data)
-                print(f"⚪ Neutral: {headline}")
-
-            # ⏳ Prevent Rate-Limiting
-            time.sleep(2)
-
-    # ✅ Save Results
     with open("sentiment_results.json", "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=4)
+        json.dump(results, f, indent=4, default=str)  # ✅ Convert datetime to string
+
 
     print("\n✅ Sentiment Analysis Complete! Results saved in `sentiment_results.json`")
 
-# Run the Sentiment Analysis Pipeline
+    # save_articles_to_db(results)
+
 if __name__ == "__main__":
     process_news()

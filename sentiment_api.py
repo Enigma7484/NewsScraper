@@ -54,4 +54,4 @@ def search_articles():
     return jsonify({"articles": [serialize_article(a) for a in articles]})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(host="0.0.0.0", port=5001, debug=False)  # ✅ Run on

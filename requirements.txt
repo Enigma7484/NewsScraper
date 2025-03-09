@@ -13,3 +13,4 @@ flask-cors
 selenium
 transformers
 pymongo
+gunicorn

@@ -14,3 +14,4 @@ selenium
 transformers
 pymongo
 gunicorn
+python-dotenv

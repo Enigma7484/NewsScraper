@@ -64,17 +64,30 @@ def filter_headlines(headlines):
         filtered.append(cleaned_headline)
     return filtered
 
-
 # ✅ Extract Article Images
 def extract_image(tree):
     """Extracts the first available image from the article page."""
     try:
+        # Try extracting from OpenGraph metadata (most reliable)
         img_url = tree.xpath("//meta[@property='og:image']/@content")
-        return img_url[0] if img_url else None
+        if img_url:
+            return img_url[0]
+
+        # Try extracting from Twitter Card metadata
+        twitter_img = tree.xpath("//meta[@name='twitter:image']/@content")
+        if twitter_img:
+            return twitter_img[0]
+
+        # Fallback: Extract from <img> tags inside article content
+        img_tags = tree.xpath("//article//img/@src") or tree.xpath("//img/@src")
+        for img in img_tags:
+            if img.startswith("http"):  # Ensure absolute URL
+                return img
+        
+        return None  # No valid image found
     except Exception as e:
         print(f"❌ Error extracting image: {e}")
         return None
-
 
 # ✅ Fetch Full Article Content & Image
 def fetch_full_article(url):
@@ -110,33 +123,36 @@ def fetch_full_article(url):
         return "Content not available", None
 
 def clean_summary(text):
-    """Cleans up summary text, fixing encoding issues, capitalization, and punctuation."""
+    """Cleans up summary text, ensuring proper capitalization, punctuation, and encoding."""
     try:
-        # ✅ Fix character encoding issues (removes `â` and restores proper characters)
-        text = ftfy.fix_text(text)
+        text = text.strip()
 
-        # ✅ Normalize Unicode characters
-        text = unicodedata.normalize("NFKC", text)
+        # ✅ Normalize Unicode (Fix issues like â)
+        text = unicodedata.normalize("NFKC", text)  # Normalize encoding artifacts
 
-        # ✅ Remove excessive spaces and fix punctuation spacing
-        text = re.sub(r'\s+', ' ', text)
+        # ✅ Replace common encoding errors
+        text = text.replace("â€™", "'")  # Fix apostrophes
+        text = text.replace("â€œ", '"').replace("â€", '"')  # Fix quotation marks
+        text = text.replace("â€“", "-")  # Fix dashes
+        text = text.replace("â€¦", "...")  # Fix ellipses
+        text = text.replace("â€˜", "'").replace("â€™", "'")  # Fix single quotes
+
+        # ✅ Fix spacing issues with punctuation
+        text = re.sub(r'\s+', ' ', text)  # Remove excessive spaces
         text = re.sub(r'\s([.,!?;:])', r'\1', text)  # Remove space before punctuation
 
-        # ✅ Capitalize first letter of every sentence
+        # ✅ Capitalize the first letter of every sentence
         text = re.sub(r'(^|[.!?]\s+)([a-z])', lambda m: m.group(1) + m.group(2).upper(), text)
 
-        # ✅ Ensure proper apostrophe formatting ("Trump s" → "Trump’s")
-        text = re.sub(r"\b([A-Za-z]+)\s([smtdl])\b", r"\1'\2", text)
-
-        # ✅ Ensure the summary ends properly with a period
+        # ✅ Ensure summary ends properly with a period
         if text and text[-1] not in ".!?":
             text += "."
 
-        return text.strip()
-
+        return text
     except Exception as e:
         print(f"❌ Error cleaning summary: {e}")
         return text
+
 
 def generate_summary(text):
     """Generates a cleaned and formatted summary using Hugging Face's T5 model."""

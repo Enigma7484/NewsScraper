@@ -35,6 +35,7 @@ def save_articles_to_db(json_file="sentiment_results.json"):
                     "url": article["url"],
                     "sentiment": sentiment,
                     "summary": article["summary"],
+                    "image": article["image"],
                     "timestamp": datetime.datetime.now(datetime.timezone.utc) # Store timestamp in UTC
                 }
                 articles_to_insert.append(article_entry)

@@ -35,11 +35,12 @@ def get_all_articles():
 @app.route("/sentiment/<category>", methods=["GET"])
 def get_articles_by_sentiment(category):
     """Fetch articles filtered by sentiment and sorted by date."""
-    valid_categories = ["positive", "neutral", "negative"]
+    valid_categories = ["positive", "neutral", "negative", "all"]
     if category not in valid_categories:
         return jsonify({"error": "Invalid category. Choose from: positive, neutral, negative"}), 400
-
-    articles = list(collection.find({"sentiment": category}).sort("timestamp", -1))  # Sort latest first
+    
+    query = {} if category == "all" else {"sentiment": category}
+    articles = list(collection.find(query).sort("timestamp", -1))  # ✅ Sort by latest first
     return jsonify({"articles": [serialize_article(a) for a in articles]})
 
 @app.route("/sentiment/search", methods=["GET"])

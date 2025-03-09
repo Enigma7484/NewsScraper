@@ -53,5 +53,7 @@ def search_articles():
     articles = list(collection.find({"headline": {"$regex": query, "$options": "i"}}))
     return jsonify({"articles": [serialize_article(a) for a in articles]})
 
+# ✅ Ensure Flask runs on Render correctly
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=False)  # ✅ Run on
+    port = int(os.environ.get("PORT", 5001))  # Render assigns a dynamic port
+    app.run(host="0.0.0.0", port=port, debug=False)  # Set debug to False for production

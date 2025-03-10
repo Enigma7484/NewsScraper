@@ -19,7 +19,6 @@ celery
 redis
 fake-useragent
 torch
-json
 time
 datetime
 unicodedata

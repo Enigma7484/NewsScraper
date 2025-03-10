@@ -28,8 +28,12 @@ def serialize_article(article):
 
 @app.route("/sentiment", methods=["GET"])
 def get_all_articles():
-    """Fetch all articles from MongoDB, including images, sorted by date (latest first)."""
-    articles = list(collection.find({}).sort("timestamp", -1))  # Sort by newest first
+    """Fetch all articles sorted by timestamp."""
+    sort_order = request.args.get("sort", "desc")  # Get sort order from frontend
+
+    order = -1 if sort_order == "desc" else 1
+    articles = list(collection.find({}).sort("timestamp", order))
+
     return jsonify({"articles": [serialize_article(a) for a in articles]})
 
 @app.route("/sentiment/<category>", methods=["GET"])

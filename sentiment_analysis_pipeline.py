@@ -22,22 +22,18 @@ summarizer = pipeline("summarization", model="t5-large")
 
 # ✅ Fix Encoding Issues & Normalize Text
 def clean_text(text):
-    """Fix encoding issues, restore apostrophes, and normalize text properly."""
+    """Fixes text encoding issues, normalizes text properly."""
     try:
-        text = unicodedata.normalize("NFKC", text)  # Normalize Unicode characters
-        text = text.encode("utf-8", "ignore").decode("utf-8")  # Fix encoding artifacts
-
-        # Restore contractions (e.g., "Trump s" → "Trump's")
+        text = unicodedata.normalize("NFKC", text)
+        text = text.encode("utf-8", "ignore").decode("utf-8")
+        text = ftfy.fix_text(text)  # Fix encoding issues
         text = re.sub(r"\b([A-Za-z]+)\s([smtdl])\b", r"\1'\2", text)
-
-        # Remove non-ASCII characters
         text = re.sub(r"[^\x00-\x7F]+", " ", text)
-        text = re.sub(r"\s+", " ", text).strip()  # Remove extra spaces
+        text = re.sub(r"\s+", " ", text).strip()
         return text
     except Exception as e:
         print(f"❌ Error cleaning text: {e}")
         return text
-
 
 # ✅ Convert The Guardian's relative URLs to absolute
 def fix_guardian_link(link):
@@ -48,17 +44,17 @@ def fix_guardian_link(link):
 
 # ✅ Filter Out Non-Article Headlines
 def filter_headlines(headlines):
-    """Remove unwanted headlines such as videos, short titles, and advertisements."""
+    """Filters out unwanted headlines."""
     filtered = []
+    unwanted_keywords = ["advertisement", "sponsored", "opinion", "op-ed", "video", "watch now"]
+    
     for headline in headlines:
         cleaned_headline = clean_text(headline)
-
-        # ❌ Skip short headlines
         if len(cleaned_headline.split()) <= 2:
-            continue
-
-        # ❌ Skip "Video" & "Advertisement"
-        if "video" in cleaned_headline.lower() or "advertisement" in cleaned_headline.lower():
+            continue  # Skip very short headlines
+        
+        # Skip unwanted content
+        if any(word in cleaned_headline.lower() for word in unwanted_keywords):
             continue
 
         filtered.append(cleaned_headline)

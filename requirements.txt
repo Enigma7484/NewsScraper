@@ -17,3 +17,5 @@ gunicorn
 python-dotenv
 celery
 redis
+fake-useragent
+torch

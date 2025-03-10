@@ -19,8 +19,4 @@ celery
 redis
 fake-useragent
 torch
-time
-datetime
-unicodedata
-re
-traceback
+ftfy

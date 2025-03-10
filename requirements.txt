@@ -15,3 +15,5 @@ transformers
 pymongo
 gunicorn
 python-dotenv
+celery
+redis

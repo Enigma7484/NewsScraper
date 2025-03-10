@@ -246,5 +246,5 @@ def process_news():
 
     # save_articles_to_db(results)
 
-if __name__ == "__main__":
-    process_news()
+# if __name__ == "__main__":
+#     process_news()

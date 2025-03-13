@@ -241,6 +241,5 @@ def process_news():
     print("\n✅ Sentiment Analysis Complete! Results saved in `sentiment_results.json`")
 
     # save_articles_to_db(results)
-
 if __name__ == "__main__":
     process_news()

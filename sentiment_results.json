@@ -1,6 +1,18 @@
 {
     "positive": [
         {
+<<<<<<< HEAD
+            "headline": "Bellingham sent off as Real Madrid held by Osasuna",
+            "url": "https://www.bbc.com/sport/football/live/c4g7xyzq6zjt",
+            "sentiment": "positive",
+            "summary": "Jude Bellingham has been sent off twice in his Real Madrid career. The England midfielder was shown a straight red in the 39th minute for foul and abusive language towards referee Jose Luis Munuera Montero. Bellingham's only previous dismissal for Real came after the final whistle in a 2-2 draw at Valencia in March 2024."
+        },
+        {
+            "headline": "British PM says he\u00e2\u0080\u0099ll join other European leaders for meeting, calling it a \u00e2\u0080\u0098once in a generation moment\u00e2\u0080\u0099 for their national security",
+            "url": "https://www.cnn.com/2025/02/15/europe/europe-emergency-summit-ukraine-intl-latam/index.html",
+            "sentiment": "positive",
+            "summary": "Prime Minister Keir Starmer is set to join European leaders at an emergency summit in Paris on Monday. Starmer: We cannot allow any divisions in the alliance to distract from the external enemies we face. This comes as Trump speaks to Russian President Vladimir Putin as he pushes for a peace deal between Russia and Ukraine."
+=======
             "headline": "Why this week is important for Ukraine's future",
             "url": "https://www.bbc.com/news/videos/c04zgkrgdq0o",
             "sentiment": "positive",
@@ -31,11 +43,33 @@
             "summary": "Maureen lennon wrote the musical in tribute to the literary pioneer. The musical will be performed at wilton's music hall in london from 18 march. It will debut at the Hull Truck theatre.",
             "image": "https://ichef.bbci.co.uk/news/1024/branded_news/8a31/live/c9787120-fb94-11ef-a11b-1f2632b2f897.jpg",
             "timestamp": "2025-03-10T21:55:25.753214+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "The grannies who saved Albanian cuisine",
-            "url": "https://www.bbc.com/travel/article/20250305-the-grannies-who-saved-albanian-cuisine",
+            "headline": "Zelensky warns days of guaranteed US support for Europe are over, as Kellogg says Europeans won\u00e2\u0080\u0099t be at table for peace talks",
+            "url": "https://www.cnn.com/2025/02/15/europe/zelensky-trump-putin-ukraine-russia-peace-talks-intl/index.html",
             "sentiment": "positive",
+<<<<<<< HEAD
+            "summary": "Zelensky urges Europe to band together to create a united army and foreign policy. He spoke in a week when a phone call between Russian President Vladimir Putin and US counterpart   raised fears in Kyiv that it was being frozen out of negotiations. The White House also downplayed the prospects of Ukraine joining NATO."
+        },
+        {
+            "headline": "Video\n                    Author reacts to RFK Jr. becoming HHS secretary\n                        3:35",
+            "url": "https://www.cnn.com/2025/02/15/politics/video/emily-oster-rfk-jr-confirmation-vaccines-hhs-nr-digvid",
+            "sentiment": "positive",
+            "summary": "ParentData CEO Emily Oster joins CNN\u00e2\u0080\u0099s Paula Reid to discuss Robert F. Kennedy Jr.\u2019s confirmation as Health and Human Services secretary. Oster: \u201cWe\u2019re all in this together.\u201d"
+        },
+        {
+            "headline": "Elon Musk\u00e2\u0080\u0099s dream comes true: The federal board that protects workers does not exist, at least for now",
+            "url": "https://www.cnn.com/2025/02/15/business/nlrb-trump-musk-workers/index.html",
+            "sentiment": "positive",
+            "summary": "The National Labor Relations Board, the independent agency that is supposed to enforce labor laws for most American workers, has been essentially shut down. President Donald Trump fired one of its board members, leaving it without the quorum it needs to function. The NLRB oversees elections to form unions and investigates complaints about unfair labor practices."
+        },
+        {
+            "headline": "Saudi Arabia seeks to mediate between Trump and Iran on new nuclear deal",
+            "url": "https://www.cnn.com/2025/02/14/middleeast/saudi-arabia-trump-iran-nuclear-deal-intl/index.html",
+            "sentiment": "positive",
+            "summary": "Riyadh is open to mediating between the U.S. and Iran over Iran's nuclear program. It is unclear whether Saudi Arabia has made a formal offer. Iran's supreme leader has said talks with the United States are \"not smart\""
+=======
             "summary": "Albania has suffered two bouts of culinary amnesia over the past 80 years. During communism, people had one fixed job from 07:00 until 15:00. 20% of the population \u2013 fled Albania from 1989 to 2001 in search of work.",
             "image": "https://ychef.files.bbci.co.uk/624x351/p0kwblph.jpg",
             "timestamp": "2025-03-10T21:56:37.552821+00:00"
@@ -55,11 +89,63 @@
             "summary": "Wall street opened sharply lower after us president refused to rule out a recession. The hackers, known as lazarus group, managed to convert at least $300m (\u00a3232m) to unrecoverable funds. Discover a century of film at the academy museum.",
             "image": "https://ichef.bbci.co.uk/images/ic/1024xn/p0kwg23t.jpg",
             "timestamp": "2025-03-10T21:58:28.413286+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Olympian Allyson Felix: 'My purpose was bigger than running fast'",
-            "url": "https://www.bbc.com/reel/video/p0kwkqcn/allyson-felix-my-purpose-was-bigger-than-running-fast-",
+            "headline": "Video\n                    From the Pope to Elon Musk: See NewsNights\u00e2\u0080\u0099 most heated discussions of the week\n                        4:58",
+            "url": "https://www.cnn.com/2025/02/15/politics/video/newsnight-highlights-abby-phillip-nn-digvid",
             "sentiment": "positive",
+<<<<<<< HEAD
+            "summary": "CNN NewsNight is CNN.com's weekly, offbeat look at the day's top stories. This week, we look at political ads and Elon Musk's role in the White House. Follow CNN NewsNight on Facebook, Twitter and Instagram."
+        },
+        {
+            "headline": "Video\nVideos show roads flooded as Tennessee-Kentucky region undergoes rare, high risk flood alert\n                        0:51",
+            "url": "https://www.cnn.com/2025/02/15/weather/video/kentucky-tennessee-rare-flooding-storm-digvid",
+            "sentiment": "positive",
+            "summary": "A rare level 4 of 4 high risk of flooding rainfall is in place for more than 1.5 million people in parts of northwestern Tennessee and western Kentucky. The storm is expected to reach   as it barrels through much of the eastern US."
+        },
+        {
+            "headline": "50 years of love (and the research to prove it)\n            \n                \n                    Feb 15, 2025",
+            "url": "https://www.cnn.com/audio/podcasts/5-good-things/episodes/ac324626-2fdf-11ef-89ae-17bdbe857384",
+            "sentiment": "positive",
+            "summary": "Volunteers in every state are delivering roses and heartfelt cards to senior citizens. An animal shelter is playing matchmaker across the country. The psychologists behind the famous \" \" are celebrating 50 years of marriage. A couple bonded over their love of this romantic comedy, so the proposal had to be perfect."
+        },
+        {
+            "headline": "Love and robots: How AI is changing the dating scene\n            \n                \n                    Feb 11, 2025",
+            "url": "https://www.cnn.com/audio/podcasts/terms-of-service-with-clare-duffy/episodes/a02a27f2-96cf-11ef-aa1b-0f2b50b38556",
+            "sentiment": "positive",
+            "summary": "Artificial intelligence is promising to switch things up in the dating world once more. Marketing professional shares how she has used AI in her dating life. AI expert explains how this technology is changing dating apps, and the people who use them. What questions do you have about the technology in your life? Email us at  ."
+        },
+        {
+            "headline": "Gallery\n                    Elon Musk\u00e2\u0080\u0099s son steals spotlight. Surfer rides perfect wave in Hawaii. The week in photos",
+            "url": "https://www.cnn.com/2025/02/13/world/gallery/photos-this-week-february-6-february-13/index.html",
+            "sentiment": "positive",
+            "summary": "The Philadelphia Eagles beat the Kansas City Chiefs 40-22. The game was a rematch of the Super Bowl two years ago, which the Chiefs won. Eagles quarterback Jalen Hurts threw for two touchdowns and ran for one on his way to winning."
+        },
+        {
+            "headline": "New York Giants ownership is exploring the possibility of selling minority stake in franchise",
+            "url": "https://www.cnn.com/2025/02/14/sport/new-york-giants-minority-sale-spt-intl/index.html",
+            "sentiment": "positive",
+            "summary": "The New York Giants ownership is considering the sale of a minority stake in the franchise. The Giants did not outline the percentage of the stake potentially for sale, but did confirm they had acquired the services of an investment bank. John Mara and Steve Tisch, on behalf of their families, currently own 50% each."
+        },
+        {
+            "headline": "\u00e2\u0080\u0098White Lotus\u00e2\u0080\u0099 is expected to lure more tourists to Thailand. These are the locations featured on season 3 of the hit show",
+            "url": "https://www.cnn.com/travel/thailand-white-lotus-season-3-locations-intl-hnk/index.html",
+            "sentiment": "positive",
+            "summary": "The third season of the Emmy-winning HBO show premieres on February 16. Carrie Coon, Michelle Monaghan, Jason Isaacs, Leslie Bibb, Walton Goggins, Pa are among the cast members. The show is expected to be spicier than ever as it takes viewers to Thailand."
+        },
+        {
+            "headline": "China\u00e2\u0080\u0099s animated blockbuster smashed box office records at home. Now it\u00e2\u0080\u0099s hitting Western cinemas",
+            "url": "https://www.cnn.com/2025/02/14/media/china-ne-zha-2-box-office-success-intl-hnk/index.html",
+            "sentiment": "positive",
+            "summary": "An unruly Chinese boy who battles dragons and defies destiny has made his way to Western cinema screens after smashing box office records in China. The animated blockbuster loosely based on Chinese mythology, is now the world\u00e2\u0080\u0099s highest-grossing movie of all time in a single market, racking up a staggering $1.4 billion in ticket sales."
+        },
+        {
+            "headline": "Dolly Parton harmonizes with Sabrina Carpenter for cute, cleaned-up redux of \u00e2\u0080\u0098Please Please Please\u00e2\u0080\u0099",
+            "url": "https://www.cnn.com/2025/02/14/entertainment/dolly-parton-sabrina-carpenter-please-please-please/index.html",
+            "sentiment": "positive",
+            "summary": "Jolene Carpenter has released a new version of her hit song \u00e2\u0080\u009cPlease Please Please\u00e2\ufffdai\u009d on Thursday night. The song features the one and only  , who compliments Carpenter\u2019s vocals on the track with a beautiful falsetto."
+=======
             "summary": "The track and field Olympian talks to BBC 100 women about her advocacy for athletes' rights, including safety and maternity benefits. Discover a century of film at the academy museum, home to 52 million objects bringing cinematic history to life. Coffee was once believed to be bad for our health, but research suggests it can actually benefit us.",
             "image": "https://ichef.bbci.co.uk/images/ic/1024xn/p0kwqklm.jpg",
             "timestamp": "2025-03-10T21:58:40.393849+00:00"
@@ -79,11 +165,21 @@
             "summary": "Valentino's fall-winter 2025 show was dubbed \u00e2the meta-theatre of intimacies\u00e2. Creative director alessandro Michele transformed a paris venue into an atmospheric bathroom. Models emerged from (and sometimes disappeared into) mock cubicles, bathed in red light.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2204157950.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:11:22.762495+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Paris Fashion Week brought out big stars here's what they wore",
-            "url": "https://www.cnn.com/2025/03/06/style/paris-fashion-week-celebrity-looks-fall-winter-2025/index.html",
+            "headline": "Newly discovered fungus turns cave-dwelling spiders into \u00e2\u0080\u0098zombies\u00e2\u0080\u0099",
+            "url": "https://www.cnn.com/2025/02/14/science/zombie-spider-fungus-caves-gibellula/index.html",
             "sentiment": "positive",
+<<<<<<< HEAD
+            "summary": "Gibellula attenboroughii is a previously unknown species of fungus. The fungus lures spiders out of their webs before instigating an untimely death. The way in which the fungus affects the arachnid\u00e2\u0080\u0099s brain is still a mystery."
+        },
+        {
+            "headline": "Largest celestial object of its kind discovered in the distant universe",
+            "url": "https://www.cnn.com/2025/02/13/science/distant-giant-quasar-jet/index.html",
+            "sentiment": "positive",
+            "summary": "The ancient object formed when the universe was less than 10% of its current age of 13.8 billion years. Until now, these faraway colossal radio jets released not long after the big bang have been elusive. How they are created remains an enigma, according to lead author Anniek Gloudemans."
+=======
             "summary": "The fall-winter 2025 edition of is underway, with infectious energy and eye-catching looks seen both on and off the runway. High-wattage shows staged by the world\u00e2s biggest brands, such as Chanel, Herm s and Louis Vuitton, are expected to draw some of pop culture's biggest celebrities. From actors Keira knightley and Michelle Yeoh to models Naomi Campbell and Gigi hadid, it marks an opportunity to mingle with their peers.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2202863938.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:12:05.700373+00:00"
@@ -95,19 +191,141 @@
             "summary": "Spring is one of the best times of the year to enjoy savory and sweet brunch dishes. A mile-high stack of fluffy flapjacks is a luxurious treat in and of itself. Crab season starts in late April, just in time to grace the table of spring brunches.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/mw711-strawberries-and-cream-stuffed-french-toast-s4x3.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:16:59.415459+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Spring side dishes that will round out your menu",
-            "url": "https://www.cnn.com/wbd/spring-side-dishes-that-will-round-out-your-menu/index.html",
+            "headline": "\u00e2\u0080\u0098The greatest product placement ever\u00e2\u0080\u0099: How a TV show changed an industry",
+            "url": "https://www.cnn.com/travel/the-love-boat-how-a-tv-show-transformed-cruise-industry/index.html",
             "sentiment": "positive",
+<<<<<<< HEAD
+            "summary": "Back in 1970, an estimated 500,000 people went on a cruise holiday. That figure had jumped to five million by 1997. The Love Boat first aired in 1977 and went on to become one of the most successful shows in TV history during its decade-long run."
+=======
             "summary": "Spring vegetables are at peak freshness and deliciousness. Turnips add a little something extra that\u00e2s difficult to quantify. Stuffed globe artichokes are a great way to get the most out of them.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/kc2407-easy-sugar-snap-pea-and-radish-salad-s4x3.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:17:10.104902+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "It's America's fastest-growing job thanks to ChatGPT",
-            "url": "https://www.cnn.com/2025/02/27/business/chatgpt-ai-jobs-surge/index.html",
+            "headline": "See all the best looks \u00e2\u0080\u0094 and celebrity appearances \u00e2\u0080\u0094 at New York Fashion Week",
+            "url": "https://www.cnn.com/2025/02/10/style/new-york-fashion-week-fw25-highlights/index.html",
             "sentiment": "positive",
+<<<<<<< HEAD
+            "summary": "New York Fashion Week concluded Tuesday. Thom Browne and Calvin Klein showed their latest collections. Several major labels and cult mainstays were absent from the schedule following the departure of their creative directors. Some heritage brands like Tommy Hilfiger and Ralph Lauren skipped the season entirely."
+        },
+        {
+            "headline": "The secret to great sex isn\u00e2\u0080\u0099t really a secret. It\u00e2\u0080\u0099s asking the right question, 81-year-old sex professor says",
+            "url": "https://www.cnn.com/2025/02/14/health/dating-over-70-sex-professor-wellness/index.html",
+            "sentiment": "positive",
+            "summary": "World-renowned human sexuality professor says it's no big secret how to have great sex. Ask your partner: \u00e2\u0080\u009cHow do you like to be touched?\u00e2\ufffdai\u009d and \u201cHere\u2019s how I like to being touched.\u201d Some students have followed his advice and reported back to him over the years."
+        },
+        {
+            "headline": "How much coffee is too much, according to a doctor",
+            "url": "https://www.cnn.com/2025/02/13/health/caffeine-longevity-heart-wellness/index.html",
+            "sentiment": "positive",
+            "summary": "Recent research has generated new buzz about caffeine consumption. Drinking coffee in the morning is especially beneficial in reducing cardiovascular disease and premature death. How much coffee is good for most people, according to these studies and how much is too much? Should some people be especially careful about coffee consumption? And if you don\u2019t like coffee, are there similar benefits from drinking tea or other beverages?"
+        },
+        {
+            "headline": "50 years of love (and the research to prove it)",
+            "url": "https://www.cnn.com/audio/podcasts/5-good-things/episodes/ac324626-2fdf-11ef-89ae-17bdbe857384",
+            "sentiment": "positive",
+            "summary": "Volunteers in every state are delivering roses and heartfelt cards to senior citizens. An animal shelter is playing matchmaker across the country. The psychologists behind the famous \" \" are celebrating 50 years of marriage. A couple bonded over their love of this romantic comedy, so the proposal had to be perfect."
+        },
+        {
+            "headline": "Why crunchy conservatives love RFK Jr.",
+            "url": "https://www.cnn.com/audio/podcasts/the-assignment/episodes/8c328126-4b94-11ef-ba2a-e76169d75f4a",
+            "sentiment": "positive",
+            "summary": "The rise of Robert F. Kennedy Jr. and the conservative \u201cMake America Healthy Again\u2019 movement is reclaiming what it means to be \u2018crunchy\u2019 Audie talks with Kiera Butler, a Mother Jones senior editor and reporter deeply embedded in the world of the conservative right's wellness trends."
+        },
+        {
+            "headline": "Love and robots: How AI is changing the dating scene",
+            "url": "https://www.cnn.com/audio/podcasts/terms-of-service-with-clare-duffy/episodes/a02a27f2-96cf-11ef-aa1b-0f2b50b38556",
+            "sentiment": "positive",
+            "summary": "Artificial intelligence is promising to switch things up in the dating world once more. Marketing professional shares how she has used AI in her dating life. AI expert explains how this technology is changing dating apps, and the people who use them. What questions do you have about the technology in your life? Email us at  ."
+        },
+        {
+            "headline": "Mac McClung Wins Slam Dunk Contest",
+            "url": "https://bleacherreport.com/articles/25154933-mac-mcclung-wins-2025-nba-slam-dunk-contest-hyped-fans-historic-3-peat?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+            "sentiment": "positive",
+            "summary": "Orlando Magic guard Mac McClung won the 2025 NBA Slam Dunk Contest. McClung became the first player to claim the title in three consecutive years. He received flawless scores on each of his four dunks throughout the evening. This included both of his finishes in the final round."
+        },
+        {
+            "headline": "Bills mailroom employee gifted car after Josh Allen speech",
+            "url": "https://bleacherreport.com/articles/25154806-bills-mailroom-employee-roderick-morrow-gifted-car-after-josh-allens-viral-speech?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+            "sentiment": "positive",
+            "summary": "Buffalo Bills mailroom employee Roderick \"Slick Rick\" Morrow has been gifted a free car. Morrow became well-known after quarterback Josh Allen shouted him out during his NFL MVP acceptance speech. West Herr Auto Group gifted Morrow a 2017 Chevy Traverse and made a presentation."
+        },
+        {
+            "headline": "Video\n                    We third-wheeled on a date in a retirement community. Did they fall in love?\n                        4:02",
+            "url": "https://www.cnn.com/2025/02/14/health/video/retirement-home-single-seniors-love-wellness-digvid",
+            "sentiment": "positive",
+            "summary": "Ted (72) and Doris (age is just a number) were set up by staff at a Valentine's dating event. The RiverSpring Living retirement community in the Bronx, New York, has long encouraged sex, intimacy and companionships among its elderly residents."
+        },
+        {
+            "headline": "Easy potluck recipes that are sure to please a crowd",
+            "url": "https://www.cnn.com/wbd/easy-potluck-recipes-that-are-sure-to-please-a-crowd/index.html",
+            "sentiment": "positive",
+            "summary": "We rounded up some of our favorite dishes that are perfect for the potluck. These recipes are all guaranteed\u00c2\u00a0 \u00c2\u00a0favorites, travel well, and make a big portion (or can be easily scaled up) Cauliflower takes the place of potato to offer a high fiber version of the tasty classic."
+        },
+        {
+            "headline": "Gallery\n                    The best photos from the 2025 Super Bowl",
+            "url": "https://www.cnn.com/2025/02/09/sport/gallery/super-bowl-lix-photos/index.html",
+            "sentiment": "positive",
+            "summary": "The Philadelphia Eagles beat the Kansas City Chiefs 40-22. The game was a rematch of the Super Bowl two years ago, which the Chiefs won 38-35. Eagles quarterback Jalen Hurts threw for two touchdowns and ran for one. The Eagles defense suffocated the Chiefs offense and star quarterback Patrick Mahomes."
+        },
+        {
+            "headline": "Gallery\n                    The Super Bowl halftime show, in pictures",
+            "url": "https://www.cnn.com/2025/02/09/entertainment/gallery/halftime-show-super-bowl-lix-kendrick-lamar/index.html",
+            "sentiment": "positive",
+            "summary": "Kendrick Lamar is one of hip-hop\u00e2\u0080\u0099s most celebrated artists. His performance came a week after he won song and record of the year for his hit \"Not Like Us\" He made his Super Bowl halftime show debut in 2022."
+        },
+        {
+            "headline": "Incredible survival tales of animal encounters, from sharks to bears to bison",
+            "url": "https://www.cnn.com/2025/02/15/travel/travel-news-swallowed-by-humpback-whale/index.html",
+            "sentiment": "positive",
+            "summary": "A Chilean father recently   a humpback whale briefly swallowed his son while kayaking in Patagonia. Two American tourists share another harrowing story of the day they were attacked by a shark in the Bahamas. A video of a dangerous encounter with a territorial bison went viral back in 2022. Here are our  if you get yourself in a pickle."
+        },
+        {
+            "headline": "Kasparov, Karpov and the KGB? Four decades on from the most controversial chess match of all time",
+            "url": "https://www.cnn.com/2025/02/15/sport/kasparov-karpov-1984-85-world-championship-spt-intl/index.html",
+            "sentiment": "positive",
+            "summary": "Russian-born grandmaster Gennadi Sosonko was an enemy of the Soviet Union. He was in Switzerland when he heard that the 1984-85 match in Moscow had been abandoned. The match had lasted five months, longer than any other World Championship before or since."
+        },
+        {
+            "headline": "The scent of a mummy: Research discovers ancient Egyptian remains smell nice",
+            "url": "https://www.cnn.com/2025/02/14/world/ancient-egyptian-remains-smell-intl-latam/index.html",
+            "sentiment": "positive",
+            "summary": "Mummies as old as 5,000 years found to smell good. Researchers at University College London say they were surprised at the pleasantness of them. Floral notes were also detected, which could be from pine and juniper resins used in embalming."
+        },
+        {
+            "headline": "Skip to main content",
+            "url": "https://www.theguardian.com/international#maincontent",
+            "sentiment": "positive",
+            "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She\u2019s in her 30s and feels ambivalent about having kids, so will this safeguard her future? Remarkable documentary Harvest is her personal diary of this time."
+        },
+        {
+            "headline": "Share stories with the Guardian securely and confidentially",
+            "url": "https://www.theguardian.com/help/ng-interactive/2017/mar/17/contact-the-guardian-securely",
+            "sentiment": "positive",
+            "summary": "SecureDrop allows you to safely send us messages and documents. All we get is what you send us, and a codename that allows us to reply to you. To prevent interception at our end, we decrypt what you sent us on a computer that is kept."
+        },
+        {
+            "headline": "\u2018It can be really frightening\u2019: knowing the common signs that a loved one is dying can help in their final days",
+            "url": "https://www.theguardian.com/society/2025/feb/16/it-can-be-really-frightening-knowing-the-common-signs-that-a-loved-one-is-dying-can-help-in-their-final-days",
+            "sentiment": "positive",
+            "summary": "Being with her in the months, days and hours up to her death from cancer was the hardest thing I have ever done. It also felt like the most important. And there was one piece of information that allowed us to recognise what was happening at a crucial moment."
+        },
+        {
+            "headline": "They say we don\u2019t like sex, drugs, democracy or DIY. But here\u2019s how we in gen Z really feel",
+            "url": "https://www.theguardian.com/society/2025/feb/15/they-say-we-dont-like-sex-drugs-democracy-or-diy-but-heres-how-we-in-gen-z-really-feel",
+            "sentiment": "positive",
+            "summary": "Recent surveys claim to have discovered a lot of alarming things about my generation. But they\u2019re not telling you the whole story. Nearly a quarter of us can\u00e2\u0080\u0099t change a lightbulb. A fair chunk can\u2019t identify a flathead screwdriver, and a fifth don\u201dt even know what a spanner is."
+        },
+        {
+            "headline": "Sprint sensation Gout Gout smashes Noah Lyles\u2019 personal best time for 400m",
+            "url": "https://www.theguardian.com/sport/2025/feb/16/gout-gout-australian-sprinter-noah-lyles-personal-best-time-400m-brisbane",
+            "sentiment": "positive",
+            "summary": "Gout clocked 46.20s, almost a second under Lyles\u2019 personal best for the distance. It is the fastest under-18 time by an Australian for 35 years. Gout recently returned from a Florida training camp with Lyles and the American\u2019s coach Lance Brauman."
+=======
             "summary": "The market for jobs in the AI sector has surged in the last two years, according to a recent analysis. Job postings in AI fields have spiked 68% in the u.s. Since the end of 2022. The latest in a slew of studies showing AI skills are in high demand.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1331814231.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:18:02.931545+00:00"
@@ -119,11 +337,63 @@
             "summary": "Miuccia, a 4 year old whippet from italy, became the first italian dog to win the coveted prize at the event in Birmingham, england. She saw off competition from more than 18,000 dogs gathered at Birmingham\u00e2s national exhibition centre for four days of competition.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2204248946.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:20:05.698561+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "Back to top",
-            "url": "https://www.theguardian.com#top",
+            "url": "https://www.theguardian.com/international#top",
             "sentiment": "positive",
+<<<<<<< HEAD
+            "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She\u2019s in her 30s and feels ambivalent about having kids, so will this safeguard her future? Remarkable documentary Harvest is her personal diary of this time."
+        },
+        {
+            "headline": "Spelling BeeHow many words can you make with 7 letters?",
+            "url": "https://www.nytimes.com/puzzles/spelling-bee",
+            "sentiment": "positive",
+            "summary": "Since the launch of The Crossword in 1942, The Times has captivated solvers by providing engaging word and logic games. In 2014, we introduced The Mini Crossword, followed by Spelling Bee, Letter Boxed and Tiles. In early 2022, we proudly added Wordle to our collection. Since then we have created Connections and Strands."
+        },
+        {
+            "headline": "Sudan army retakes more of capital Khartoum from RSF",
+            "url": "https://www.aljazeera.com/news/2025/2/15/sudan-army-retakes-more-of-capital-khartoum-from-rsf",
+            "sentiment": "positive",
+            "summary": "Sudanese army advances on Khartoum, retakes territory from paramilitary group. Rapid Support Forces still controls some key positions, including the central market, the presidential palace, and some of the southern and western residential districts. It also holds parts of the central region of Kordofan, most of the western region of Darfur, and is besieging the army and its allies in the city of el-Fashir."
+        },
+        {
+            "headline": "ICC Champions Trophy 2025: Top five players to watch",
+            "url": "https://www.aljazeera.com/sports/2025/2/15/icc-champions-trophy-top-five-players",
+            "sentiment": "positive",
+            "summary": "The International Cricket Council\u2019s (ICC) Champions Trophy begins in Pakistan on February 19. This edition comes after an eight-year gap since the tournament was last staged in 2017, when Pakistan lifted the trophy in England. Al Jazeera Sport has picked the top five players to look out for this time around."
+        },
+        {
+            "headline": "World Cup holders Australia 107 all out in final Champions Trophy warm-up",
+            "url": "https://www.aljazeera.com/sports/2025/2/14/icc-champions-trophy-2025-world-cup-winners-australia-thumped-in-warm",
+            "sentiment": "positive",
+            "summary": "Sri Lanka beat Australia by 174 runs in their second one-day international. Kusal Mendis top-scored with 101 and was well supported by Charith Asalanka. Australia lost their last seven wickets for 28 runs to be bowled out for 107."
+        },
+        {
+            "headline": "ICC Champions Trophy 2025: Top five players to watch",
+            "url": "https://www.aljazeera.com/sports/2025/2/15/icc-champions-trophy-top-five-players",
+            "sentiment": "positive",
+            "summary": "The International Cricket Council\u2019s (ICC) Champions Trophy begins in Pakistan on February 19. This edition comes after an eight-year gap since the tournament was last staged in 2017, when Pakistan lifted the trophy in England. Al Jazeera Sport has picked the top five players to look out for this time around."
+        },
+        {
+            "headline": "IN PHOTOS | This week's most compelling images",
+            "url": "https://www.cbc.ca/newsinteractives/features/topshots-2025-2-15",
+            "sentiment": "positive",
+            "summary": "Photographers from CBC News, The Canadian Press, Reuters and others document our changing world every day. Here\u2019s a selection of the week's top images. It is a priority for CBC to create a website that is accessible to all Canadians including people with visual, hearing, motor and cognitive challenges."
+        },
+        {
+            "headline": "Ukraine needs 'real security guarantees' before any peace talks with Russia, Zelenskyy tells Vance",
+            "url": "https://www.cbc.ca/news/news/world/ukraine-russia-munich-security-conference-1.7459683",
+            "sentiment": "positive",
+            "summary": "Ukrainian President Volodymyr Zelenskyy met with U.S. Vice-President J.D. Vance in Munich. He said he will only agree to meet in-person with Russian leader Vladimir Putin after a common plan is negotiated. Vance, for his part, said the Trump administration is committed to finding a lasting peace."
+        },
+        {
+            "headline": "Igloo recalls more than 1M coolers after handle hazard causes fingertip amputations",
+            "url": "https://www.cbc.ca/news/news/business/igloo-recalls-over-1-million-coolers-amputations-1.7458456",
+            "sentiment": "positive",
+            "summary": "Igloo is recalling more than 1 million of its coolers sold across Canada, the U.S. and Mexico. A tow handle can pinch users' fingertips against the product, posing potential amputation and other crushing risks. The coolers were sold at major retailers like Costco, Target, Dick's and Amazon between 2019 and 2025."
+=======
             "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She's in her 30s and feels ambivalent about having kids. 'harvest' is her personal diary of this time..",
             "image": "https://sb.scorecardresearch.com/p?c1=2&c2=6035250&cv=2.0&cj=1&cs_ucfr=0&comscorekw=Network+Front",
             "timestamp": "2025-03-10T22:26:45.140911+00:00"
@@ -143,10 +413,185 @@
             "summary": "The gift card industry in canada is booming and is expected to balloon from about $11 billion in 2023 to nearly $14 billion by 2028. Experts say there are numerous ways fraudsters can steal gift card balances before the intended recipients can use them. The cards are often displayed in kiosks on sales floors allowing scammers to steal them and copy their barcode numbers and pins.",
             "image": "https://i.cbc.ca/1.7475401.1741197837!/fileImage/httpImage/image.jpeg_gen/derivatives/16x9_1180/joan-oanes.jpeg?im=Resize%3D620",
             "timestamp": "2025-03-10T22:40:43.511692+00:00"
+>>>>>>> c110f36 (gitignore)
         }
     ],
     "neutral": [
         {
+<<<<<<< HEAD
+            "headline": "Mapping China's influence around the Panama Canal",
+            "url": "https://www.bbc.co.uk/news/resources/idt-943c9a5e-32c0-4eae-8abb-4d9c4c6eae1e",
+            "sentiment": "neutral",
+            "summary": "US remains the main user of the canal, but Chinese involvement has grown. Up to 14,000 ships use the 51-mile (82km) passage each year. It links the Atlantic and Pacific Oceans across the Central American country. Panama left the partnership earlier this month amid US pre-emption."
+        },
+        {
+            "headline": "Trending\nDOGE policies and court challenges",
+            "url": "https://www.cnn.com/2025/02/15/politics/doge-trump-musk-justice-department/index.html",
+            "sentiment": "neutral",
+            "summary": "Government attorneys tasked with defending Trump's agenda have been put in an extremely challenging position. One judge scolded them for failing to flesh out legal arguments in writing. Court hearings have dragged on for hours because the lawyers are unable to get their clients on the phone to weigh in."
+        },
+        {
+            "headline": "NBA All-Star weekend",
+            "url": "https://www.cnn.com/2025/02/15/sport/steph-curry-all-star-bay-area-impact-spt/index.html",
+            "sentiment": "neutral",
+            "summary": "Golden State Warriors star will make his 11th All-Star appearance. The Bay Area hosts the event, an opportunity he sees as both exciting and surreal. Curry: \"It\u00e2\u0080\u0099s a busy week, but it\u2019s not home\""
+        },
+        {
+            "headline": "\u00e2\u0080\u0098Cake Bandit\u00e2\u0080\u0099 opossum",
+            "url": "https://www.cnn.com/2025/02/15/us/opossum-costco-chocolate-cake-nebraska/index.html",
+            "sentiment": "neutral",
+            "summary": "Kim Doggett bought the chocolate mousse cake from Costco. The opossum was admitted to Nebraska Wildlife Rehab on February 10. Fans have flooded the rescue service's Facebook page with messages of support for the viral cake bandit. \"I get it gurl. I get it,\u00e2\u0080\u009d one commenter said."
+        },
+        {
+            "headline": "Trump officials to travel to Saudi Arabia for Russia-Ukraine talks",
+            "url": "https://www.cnn.com/2025/02/15/politics/russia-ukraine-peace-talks-trump-officials/index.html",
+            "sentiment": "neutral",
+            "summary": "Top U.S. officials to meet with Russian officials in Saudi Arabia to discuss Ukraine. The meeting is expected to take place in the coming days, sources tell CNN. The Kremlin is assembling a high-level team to engage in direct talks, sources say."
+        },
+        {
+            "headline": "Video\n                    Zelensky reveals to Amanpour what he believes Putin thinks of Trump\n                        0:37",
+            "url": "https://www.cnn.com/2025/02/15/world/video/zelensky-told-trump-that-putin-is-afraid-of-him-digvid",
+            "sentiment": "neutral",
+            "summary": "Ukrainian President Volodymyr Zelensky spoke to CNN\u00e2\u0080\u0099s Christiane Amanpour. US President Donald Trump also spoke to Amanpour about Russian President Vladimir Putin. The interview is part of CNN\u2019s weekly Newsquiz series, which airs Sundays at 8 p.m. ET."
+        },
+        {
+            "headline": "McConnell bucks Trump and the evolving GOP",
+            "url": "https://www.cnn.com/2025/02/15/politics/mcconnell-trump-party/index.html",
+            "sentiment": "neutral",
+            "summary": "Mitch McConnell was a generational force for the Republican Party. Now he\u00e2\u0080\u0099s the odd man out. He has cast a trio of votes against Trump\u2019s Cabinet nominees. He opposed Pete Hegseth for defense secretary, citing his lack of experience."
+        },
+        {
+            "headline": "For Subscribers\n                    The American shopping mall is being reinvented",
+            "url": "https://www.cnn.com/2025/02/15/business/american-mall-mixed-use-apartments/index.html",
+            "sentiment": "neutral",
+            "summary": "American malls were never dead. The decades-old design just needed to be revisited. Malls were once home to major department stores, until the convenience of e-commerce drew shoppers away. Mixed-use model combines apartment units, fitness clubs, hotels, medical centers, office units and retail."
+        },
+        {
+            "headline": "\u00e2\u0080\u0098Cake Bandit\u00e2\u0080\u0099 opossum hospitalized after indulging in an entire Costco cake",
+            "url": "https://www.cnn.com/2025/02/15/us/opossum-costco-chocolate-cake-nebraska/index.html",
+            "sentiment": "neutral",
+            "summary": "Kim Doggett bought the chocolate mousse cake from Costco. The opossum was admitted to Nebraska Wildlife Rehab on February 10. Fans have flooded the rescue service's Facebook page with messages of support for the viral cake bandit. \"I get it gurl. I get it,\u00e2\u0080\u009d one commenter said."
+        },
+        {
+            "headline": "Video\nAndrew McCabe calls Kristi Noem\u00e2\u0080\u0099s FBI comments \u00e2\u0080\u0098totally unprecedented\u00e2\u0080\u0099\n                        2:11",
+            "url": "https://www.cnn.com/2025/02/15/politics/video/kristi-noem-calls-fbi-corrupt-social-media-mccabe-digvid",
+            "sentiment": "neutral",
+            "summary": "The FBI is pushing back against US Homeland Security Secretary Kristi Noem's suggestion that corrupt agents leaked details of an immigration raid. Former FBI deputy director Andrew McCabe reacts and explains the seriousness of the allegation. The FBI says her suggestion that \u00e2\u0080\u009ccorrupt\u00e2\u0081\u009d agents leaked information was \u201cdeeply irresponsible."
+        },
+        {
+            "headline": "Fast-moving Trump DOGE policies and court challenges leave DOJ lawyers twisting in the wind",
+            "url": "https://www.cnn.com/2025/02/15/politics/doge-trump-musk-justice-department/index.html",
+            "sentiment": "neutral",
+            "summary": "Government attorneys tasked with defending Trump's agenda have been put in an extremely challenging position. One judge scolded them for failing to flesh out legal arguments in writing. Court hearings have dragged on for hours because the lawyers are unable to get their clients on the phone to weigh in."
+        },
+        {
+            "headline": "Who is Friedrich Merz, Merkel\u00e2\u0080\u0099s rival and German election frontrunner?",
+            "url": "https://www.cnn.com/2025/02/16/europe/friedrich-merz-profile-germany-election-intl/index.html",
+            "sentiment": "neutral",
+            "summary": "Friedrich Merz is the favorite to become the country\u00e2\u0080\u0099s next chancellor in the federal election on February 23. The 69-year-old veteran politician has a hardline stance on migration and a love of aviation. His long-time rival\u2019s decision to leave the top job in 2021 prompted Merz to come out of political hibernation."
+        },
+        {
+            "headline": "She arranged a date with a guy she met on a plane. When he didn\u00e2\u0080\u0099t show, she unexpectedly met her future husband\n            \n                \n                    Feb 10, 2025",
+            "url": "https://www.cnn.com/audio/podcasts/chance-encounters/episodes/2f193958-e310-11ef-a40f-132ab628b1af",
+            "sentiment": "neutral",
+            "summary": "Italian traveler Cristina Farina arrived in London in the summer of 1984, only to be stood up by a man she met on an airplane. Cristina started chatting with American stranger Matt Reineke in London\u2019s Trafalgar Square, changing the course of their lives."
+        },
+        {
+            "headline": "Asteroid 2024 YR4 could hit Earth in 7 years. Here\u00e2\u0080\u0099s what could happen \u00e2\u0080\u0094 and what\u00e2\u0080\u0099s being done",
+            "url": "https://www.cnn.com/2025/02/15/science/asteroid-2024-yr4-earth-tracking/index.html",
+            "sentiment": "neutral",
+            "summary": "Asteroid has on average a 2% chance of hitting Earth in 2032. Asteroid is estimated to be 131 to 295 feet (40 to 90 meters) wide. Asteroids that are 1 kilometer across or larger could have a devastating impact."
+        },
+        {
+            "headline": "An eruption is possible at Alaska\u00e2\u0080\u0099s Mount Spurr. What we know about the volcano",
+            "url": "https://www.cnn.com/2025/02/15/us/mount-spurr-volcano-alaska/index.html",
+            "sentiment": "neutral",
+            "summary": "Hundreds of small earthquakes have occurred beneath Mount Spurr. The volcano is located in the volcanically active Aleutian Arc, 75 miles west of Anchorage. Experts have also observed ground deformations. The rising magma can heat up surrounding areas on the way to the surface."
+        },
+        {
+            "headline": "US athlete smashes 21-year-old world record",
+            "url": "https://www.cnn.com/2025/02/15/sport/grant-fisher-two-indoor-world-records-spt-intl/index.html",
+            "sentiment": "neutral",
+            "summary": "US middle-distance star Grant Fisher breaks 5,000-meter indoor world record. The 21-year-old breaks the previous mark set by Ethiopia\u00e2\u0080\u0099s Kenenisa Bekele in 2004. Fisher won two bronze medals at the   in Paris."
+        },
+        {
+            "headline": "Video\n                    \u00e2\u0080\u0098Have I Got News For You\u00e2\u0080\u0099 comedians react to RFK Jr. confirmation\n                        0:44",
+            "url": "https://www.cnn.com/2025/02/15/politics/video/roy-wood-jr-andy-richter-rfk-jr-confirmation-hignfy-digvid",
+            "sentiment": "neutral",
+            "summary": " Panelists join Roy Wood Jr., Amber Ruffin and Michael Black on \"Have I Got News For You\" They react to the confirmation hearing of RFK Jr. as Health and Human Services secretary. Watch the full episodes on 2025 Cable News Network."
+        },
+        {
+            "headline": "Quiz\n                    The average score for this week\u00e2\u0080\u0099s news quiz is 8.2. Can you do better?",
+            "url": "https://www.cnn.com/interactive/2025/2/us/cnn-5-things-news-quiz-february-13-sec/",
+            "sentiment": "neutral",
+            "summary": "February\u2019s full and a parade of planets were visible for lucky skygazers this week. Certain canned tuna products sold at Costco, Trader Joe's, Walmart and other retailers were recalled. President Trump said negotiations to end the Ukraine war will start \"immediately\""
+        },
+        {
+            "headline": "Weeks from homecoming, Boeing Starliner astronauts want to set the record straight",
+            "url": "https://www.cnn.com/2025/02/13/science/boeing-starliner-astronauts-stuck-space/index.html",
+            "sentiment": "neutral",
+            "summary": "NASA astronauts Suni Williams and Butch Wilmore want to set the record straight. The duo made the remarks in an interview with CNN\u00e2\u0080\u0099s Anderson Cooper on Thursday. Wilmore added a request: \u201cIf you\u2019ll help us change the rhetoric, help uschange the narrative.\u201d"
+        },
+        {
+            "headline": "Record-breaking \u00e2\u0080\u0098ghost particle\u00e2\u0080\u0099 detected in the Mediterranean Sea",
+            "url": "https://www.cnn.com/2025/02/12/science/energetic-neutrino-particle-detection/index.html",
+            "sentiment": "neutral",
+            "summary": "The neutrino is 30 times more energetic than any of the few hundreds of previously detected neutrinos. Neutrinos arrive at Earth from the far reaches of the cosmos, have almost no mass. The particles travel through the most extreme environments, including stars, planets and entire galaxies."
+        },
+        {
+            "headline": "Sea turtles \u00e2\u0080\u0098dance\u00e2\u0080\u0099 when their superpower leads them to food",
+            "url": "https://www.cnn.com/2025/02/12/science/sea-turtles-dance-magnetic-fields-food/index.html",
+            "sentiment": "neutral",
+            "summary": " loggerheads learn the magnetic fields of specific geographic locations. This superpower likely helps them get back to ecologically important areas for nesting and feeding. Researchers found captive juvenile loggerheads respond to magnetic conditioning by what the team described as \u201cdancing\u00e2\u0080\u009d in anticipation of food."
+        },
+        {
+            "headline": "He got her a gold bracelet for Valentine\u00e2\u0080\u0099s Day. She \u00e2\u0080\u0098thought he was crazy,\u00e2\u0080\u0099 but here\u00e2\u0080\u0099s where they are 35 years later",
+            "url": "https://www.cnn.com/travel/eiffel-tower-strangers-romance-chance-encounters/index.html",
+            "sentiment": "neutral",
+            "summary": "Anita Hansen, then in her early 20s, was studying French at college in Denmark. The university had arranged for Anita and her fellow students to spend a couple of days in Paris. On her first afternoon off from classes, Anita persuaded a classmate to head up the Eiffel Tower."
+        },
+        {
+            "headline": "This new plane could open a flood of new transatlantic flights",
+            "url": "https://www.cnn.com/travel/airbus-a321xlr-single-aisle-plane-transatlantic/index.html",
+            "sentiment": "neutral",
+            "summary": "Aer Lingus launches its first nonstop flight to Nashville from Dublin in April. The new flight is possible with a new, longer-range plane from Airbus: the A321XLR. The derivative of the popular A321neo can fly further than any other single-aisle plane on the market."
+        },
+        {
+            "headline": "Airbus gets on board with double-level airplane seating",
+            "url": "https://www.cnn.com/2025/02/11/travel/airbus-exploring-chaise-longue-double-level-airplane-seat-design/index.html",
+            "sentiment": "neutral",
+            "summary": "Aviation start-up Chaise Longue announced today it\u2019s exploring some early stage concepts with aviation giant Airbus. The collaboration with an aircraft manufacturing heavyweight is a significant step in this seat design\u00e2\u0080\u0099s journey from concept to potential in-air reality."
+        },
+        {
+            "headline": "From rooftops to remote islands, this city has basketball courts everywhere",
+            "url": "https://www.cnn.com/2025/02/12/style/hong-kong-basketball-photography-austin-bell-hnk-intl/index.html",
+            "sentiment": "neutral",
+            "summary": "American photographer Austin Bell took over 58,000 photos of 2,549 colorful basketball courts in Hong Kong. Bell estimates that the city has more outdoor courts than even New York or Los Angeles. The project spread across three years due to the city\u2019s changing climate."
+        },
+        {
+            "headline": "Dressing Bridget Jones in her 50s: The \u00e2\u0080\u0098Frazzled Englishwoman\u00e2\u0080\u0099 grows up",
+            "url": "https://www.cnn.com/2025/02/12/style/bridget-jones-clothes-50s-frazzled-englishwoman/index.html",
+            "sentiment": "neutral",
+            "summary": "Ren\u00c3\u00a9e Zellweger returns as Bridget Jones in the film adaptation of Helen Fielding\u2019s \u201cBridget Jones\u00e2\u0080\u0099s Diary.\u201d It is her fourth turn as an endearing, klutzy character looking for love. costume designer Rachael Fleming sought to give Jones a pragmatic, somewhat disheveled look."
+        },
+        {
+            "headline": "Video\nInside the \u00c3\u0089lys\u00c3\u00a9e Palace\u00e2\u0080\u0099s art collection\n                        1:38",
+            "url": "https://www.cnn.com/2025/02/12/style/video/macron-quest-elysee-palace-art-tour-cprog-ldn-digvid",
+            "sentiment": "neutral",
+            "summary": "Thelys\u00c3\u00a9e Palace is the official residence of the President of France - Emmanuel Macron. During his time in office, Macron has combined the classical style of the palace with contemporary and modern art and design. Macron took Richard Quest on a tour, to see some of the artworks on show."
+        },
+        {
+            "headline": "German chancellor hits back at Vance comments",
+            "url": "https://www.cnn.com/2025/02/15/europe/germans-democracy-scholz-vance-intl/index.html",
+            "sentiment": "neutral",
+            "summary": "US Vice President JD Vance spoke at the Munich Security Conference on Friday. He accused European allies of suppressing free speech and losing control of immigration. Vance met with Alternative for Germany (AfD) co-leader Alice Weidel at the sidelines of the conference."
+        },
+        {
+            "headline": "She arranged a date with a guy she met on a plane. When he didn\u00e2\u0080\u0099t show, she unexpectedly met her future husband",
+            "url": "https://www.cnn.com/audio/podcasts/chance-encounters/episodes/2f193958-e310-11ef-a40f-132ab628b1af",
+            "sentiment": "neutral",
+            "summary": "Italian traveler Cristina Farina arrived in London in the summer of 1984, only to be stood up by a man she met on an airplane. Cristina started chatting with American stranger Matt Reineke in London\u2019s Trafalgar Square, changing the course of their lives."
+=======
             "headline": "Rubio says Ukraine partial ceasefire plan 'has promise' ahead of talks in Saudi Arabia",
             "url": "https://www.bbc.com/news/articles/cly4gldd5ljo",
             "sentiment": "neutral",
@@ -337,11 +782,21 @@
             "summary": "This week, new drama tells the story of a 13-year-old boy accused of murdering a female classmate. American influencer 'paper doll' publishes a book about her life pre and post-transition. The third season of 'amazing fantasy' drops on amazon prime on thursday.",
             "image": "https://ichef.bbci.co.uk/news/1024/branded_news/2433/live/1408fcb0-fb30-11ef-896e-d7e7fb1719a4.jpg",
             "timestamp": "2025-03-10T21:55:00.282027+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Banksy take on Vettriano work sells for 4.3m",
-            "url": "https://www.bbc.com/news/articles/cn7vd63z2zpo",
+            "headline": "Relax, jealousy is normal",
+            "url": "https://www.cnn.com/audio/podcasts/chasing-life/episodes/af8fc670-37bb-11ef-8219-fb5a4f3b008e",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Research shows humans experience this emotion even before they can crawl. CNN chief medical correspondent Dr. Sanjay Gupta sits down with psychologist Dr. Joli Hamilton to demystify jealousy. The complex emotion is not only natural but could actually be beneficial."
+        },
+        {
+            "headline": "Video\n                    Video: New Yorkers rush to help mother give birth on subway\n                        0:57",
+            "url": "https://www.cnn.com/2025/02/13/us/video/new-york-subway-baby-born-digvid",
+            "sentiment": "neutral",
+            "summary": "Dramatic footage captures the moment a group of subway riders in New York rush to aid a woman as she gave birth on the train. The woman was rushed to the hospital after giving birth to a baby girl on a New York City subway train."
+=======
             "summary": "A Banksy reimagining of a work by the late Scottish painter Jack vettriano has sold at auction for \u00a34.3m ($5.4m) it depicts the Fife-born artist's best known work, the Singing Butler. The work was initially projected to fetch between \u00a33m and \u00a35m in the sale. It was put up for sale by a private collector at sotheby's in London on Tuesday evening.",
             "image": "https://ichef.bbci.co.uk/news/1024/branded_news/b4ad/live/bd25d8c0-f9ac-11ef-9e61-71ee71f26eb1.jpg",
             "timestamp": "2025-03-10T21:55:57.535541+00:00"
@@ -361,19 +816,57 @@
             "summary": "Hackers thought to be working for the north Korean regime have converted at least $300m (\u00a3232m) of their $1.5bn crypto heist to unrecoverable funds. The criminals, known as lazarus group, swiped the huge haul of digital tokens in a hack on the crypto exchange byBit.",
             "image": "https://ichef.bbci.co.uk/images/ic/1024xn/p0kxbb5q.jpg",
             "timestamp": "2025-03-10T21:56:26.262984+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "The fearless lionfish huntresses of the Caribbean",
-            "url": "https://www.bbc.com/travel/article/20250214-the-fearless-lionfish-huntresses-of-the-caribbean",
+            "headline": "Video\n                    Driver jumps out of SUV moments before train crashes into it\n                        0:41",
+            "url": "https://www.cnn.com/2025/02/13/us/video/driver-escape-before-utah-train-smash-into-suv-digvid",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Surveillance video captured the moment a driver jumped out of an SUV seconds before a train smashed into it. No one was hurt but damage to the train is estimated to be into \u00e2\u0080\u009c6-figures. In addition to the SUV and train, the crossing gate arms and the crossing\u2019s post were also heavily damaged."
+=======
             "summary": "Venomous lionfish are threatening the coral reef off the coast of curacao. The presence of the invasive species can reduce a reef's fish population by 79%. Two local women are tackling the problem through food, art and education. They are teaching local chefs how to clean the fish and give them to restaurants.",
             "image": "https://ychef.files.bbci.co.uk/624x351/p0kr5t5w.jpg",
             "timestamp": "2025-03-10T21:57:02.771220+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Is there no such thing as Italian food?",
-            "url": "https://www.bbc.com/travel/article/20250227-is-there-no-such-thing-as-italian-cuisine",
+            "headline": "Foolproof fudge recipes anyone can make",
+            "url": "https://www.cnn.com/wbd/foolproof-fudge-recipes-anyone-can-make/index.html",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Homemade fudge is one of our favorite treats all year round. Don\u2019t stir the sugar mixture as it boils. Let it cook (undisturbed) to 234 degrees F and your final candy will have the crystal-free texture you\u00e2\u0080\u0099re looking for."
+        },
+        {
+            "headline": "How to wash a wool sweater",
+            "url": "https://www.cnn.com/wbd/how-to-wash-a-wool-sweater/index.html",
+            "sentiment": "neutral",
+            "summary": "Washing wool without shrinking it is not as tricky as you might think. By hand-washing your wool sweater, you can maintain its size and ensure it stays as soft as the first time you wore it. Follow these steps to safely clean and remove stains from wool sweaters."
+        },
+        {
+            "headline": "Tracking Trump\u00e2\u0080\u0099s executive actions",
+            "url": "https://www.cnn.com/politics/tracking-trump-executive-orders-actions-dg/index.html",
+            "sentiment": "neutral",
+            "summary": "President Donald Trump has vowed to enact a sweeping agenda and reshape the federal government. CNN analyzed the dozens of executive actions and determined a singular category. In many cases, however, the executive actions could fit into several categories, but we have chosen only one for this analysis."
+        },
+        {
+            "headline": "Send us your questions about Trump\u00e2\u0080\u0099s second term",
+            "url": "https://www.cnn.com/2025/02/11/politics/send-us-your-questions-about-trumps-second-term/index.html",
+            "sentiment": "neutral",
+            "summary": "Let us know your questions about Trump\u00e2\u0080\u0099s moves in his second term. Elon Musk has been given power to try to remake the US government. Trump is using executive power in unique new ways to challenge how Americans view the US Constitution."
+        },
+        {
+            "headline": "The real reason behind the DeepSeek hype, according to AI experts",
+            "url": "https://www.cnn.com/2025/02/14/tech/deepseek-ai-openai-hype/index.html",
+            "sentiment": "neutral",
+            "summary": "DeepSeek grabbed headlines in late January with its R1 AI model, which the company says can roughly match the performance of Open AI\u00e2\u0080\u0099s o1 model at a fraction of the cost. The achievement pushed US tech behemoths to question America\u2019s standing in the AI race against China."
+        },
+        {
+            "headline": "Scarlett Johansson demands action after stars targeted in AI deepfake",
+            "url": "https://www.cnn.com/2025/02/12/entertainment/scarlett-johansson-ai-video-kanye-west/index.html",
+            "sentiment": "neutral",
+            "summary": "A deepfake video of Scarlett Johansson was widely circulated on social media this week. The AI video showed an image of Johansson in a T-shirt emblazoned with a hand and middle finger extended, a Jewish star and Kanye West\u2019s name. Though fake, the video implied she and others were responding to West\u00e2\u0080\u0099s most recent antisemitic remarks."
+=======
             "summary": "Food historian and professor of economic history has been debunking italian food myths for years. Pasta alla carbonara was invented in italy just after world war two, according to a 2023 interview with financial times. The idea that many beloved recipes and products such as cheeses or cured meats have hundreds of years of history is pure fantasy.",
             "image": "https://ychef.files.bbci.co.uk/624x351/p0ktyhvs.jpg",
             "timestamp": "2025-03-10T21:57:30.118517+00:00"
@@ -409,11 +902,21 @@
             "summary": "Every tuesday from a global cast of climate correspondents, direct to your inbox. Cnn's kat kinsman takes a look at some of the world's most pressing climate issues.",
             "image": "https://image.email.bbc.com/lib/fe3111727564047f7c1078/m/1/285e1ab0-24f8-4d71-a5fe-7393a3509aaf.png",
             "timestamp": "2025-03-10T21:58:57.421703+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Download the BBC app",
-            "url": "https://bbc-global.onelink.me/Ezi6/n4y4nlv7",
+            "headline": "Gallery\n                    In pictures: The 149th Westminster Kennel Club Dog Show",
+            "url": "https://www.cnn.com/2025/02/11/us/gallery/westminster-dog-show/index.html",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Monty is the first giant schnauzer ever to win the dog show. The Westminster Kennel Club Dog Show is the second-oldest continuous sporting event in the United States. More than 2,500 dogs, representing all 50 states, competed this year."
+        },
+        {
+            "headline": "This photographer is chasing the \u00e2\u0080\u0098ghosts\u00e2\u0080\u0099 of Venice",
+            "url": "https://www.cnn.com/interactive/2025/02/travel/venice-michael-kenna-cnnphotos/",
+            "sentiment": "neutral",
+            "summary": "Photographer Michael Kenna's new book, \u2018Venezia. Memorie e Tracce,\u2019 or  \u2018The Floating City\u2019 contains around 120 black-and-white photos by Kenna, taken during his regular visits over the past four decades. \u201cIt\u2019s one of those places you almost obsess about when you\u2019re not there,\u201d he says."
+=======
             "summary": "The BBC app is your go-to source to stay informed, engaged, and connected. Download the app from the app store for iphone, iPad, and iPod touch. Stay plugged into live news updates and global sports coverage.",
             "image": "https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/11FD6/production/_132868637_bbc-app-prelaunch-article-header-img.jpg",
             "timestamp": "2025-03-10T21:59:07.457719+00:00"
@@ -809,11 +1312,15 @@
             "summary": "New book, \"Venezia. Memorie e Tracce,\" contains 120 black-and-white photos. Photographer michael kenna's relationship with Venice started in the late 1970s. While sleeping he would leave a camera on the roof of his hotel with an all-night exposure.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/venice01-image-png.jpg?c=16x9&q=w_1100,h_619",
             "timestamp": "2025-03-10T22:18:47.933798+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Gallery The week in 38 photos",
-            "url": "https://www.cnn.com/2025/03/06/world/gallery/photos-this-week-february-27-march-6/index.html",
+            "headline": "West Texas measles outbreak doubles to 48 cases",
+            "url": "https://www.cnn.com/2025/02/14/health/measles-texas-outbreak/index.html",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "The first two cases were identified in late January. Surrounding counties have also reported cases. All of the cases are in unvaccinated people or those who have unknown vaccination status. All experienced an onset of symptoms in the past three weeks."
+=======
             "summary": "For the first time since he returned to power, president Donald Trump on Tuesday night. It was the, clocking in at roughly one hour and 39 minutes. One of the most partisan speeches to congress, with almost none of the customary calls for unity.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/18-19-19-20-01jn3sb9r4j6e5rnr4c9y30rt6-jpg.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:18:58.252217+00:00"
@@ -865,75 +1372,129 @@
             "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She's in her 30s and feels ambivalent about having kids. 'harvest' is her personal diary of this time..",
             "image": "https://sb.scorecardresearch.com/p?c1=2&c2=6035250&cv=2.0&cj=1&cs_ucfr=0&comscorekw=Network+Front",
             "timestamp": "2025-03-10T22:20:53.459978+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "Skip to navigation",
-            "url": "https://www.theguardian.com#navigation",
+            "url": "https://www.theguardian.com/international#navigation",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She\u2019s in her 30s and feels ambivalent about having kids, so will this safeguard her future? Remarkable documentary Harvest is her personal diary of this time."
+=======
             "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She's in her 30s and feels ambivalent about having kids. 'harvest' is her personal diary of this time..",
             "image": "https://sb.scorecardresearch.com/p?c1=2&c2=6035250&cv=2.0&cj=1&cs_ucfr=0&comscorekw=Network+Front",
             "timestamp": "2025-03-10T22:21:02.284675+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "The Guardian - Back to homeThe Guardian",
-            "url": "https://www.theguardian.com/",
+            "url": "https://www.theguardian.com/international/",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She\u2019s in her 30s and feels ambivalent about having kids, so will this safeguard her future? Remarkable documentary Harvest is her personal diary of this time."
+=======
             "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She's in her 30s and feels ambivalent about having kids. 'harvest' is her personal diary of this time..",
             "image": "https://sb.scorecardresearch.com/p?c1=2&c2=6035250&cv=2.0&cj=1&cs_ucfr=0&comscorekw=Network+Front",
             "timestamp": "2025-03-10T22:21:11.772231+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "The Guardian view",
-            "url": "https://www.theguardian.com/profile/editorial",
+            "headline": "View all News",
+            "url": "https://www.theguardian.com/international/",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She\u2019s in her 30s and feels ambivalent about having kids, so will this safeguard her future? Remarkable documentary Harvest is her personal diary of this time."
+=======
             "summary": "All Guardian and observer editorials can be found here. A list of the day's top stories can be read here - or click here for all the latest. The daily mail's ed miliband explains why he thinks gay marriage is 'strange'.",
             "image": "https://sb.scorecardresearch.com/p?c1=2&c2=6035250&cv=2.0&cj=1&cs_ucfr=0&comscorekw=Editorial",
             "timestamp": "2025-03-10T22:21:21.804026+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "View all Sport",
-            "url": "https://www.theguardian.com/sport",
+            "headline": "Opinion videos",
+            "url": "https://www.theguardian.com/international/type/video+tone/comment",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Sophia embarks on the gruelling journey of harvesting her eggs. She\u2019s in her 30s and feels ambivalent about having kids, so will this safeguard her future? Remarkable documentary Harvest is her personal diary of this time."
+=======
             "summary": "The latest rugby union news and analysis direct to your inbox. Newsletters may contain info about charities, online ads, and content funded by outside parties. Join max rushden and the pod squad as they pick over the latest action and news Listen now:.",
             "image": "https://interactive.guim.co.uk/atoms/thrashers/2022/07/multi-newsletter-sport/assets/v/1666700238193/the-spin-square.png",
             "timestamp": "2025-03-10T22:21:31.081177+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "View all Culture",
-            "url": "https://www.theguardian.com/culture",
+            "headline": "Support us",
+            "url": "https://support.theguardian.com?INTCMP=side_menu_support&acquisitionData=%7B%22source%22:%22GUARDIAN_WEB%22,%22componentType%22:%22ACQUISITIONS_HEADER%22,%22componentId%22:%22side_menu_support%22%7D",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "CNN.com will feature iReporter photos in a weekly Travel Snapshots gallery. Please submit your best shots of New Zealand for next week. Visit CNN.com/Travel next Wednesday for a new gallery of snapshots from around the world."
+=======
             "summary": "Newsletters may contain info about charities, online ads, and content funded by outside parties. We operate google reCAPTCHA to protect our website and the and apply. Keza macdonald's weekly look at the world of gaming.",
             "image": "https://uploads.guim.co.uk/2024/08/14/whats-on-square-new.png",
             "timestamp": "2025-03-10T22:21:40.373885+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "View all Lifestyle",
-            "url": "https://www.theguardian.com/lifeandstyle",
+            "headline": "Digital Archive",
+            "url": "https://theguardian.newspapers.com",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Ancestry.com is a part of the Ancestry family of websites and mobile apps. For more information about Ancestry, visit the company's website at: www.anciently.com. For confidential support on suicide matters call the Samaritans on 08457 90 90 90 or visit a local Samaritans branch, see www.samaritans.org for details."
+        },
+        {
+            "headline": "Digital Archive",
+            "url": "https://theguardian.newspapers.com",
+            "sentiment": "neutral",
+            "summary": "Ancestry.com is a part of the Ancestry family of websites and mobile apps. For more information about Ancestry, visit the company's website at: www.anciently.com. For confidential support on suicide matters call the Samaritans on 08457 90 90 90 or visit a local Samaritans branch, see www.samaritans.org for details."
+=======
             "summary": "The Guardian\u2019s Feast app has over 5,000 recipes from world-class cooks. Weekly email from Yotam Ottolenghi, ravinder bhogal, Felicity cloake and rachel roddy, featuring recipes and seasonal eating ideas.",
             "image": "https://interactive.guim.co.uk/atoms/thrashers/2022/05/multi-newsletter-1/assets/v/1739956527379/feast_square.jpg",
             "timestamp": "2025-03-10T22:21:51.868645+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "Tip us off",
             "url": "https://www.theguardian.com/help/ng-interactive/2017/mar/17/contact-the-guardian-securely",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "SecureDrop allows you to safely send us messages and documents. All we get is what you send us, and a codename that allows us to reply to you. To prevent interception at our end, we decrypt what you sent us on a computer that is kept."
+=======
             "summary": "Securedrop allows you to safely send us messages and documents. All we get is what you send us, and a codename that allows us to reply. To prevent interception at our end, we decrypt on a computer that is kept.",
             "image": "https://i.guim.co.uk/img/media/208c837d2ca2fdc5c5ffb5e7e3d6a6c4afed2d82/0_0_1300_780/master/1300.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=edcd9078f2395f9b9223d216b8b17ccb",
             "timestamp": "2025-03-10T22:22:03.469237+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "From our global editions",
             "url": "https://www.theguardian.com/info/2023/nov/09/how-to-access-the-guardian-global-editions",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "The Guardian now offers five different global editions of its news website and apps. These editions showcase all the journalism produced by our reporters and offices across the world. Most readers are automatically directed to their local homepage based on their location. To choose a different homepage to be your default, you can select any of the five editions."
+=======
             "summary": "The Guardian now offers five different global editions of its news website and apps. The editions showcase all the journalism produced by our reporters and offices across the world. Most readers are automatically directed to their local homepage based on their location.",
             "image": "https://i.guim.co.uk/img/media/57608897ecc26c1d3c24272f5fdfe15317166f6f/0_0_2560_1536/master/2560.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=2513618893e12ff2e27dbc0d1315128e",
             "timestamp": "2025-03-10T22:22:14.374325+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Photo highlights of the day",
-            "url": "https://www.theguardian.com/news/series/ten-best-photographs-of-the-day",
+            "headline": "Blind date: \u2018I really enjoyed chatting to her \u2013 even when she critiqued my dating app profile!\u2019",
+            "url": "https://www.theguardian.com/lifeandstyle/2025/feb/15/blind-date-matthew-izzy",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Matthew, 24, a tax consultant, meets Izzy, 25, an advertising executive. Izzy was smiley and chatty from the offset and conversation flowed until the end of the date. Matthew enjoyed listening to her chat even when she was giving him constructive criticism on his dating app profile."
+        },
+        {
+            "headline": "Keown apologises to Van Nistelrooy for infamous Old Trafford \u2018shenanigans\u2019",
+            "url": "https://www.theguardian.com/football/2025/feb/15/martin-keown-apologises-ruud-van-nistelrooy-infamous-old-trafford-shenanigans",
+            "sentiment": "neutral",
+            "summary": "Martin Keown and Ruud van Nistelrooy came to blows during a memorable encounter between the Gunners and Manchester United 22 years ago. The Football Association subsequently charged both clubs with the incident etched into the history books. The TNT Sports pundit Keown was at the King Power Stadium to cover   and caught up with Foxes boss Van Nistelsoy before kick-off."
+        },
+        {
+            "headline": "Donald Trump",
+            "url": "https://www.theguardian.com/us-news/donaldtrump",
+            "sentiment": "neutral",
+            "summary": "Donald Trump is the 45th and 47th president of the United States. He is the son of Fred Trump and the daughter of Fred and Gladys Trump. He was born in New York and grew up in New Jersey. He has been married three times and has two children."
+=======
             "summary": "The Guardian\u2019s picture editors select some of the most powerful photos from around the world. The images were taken by photographers from all over the world, including the u.s., france, spain, japan, russia, tanzania and russia.",
             "image": "https://sb.scorecardresearch.com/p?c1=2&c2=6035250&cv=2.0&cj=1&cs_ucfr=0&comscorekw=Photos+of+the+day",
             "timestamp": "2025-03-10T22:22:23.812980+00:00"
@@ -977,19 +1538,27 @@
             "summary": "U.s. Secretary of state accused poland's foreign minister of \"making things up\" he suggested he was ungrateful and said no one had threatened to cut Ukraine off from starlink satellite service. Russian president vladimir putin has vowed to end the war in ukraine.",
             "image": "https://i.guim.co.uk/img/media/4fc61813c3e1e108e1b9181f568868ff7fd61a0e/0_82_4282_2570/master/4282.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=e509fbb88e9f0dcb8b6a2767014aa670",
             "timestamp": "2025-03-10T22:24:56.495046+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "Sign up for our email",
             "url": "https://www.theguardian.com/global/2022/sep/20/sign-up-for-the-first-edition-newsletter-our-free-news-email",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Archie Bland and Nimo Omer take you through the top stories and what they mean. This week's top stories include the death of Osama bin Laden and the arrest of 9/11 suspects in New York. Watch the full interview with Archie Bland on Sunday night at 10pm on CNN."
+=======
             "summary": "Cnn's archie bland and nimo omer take you through the top stories. Find out what they mean and what they could mean for you. Discover what it means to be a woman in the u.s.",
             "image": "https://i.guim.co.uk/img/media/1296f6c00eb025aed12539235dcd2a08515643c7/0_0_5000_3000/master/5000.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=b8d3d25b17b9274d26ede85f2c392008",
             "timestamp": "2025-03-10T22:25:49.589202+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "Work for us",
             "url": "https://workforus.theguardian.com",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Guardian News & Media is one of the world's leading media organisations. We produce award-winning journalism and are committed to equality and diversity. We are the home of The Guardian, the world\u2019s oldest and most successful newspaper."
+=======
             "summary": "2025 Guardian News and Media limited or its affiliated companies. Days since the first edition of the newspaper was published. 6 postgraduate journalism bursaries Paid schemes during the summer for disabled people, and for black, Asian and minority ethnic (BAME) applicants.",
             "image": null,
             "timestamp": "2025-03-10T22:26:00.358996+00:00"
@@ -1001,19 +1570,33 @@
             "summary": "These are our terms and conditions for use of the network, which you may access in several ways, including but not limited to the world wide web via, digital television, PDA, mobile phone and RSS feeds. You agree to be responsible for maintaining the confidentiality of your passwords or other account identifiers which you choose and all activities under your account. By accessing the Guardian Site via a third party site, app, link or otherwise, you agree that you have read, understood and agreed to be bound by these terms and.",
             "image": "https://assets.guim.co.uk/images/eada8aa27c12fe2d5afa3a89d3fbae0d/fallback-logo.png",
             "timestamp": "2025-03-10T22:26:19.024969+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "Digital newspaper archive",
             "url": "https://theguardian.newspapers.com",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Ancestry.com is a part of the Ancestry family of websites and mobile apps. For more information about Ancestry, visit the company's website at: www.anciently.com. For confidential support on suicide matters call the Samaritans on 08457 90 90 90 or visit a local Samaritans branch, see www.samaritans.org for details."
+=======
             "summary": "2025 Newspapers.comTM by ancestry\u00ae. All rights reserved., and are among the most common surnames for a u.s. Surname.",
             "image": "https://www.newspapers.com/nextstatic/images/fsnp.png",
             "timestamp": "2025-03-10T22:26:27.275580+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "Search UK jobs",
             "url": "https://jobs.theguardian.com",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Take our quiz to see how well you stack up with other Times readers. Who ordered prosecutors this week to drop corruption charges against New York City's mayor? The Justice Department Gov. Kathy Hochul The Supreme Court Turkish officials Eric Adams President Trump on Monday imposed tariffs of 25 percent on all imports of which two raw materials? Gold and silver Lithium and cobalt Silicon and gallium Steel and aluminum Timber and wood pulp"
+        },
+        {
+            "headline": "Play Flashback, Your Weekly History Quiz",
+            "url": "https://www.nytimes.com/interactive/2025/02/14/upshot/flashback.html",
+            "sentiment": "neutral",
+            "summary": "CNN.com will feature iReporter photos in a weekly Travel Snapshots gallery. Please submit your best shots of the U.S. for next week. Visit CNN.com/Travel next Wednesday for a new gallery of snapshots. Click here for the gallery."
+=======
             "summary": "Guide sets out the range of roles available and how to get into them. For those contemplating a career as a lecturer, here are the main pros and cons. Advice will give you a head start in your quest to work in the charity sector.",
             "image": "//jobs.theguardian.com/assets/dist/images/logo-bluebg.png;v=f1dc69c4e407ca836cad290db54e93d1",
             "timestamp": "2025-03-10T22:26:36.551168+00:00"
@@ -1137,27 +1720,39 @@
             "summary": "The great butt xeroxing makes an appearance in curtis sittenfeld's new short story collection. The author is back in the city where she grew up while on tour for her latest book. \"people will have very different reactions to my writing,\" she says.",
             "image": "https://static01.nyt.com/images/2025/03/09/fashion/07CURTIS-SITTENFELD-04-gmzq/07CURTIS-SITTENFELD-04-gmzq-facebookJumbo.jpg",
             "timestamp": "2025-03-10T22:32:18.615468+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "The AthleticSports coverage",
             "url": "https://www.nytimes.com/athletic/",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "CNN.com will feature iReporter photos in a weekly Travel Snapshots gallery. Please submit your best shots of New York for next week. Visit CNN.com/Travel next Wednesday for a new gallery of snapshots from around the world."
+=======
             "summary": "Headlines advertisement advertisement",
             "image": "https://theathletic.com/app/themes/athletic/assets/img/open-graph-asset.png",
             "timestamp": "2025-03-10T22:32:20.666989+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "CookingRecipes and guides",
             "url": "https://cooking.nytimes.com/",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Make these recipes when you need a fast, flavorful meal. Chocolate Pound Cake With Strawberry Whipped Cream is simple to make, but has a tangy depth of flavor thanks to a cream cheese\u2013infused batter. Make these recipes for up to three hours."
+=======
             "summary": "Potato wedges Seasoned with spices, grated parmesan and garlic. Recipe calls for 1 1/2 hours\u2019 chilling or to save this recipe. Potato wedges are seasoned with paprika, thyme and sage. Topped with a sprinkling of grated cheese.",
             "image": "https://static01.nyt.com/applications/cooking/cad3c48/assets/hp-og-image.jpg",
             "timestamp": "2025-03-10T22:32:34.207348+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "ConnectionsGroup words that share a common thread.",
-            "url": "https://www.nytimes.com/games/connections?GAMES_connectionsRollout_1130=1_ConnectionsV2",
+            "headline": "WirecutterProduct recommendations",
+            "url": "https://www.nytimes.com/wirecutter/",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Use promo code WCTIDY25 for 25% off $1740   Use promo code WIRECUTTER (king and Cal king) $11   Free Sephora Beauty Insider membership required by  Christine Cyr Clisset, Caira Blackwell, Rosie Guerin, and Abigail Keel."
+=======
             "summary": "Since the launch of the crossword in 1942, the times has captivated solvers by providing engaging word and logic games. In 2014, we introduced the mini crossword, followed by Spelling Bee, Letter boxed and tiles. We have created connections and strands.",
             "image": "https://www.nytimes.com/games-assets/v2/assets/connections/NYT-Connections-og-image.png",
             "timestamp": "2025-03-10T22:32:44.452869+00:00"
@@ -1177,11 +1772,171 @@
             "summary": "Since the launch of the crossword in 1942, the times has captivated solvers by providing engaging word and logic games. In 2014, we introduced the mini crossword, followed by Spelling Bee, Letter boxed and tiles. We have created connections and strands.",
             "image": "https://mwcm.nyt.com/dam/mkt_assets/img/games/spelling-bee.png",
             "timestamp": "2025-03-10T22:33:05.146504+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
             "headline": "The CrosswordGet clued in with wordplay, every day.",
             "url": "https://www.nytimes.com/crosswords",
             "sentiment": "neutral",
+<<<<<<< HEAD
+            "summary": "Since the launch of The Crossword in 1942, The Times has captivated solvers by providing engaging word and logic games. In 2014, we introduced The Mini Crossword, followed by Spelling Bee, Letter Boxed and Tiles. In early 2022, we proudly added Wordle to our collection. Since then we have created Connections and Strands."
+        },
+        {
+            "headline": "Israel, Hamas complete 6th swap; 4 Palestinian detainees hospitalised",
+            "url": "https://www.aljazeera.com/news/liveblog/2025/2/16/live-israel-hamas-exchange-captives-rubio-in-israel-to-discuss-trump-plan",
+            "sentiment": "neutral",
+            "summary": "CNN.com will feature iReporter photos in a weekly Travel Snapshots gallery. Please submit your best shots for next week's gallery. Visit CNN.com/Travel each week for a new gallery of snapshots. Click here for the gallery."
+        },
+        {
+            "headline": "Palestinians burn \u2018humiliating\u2019 shirts after release from Israeli prisons",
+            "url": "https://www.aljazeera.com/news/2025/2/15/palestinians-burn-shirts-forced-to-wear-upon-release-from-israeli-jails",
+            "sentiment": "neutral",
+            "summary": "369 Palestinians were released in exchange for three captives in Gaza. Israel's move to force the released Palestinians to wear shirts with a Star of David logo and \"we will not forget or forgive\" written in Arabic has prompted anger and been slammed as a \u201cracist crime\u201d"
+        },
+        {
+            "headline": "Palestinians burn \u2018humiliating\u2019 shirts after release from Israeli prisons",
+            "url": "https://www.aljazeera.com/news/2025/2/15/palestinians-burn-shirts-forced-to-wear-upon-release-from-israeli-jails",
+            "sentiment": "neutral",
+            "summary": "369 Palestinians were released in exchange for three captives in Gaza. Israel's move to force the released Palestinians to wear shirts with a Star of David logo and \"we will not forget or forgive\" written in Arabic has prompted anger and been slammed as a \u201cracist crime\u201d"
+        },
+        {
+            "headline": "US says Europe to be excluded from Russia-Ukraine peace talks",
+            "url": "https://www.aljazeera.com/news/2025/2/15/ukraine-peace-talks-will-not-include-europe-us-envoy-says",
+            "sentiment": "neutral",
+            "summary": "General Keith Kellogg made the announcement on Saturday after the US sent a questionnaire to European capitals to ask what they could contribute to security guarantees for Kyiv. Trump took European allies by surprise this week by calling Russia\u2019s President Vladimir Putin without consulting them or Kyiv beforehand."
+        },
+        {
+            "headline": "Thousands take part in London rally against Trump\u2019s Gaza plan",
+            "url": "https://www.aljazeera.com/news/2025/2/15/thousands-take-part-in-london-rally-against-donald-trumps-gaza-plan",
+            "sentiment": "neutral",
+            "summary": "Protesters waved Palestinian flags and brandished placards saying 'hands off Gaza' Several thousand people walked from Whitehall, in Westminster, to the US embassy in Nine Elms, in southwest London. Earlier this month, Trump\u2019s suggestion that the US could redevelop the embattled enclave attracted global condemnation. His proposal aims to resettle Palestinians elsewhere, with no plan for them to return."
+        },
+        {
+            "headline": "Israel frees hundreds of Palestinians after captives in Gaza released",
+            "url": "https://www.aljazeera.com/news/2025/2/15/israeli-captives-story",
+            "sentiment": "neutral",
+            "summary": "Hamas released 369 Palestinian prisoners held in Israeli jails on Saturday. It is the largest number of Palestinians to be freed since the beginning of the truce. Most of the prisoners were arrested in Gaza and will be sent back. About 10 will be released in the occupied West Bank, one in occupied East Jerusalem."
+        },
+        {
+            "headline": "\u2018Please don\u2019t do this\u2019: Afghan families in Pakistan caught in crackdown",
+            "url": "https://www.aljazeera.com/news/2025/2/14/please-dont-do-this-afghan-families-in-pakistan-caught-in-crackdown",
+            "sentiment": "neutral",
+            "summary": "Salima Ahmad is an Afghan citizen living in Pakistan since 2022. On February 7, two days after their visas expired, her fears became reality. A group of police officials, including female officers, raided her rented house. Despite her pleas and attempts to show that their passports had been sent for visa renewal, the police took her husband away."
+        },
+        {
+            "headline": "Can AI and automated planes help prevent plane crashes?",
+            "url": "https://www.aljazeera.com/news/2025/2/14/can-ai-and-automated-planes-help-prevent-plane-crashes",
+            "sentiment": "neutral",
+            "summary": "More than 100 people have been killed in air crashes this year already. Fatal incidents in the first two months of the new year came after last year was declared one of the deadliest in aviation history. Industry experts and investigations concur that human error is to blame for a majority of crashes."
+        },
+        {
+            "headline": "Left in the lurch: Asylum seekers respond to Trump\u2019s CBP One cancellation",
+            "url": "https://www.aljazeera.com/features/longform/2025/2/14/left-in-the-lurch-asylum-seekers-respond-to-trumps-cbp-one-cancellation",
+            "sentiment": "neutral",
+            "summary": "Giovanni Martino was only 17 when he fled Venezuela due to its economic collapse. At age 23 and with no legal immigration documents, Martino undertook the perilous trek north. His wife and children had the luxury of Colombian passports: They could fly to Mexico City without a visa."
+        },
+        {
+            "headline": "Germany rebuffs \u2018dictated peace\u2019 for Ukraine at Munich security summit",
+            "url": "https://www.aljazeera.com/news/2025/2/15/germanys-scholz-offers-firm-backing-for-ukraine-on-day-2-of-munich-summit",
+            "sentiment": "neutral",
+            "summary": "Scholz said a peace deal to end the three-year Russian invasion cannot be imposed on Kyiv. Comments came as European leaders have been trying to make sense of a tough new line from the new US administration on Ukraine\u2019s future."
+        },
+        {
+            "headline": "Israel, Hamas complete 6th swap; 4 Palestinian detainees hospitalised",
+            "url": "https://www.aljazeera.com/news/liveblog/2025/2/16/live-israel-hamas-exchange-captives-rubio-in-israel-to-discuss-trump-plan",
+            "sentiment": "neutral",
+            "summary": "CNN.com will feature iReporter photos in a weekly Travel Snapshots gallery. Please submit your best shots for next week's gallery. Visit CNN.com/Travel each week for a new gallery of snapshots. Click here for the gallery."
+        },
+        {
+            "headline": "US says Europe to be excluded from Russia-Ukraine peace talks",
+            "url": "https://www.aljazeera.com/news/2025/2/15/ukraine-peace-talks-will-not-include-europe-us-envoy-says",
+            "sentiment": "neutral",
+            "summary": "General Keith Kellogg made the announcement on Saturday after the US sent a questionnaire to European capitals to ask what they could contribute to security guarantees for Kyiv. Trump took European allies by surprise this week by calling Russia\u2019s President Vladimir Putin without consulting them or Kyiv beforehand."
+        },
+        {
+            "headline": "Palestinians burn \u2018humiliating\u2019 shirts after release from Israeli prisons",
+            "url": "https://www.aljazeera.com/news/2025/2/15/palestinians-burn-shirts-forced-to-wear-upon-release-from-israeli-jails",
+            "sentiment": "neutral",
+            "summary": "369 Palestinians were released in exchange for three captives in Gaza. Israel's move to force the released Palestinians to wear shirts with a Star of David logo and \"we will not forget or forgive\" written in Arabic has prompted anger and been slammed as a \u201cracist crime\u201d"
+        },
+        {
+            "headline": "\u2018Please don\u2019t do this\u2019: Afghan families in Pakistan caught in crackdown",
+            "url": "https://www.aljazeera.com/news/2025/2/14/please-dont-do-this-afghan-families-in-pakistan-caught-in-crackdown",
+            "sentiment": "neutral",
+            "summary": "Salima Ahmad is an Afghan citizen living in Pakistan since 2022. On February 7, two days after their visas expired, her fears became reality. A group of police officials, including female officers, raided her rented house. Despite her pleas and attempts to show that their passports had been sent for visa renewal, the police took her husband away."
+        },
+        {
+            "headline": "Thousands take part in London rally against Trump\u2019s Gaza plan",
+            "url": "https://www.aljazeera.com/news/2025/2/15/thousands-take-part-in-london-rally-against-donald-trumps-gaza-plan",
+            "sentiment": "neutral",
+            "summary": "Protesters waved Palestinian flags and brandished placards saying 'hands off Gaza' Several thousand people walked from Whitehall, in Westminster, to the US embassy in Nine Elms, in southwest London. Earlier this month, Trump\u2019s suggestion that the US could redevelop the embattled enclave attracted global condemnation. His proposal aims to resettle Palestinians elsewhere, with no plan for them to return."
+        },
+        {
+            "headline": "Germany rebuffs \u2018dictated peace\u2019 for Ukraine at Munich security summit",
+            "url": "https://www.aljazeera.com/news/2025/2/15/germanys-scholz-offers-firm-backing-for-ukraine-on-day-2-of-munich-summit",
+            "sentiment": "neutral",
+            "summary": "Scholz said a peace deal to end the three-year Russian invasion cannot be imposed on Kyiv. Comments came as European leaders have been trying to make sense of a tough new line from the new US administration on Ukraine\u2019s future."
+        },
+        {
+            "headline": "THE FIFTH ESTATE",
+            "url": "https://www.cbc.ca/newsinteractives/features/inside-job",
+            "sentiment": "neutral",
+            "summary": "An investigation by CBC\u2019s The Fifth Estate uncovered a key internal document. The document provides a minute-by-minute account of how authorities believe the 2023 gold heist at Toronto's Pearson International Airport was planned and executed. It alleges a highly organized group of individuals relied heavily on a well-placed insider."
+        },
+        {
+            "headline": "Second Opinion",
+            "url": "https://www.cbc.ca/news/news/health/iodine-deficiency-second-opinion-1.7459781",
+            "sentiment": "neutral",
+            "summary": "The mineral is essential for the body to make thyroid hormones. Table salt is one major source of iodine in Canada. Much of the soil in Canada is iodine-deficient. Not having enough iodine could lead to a variety of health conditions, like goitres."
+        },
+        {
+            "headline": "CBC Investigates",
+            "url": "https://www.cbc.ca/news/news/business/agm-reno-company-closing-mike-holmes-1.7460334",
+            "sentiment": "neutral",
+            "summary": "Home renovation company AGM Renovations says it is closing down. CEO Ivan Atanasov says CBC News coverage damaged company's reputation. CBC reported two stories on AGM this month. Customers say Holmes' endorsement influenced their decision to hire AGM."
+        },
+        {
+            "headline": "The GST holiday ends on Saturday. Did it make a difference for shoppers and businesses?",
+            "url": "https://www.cbc.ca/news/news/business/gst-holiday-break-ends-1.7459376",
+            "sentiment": "neutral",
+            "summary": "The federal government imposed the temporary tax break on Dec. 14, 2024. It applies to restaurant meals, some alcohol, children's toys and clothing, magazines, newspapers and other goods. Government officials said it was a way to offset some of the costs of the holiday season."
+        },
+        {
+            "headline": "Gigatonnes of carbon are stored in under-protected areas",
+            "url": "https://www.cbc.ca/news/news/climate/peatland-study-carbon-storage-environment-1.7457632",
+            "sentiment": "neutral",
+            "summary": "17 per cent of peatlands are currently protected, according to new research. The UN estimates as much as   are stored there, as decaying organic material gets trapped inside a water-rich environment. Peatlands also provide a habitat to a range of plant and animal species."
+        },
+        {
+            "headline": "How one community in Guatemala lives off the forest, while protecting it for the future",
+            "url": "https://www.cbc.ca/news/documentaries/the-nature-of-things/how-one-community-in-guatemala-lives-off-the-forest-while-protecting-it-for-the-future-1.7457222",
+            "sentiment": "neutral",
+            "summary": "The Maya Biosphere Reserve is part of one of the largest tracts of rainforest in Central America. More than 80,000 hectares of land are cared for by the villagers of Uaxact\u00fan. The community lives off the forest, while protecting it for the future."
+        },
+        {
+            "headline": "Second Opinion",
+            "url": "https://www.cbc.ca/news/news/health/iodine-deficiency-second-opinion-1.7459781",
+            "sentiment": "neutral",
+            "summary": "The mineral is essential for the body to make thyroid hormones. Table salt is one major source of iodine in Canada. Much of the soil in Canada is iodine-deficient. Not having enough iodine could lead to a variety of health conditions, like goitres."
+        },
+        {
+            "headline": "Canada announces changes to Jordan's Principle program, narrows range of eligible requests",
+            "url": "https://www.cbc.ca/news/news/indigenous/jordans-principle-changes-program-1.7458838",
+            "sentiment": "neutral",
+            "summary": "Canada has announced sweeping changes to a program designed to ensure First Nations kids get the care and supports they need, when they need them. The changes come almost a year after the federal government argued before the Canadian Human Rights Tribunal that requests were being made for non-urgent things. The CHRT said last month it was \"quite concerned\" about that problem."
+        },
+        {
+            "headline": "The GST holiday ends today. Did it make a difference for shoppers and businesses?",
+            "url": "https://www.cbc.ca/news/news/business/gst-holiday-break-ends-1.7459376",
+            "sentiment": "neutral",
+            "summary": "The federal government imposed the temporary tax break on Dec. 14, 2024. It applies to restaurant meals, some alcohol, children's toys and clothing, magazines, newspapers and other goods. Government officials said it was a way to offset some of the costs of the holiday season."
+        },
+        {
+            "headline": "Donald Trump and the Kennedy Center controversy, explained",
+            "url": "https://www.cbc.ca/news/news/entertainment/trump-kennedy-centre-changes-1.7459341",
+            "sentiment": "neutral",
+            "summary": "Canadian author Louise Penny has pulled out of a book launch at the Kennedy Center. Penny said she would not launch the 20th instalment in her series of books at the venue. \"It was, of course, going to be a career highlight,\" she said on Facebook."
+=======
             "summary": "Since the launch of the crossword in 1942, the times has captivated solvers by providing engaging word and logic games. In 2014, we introduced the mini crossword, followed by Spelling Bee, Letter boxed and tiles. We have created connections and strands.",
             "image": "https://mwcm.nyt.com/dam/mkt_assets/img/games/hub.png",
             "timestamp": "2025-03-10T22:33:15.349007+00:00"
@@ -1353,10 +2108,119 @@
             "summary": "Mahmoud khalil played a prominent role in protests against Israel at Columbia. ICE agents entered his apartment and took him into custody, his lawyer says. They said they were acting on state department orders to revoke his student visa. \"this is the first arrest of many to come,\" president obama tweeted.",
             "image": "https://i.cbc.ca/1.7479149.1741604057!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/campus-protests-immigration-arrest.jpg?im=Resize%3D620",
             "timestamp": "2025-03-10T22:42:46.319205+00:00"
+>>>>>>> c110f36 (gitignore)
         }
     ],
     "negative": [
         {
+<<<<<<< HEAD
+            "headline": "New Delhi crowd crush",
+            "url": "https://www.cnn.com/2025/02/15/india/india-crowd-crush-delhi-train-mela-int-latam/index.html",
+            "sentiment": "negative",
+            "summary": "At least 18 people were killed in a crowd crush at a New Delhi railway station Saturday as passengers tried to board trains. The crush took place late Saturday night, when delays to two train services and an influx of passengers led to overcrowding. Many of those in the crowds are thought to have been heading to the  , the world\u00e2\u0080\u0099s largest religious gathering."
+        },
+        {
+            "headline": "1979 cold case arrest",
+            "url": "https://www.cnn.com/2025/02/15/us/omaha-nebraska-1979-double-murder-arrest/index.html",
+            "sentiment": "negative",
+            "summary": "Deroshia Matthews, 26, and her son, Kamal, 7, were found dead in their home in 1979. Abdulmalik Husain, 68, formerly known as Louis Walker, was arrested Wednesday. Husain is charged with two counts of murder in connection with the deaths."
+        },
+        {
+            "headline": "Ukrainians are fearful any Trump-brokered ceasefire will be full of concessions and false promises",
+            "url": "https://www.cnn.com/2025/02/16/europe/ukrainians-fearful-trump-brokered-ceasefire-intl/index.html",
+            "sentiment": "negative",
+            "summary": "Iryna Danilova has been in a Russian penal colony for two years. She was convicted of illegal possession of explosives and sentenced to seven years in prison. She suffers from constant headaches and is not allowed to sit or lie down during the day."
+        },
+        {
+            "headline": "Video\n                    Honig on \u00e2\u0080\u0098incalculable damage on DOJ\u00e2\u0080\u0099\n                        1:40",
+            "url": "https://www.cnn.com/2025/02/15/politics/video/doj-trust-pam-bondi-emil-bove-trump-honig-digvid",
+            "sentiment": "negative",
+            "summary": "Three senior Justice Department officials in New York and Washington resigned instead of complying with orders from the Trump administration to dismiss the corruption case against New York City Mayor Eric Adams. CNN senior legal analyst Elie Honig weighs in on the crisis at the DOJ."
+        },
+        {
+            "headline": "Ballerina\u00e2\u0080\u0099s parents jailed for neglecting the daughter they bathed in attention but starved of food",
+            "url": "https://www.cnn.com/2025/02/15/australia/australia-malnourished-girl-neglect-hnk-intl/index.html",
+            "sentiment": "negative",
+            "summary": "The girl was so malnourished that doctors said she was at risk of cardiac arrest and death. Witnesses at the hospital said her parents treated her as if she were a small child. They took her to the bathroom, wiped her bottom, blew her nose and brushed her hair."
+        },
+        {
+            "headline": "5 people in upstate New York charged with murder after allegedly torturing, killing Minnesota transgender man",
+            "url": "https://www.cnn.com/2025/02/15/us/sam-nordquist-trans-man-murder/index.html",
+            "sentiment": "negative",
+            "summary": "Five people have been arrested in connection with the disappearance and murder of a 24-year-old transgender man. New York State Police launched a missing persons investigation for Sam Nordquist on February 9. Human remains believed to be those of Nordquist were discovered on February 13 in a field in Yates County, about 50 miles southeast of Rochester."
+        },
+        {
+            "headline": "White South Africans gather to support Trump and his claims that they\u00e2\u0080\u0099re victims of racism",
+            "url": "https://www.cnn.com/2025/02/15/africa/south-africa-white-trump-supporters-demonstrate-int-latam/index.html",
+            "sentiment": "negative",
+            "summary": "White South Africans gathered at the US Embassy in Pretoria by their own government. Many were from the Afrikaner community that Trump focused on in an executive order a week ago. Hundreds of protesters held placards that read \u00e2\u0080\u009cThank God for President Trump\u00e2\ufffdai\u009d"
+        },
+        {
+            "headline": "Anxiety can be debilitating. Controlling it starts with this simple step, Martha Beck says",
+            "url": "https://www.cnn.com/2025/02/15/health/martha-beck-beyond-anxiety-wellness/index.html",
+            "sentiment": "negative",
+            "summary": "Sociologist and best-selling author says curiosity and creativity can act as antidotes to anxiety. Evidence shows a kind of toggle effect between creativity and anxiety, she explained. Disrupting the cycle of constant worry requires big shifts in how we relate to the world, argues Beck."
+        },
+        {
+            "headline": "Isolated Indigenous man makes brief contact with outside world, then returns to tribe in the Amazon rainforest",
+            "url": "https://www.cnn.com/2025/02/15/americas/uncontacted-tribe-amazon-rainforest-intl-latam/index.html",
+            "sentiment": "negative",
+            "summary": "The encounter occurred around 7 p.m. local time Wednesday in Bela Rosa, a community along the Purus River in the southwestern Amazon. Officials from Brazil\u00e2\u0080\u0099s Indigenous affairs agency, Funai, arrived soon after and took him to a nearby facility. Funai said in a   that the young man returned to the forest on Thursday afternoon."
+        },
+        {
+            "headline": "\u00e2\u0080\u0098World\u00e2\u0080\u0099s clearest lake\u00e2\u0080\u0099 is being threatened by tourists",
+            "url": "https://www.cnn.com/travel/new-zealand-blue-lake-spc-c2e/index.html",
+            "sentiment": "negative",
+            "summary": "Nelson Lakes National Park, in New Zealand\u00e2\u0080\u0099s South Island, is home to a magical blue-violet lake. It was first discovered by Ng\u00c4\u0081ti Apa, a M\u00c4\u2001ori iwi, or tribe, who named it Rotomairewhenua. It became a sacred place where they cleansed the bones of the dead."
+        },
+        {
+            "headline": "\u00e2\u0080\u0098You get one split second\u00e2\u0080\u0099: The story behind a viral bird photo",
+            "url": "https://www.cnn.com/2025/02/13/style/james-crombie-starling-murmurations-snap/index.html",
+            "sentiment": "negative",
+            "summary": "James Crombie is an award-winning sports photographer by trade. He has covered three Olympic Games and usually shoots rugby and the Irish game of hurling. His only previous encounter with the short-tailed birds occurred when one fell into his fireplace after attempting to nest in the chimney."
+        },
+        {
+            "headline": "Juvenile sea turtles \u00e2\u0080\u0098dance\u00e2\u0080\u0099 when food is nearby",
+            "url": "https://www.cnn.com/2025/02/15/science/dancing-sea-turtles-science-newsletter-wt/index.html",
+            "sentiment": "negative",
+            "summary": "Earth\u00e2\u0080\u0099s inner core is 70% the size of the moon. Recent research suggested this dense center reversed its spin. Scientists inferred signs of deformation from earthquakes strong enough to reach the planet\u2019s heart. Over time, changes to this innermost layer could impact the planet's magnetic field."
+        },
+        {
+            "headline": "Trump wants to kill congestion pricing. But it\u00e2\u0080\u0099s working",
+            "url": "https://www.cnn.com/2025/02/12/business/congestion-pricing-new-york-city-trump/index.html",
+            "sentiment": "negative",
+            "summary": "President Donald Trump wants to end New York City\u2019s landmark congestion pricing policy. Legal experts say Trump doesn\u2019t have the power to end congestion pricing anyway. The federal government closely scrutinized and approved it, and courts have upheld it."
+        },
+        {
+            "headline": "Cases in Louisiana and Texas could bring tensions between states over abortion to a head",
+            "url": "https://www.cnn.com/2025/02/11/politics/abortion-shield-law-new-york-louisiana-texas/index.html",
+            "sentiment": "negative",
+            "summary": "Anti-abortion activists and aligned state and local officials are plotting cases that would force such a confrontation. Such a conflict could put abortion back at the high court\u00e2\u0080\u0099s doorstep sooner than the justices may like. A warrant is now out for a New York doctor accused of unlawfully prescribing abortion pills."
+        },
+        {
+            "headline": "\u00e2\u0080\u0098We were used\u00e2\u0080\u0099: These immigrants followed the US\u00e2\u0080\u0099 rules but now feel betrayed",
+            "url": "https://www.cnn.com/2025/02/14/us/immigration-refugees-trump-fears-cec/index.html",
+            "sentiment": "negative",
+            "summary": "Janvier Ndagijimana and his family spent decades in refugee camps. They were finally allowed to travel to the US this year. The 52-year-old Congolese refugee arrived in Kentucky just six days before President Trump's inauguration."
+        },
+        {
+            "headline": "OpenAI board rejects Elon Musk-led $97 billion purchase offer",
+            "url": "https://www.cnn.com/2025/02/14/tech/openai-board-rejects-musk-purchase-offer/index.html",
+            "sentiment": "negative",
+            "summary": "OpenAI\u2019s board of directors has formally rejected a $97.4 billion bid by Elon Musk and other investors to purchase the company. The statement marks the latest twist in a long-running feud between OpenAI and Musk over the ChatGPT maker."
+        },
+        {
+            "headline": "Singles in this city pay the most to live alone",
+            "url": "https://www.cnn.com/2025/02/14/business/rent-singles-tax-zillow/index.html",
+            "sentiment": "negative",
+            "summary": "In the city that never sleeps, singles pay an average of $20,100 more per year to live alone. That\u2019s according to an analysis from real estate platforms StreetEasy and Zillow, which owns the StreetEasy brand. Couples who live together in a one-bedroom apartment in New York City save a combined $40,200 per year on rent."
+        },
+        {
+            "headline": "US retail spending plunged last month, falling for the first time since August",
+            "url": "https://www.cnn.com/2025/02/14/economy/us-retail-spending-january/index.html",
+            "sentiment": "negative",
+            "summary": "Retail sales plunged 0.9% in January from the prior month, the Commerce Department said Friday. Specialty stores and auto dealers were hit hardest, with spending falling 4.6% and 3%. US stocks were mostly flat Friday morning at market open, with all three major indexes up just 0.1%."
+=======
             "headline": "Ship carrying highly toxic chemical hit tanker transporting jet fuel for US military",
             "url": "https://www.bbc.com/news/live/cgq1pwjlqq2t",
             "sentiment": "negative",
@@ -1547,19 +2411,117 @@
             "summary": "One in 20 people in the uk thought to have a hoarding disorder. Widowed single mum started collecting to fill the gap left after her husband took his own life. The 75-year-old is now getting help to reuse and repurpose her hoarded items.",
             "image": "https://ichef.bbci.co.uk/news/1024/branded_news/050c/live/f6795010-fdb8-11ef-a8b1-950887ddc6e5.jpg",
             "timestamp": "2025-03-10T21:54:18.839930+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Did a gay affair stir a 14th-Century royal crisis?",
-            "url": "https://www.bbc.com/culture/article/20250226-edward-ii-did-a-gay-love-affair-spark-a-14th-century-royal-crisis",
+            "headline": "World No. 1 Jannik Sinner accepts three-month ban from tennis to settle doping case",
+            "url": "https://www.cnn.com/2025/02/15/sport/jannik-sinner-three-month-ban-tennis-spt-intl/index.html",
             "sentiment": "negative",
+<<<<<<< HEAD
+            "summary": "Sinner will be banned from February 9 to May 4 after twice testing positive for banned substance Clostebol in March 2024. The 23-year-old will be eligible to play in the French Open. Sinner had previously avoided suspension from competition with the International Tennis Integrity Agency (ITIA) in August."
+=======
             "summary": "The royal Shakespeare company is opening a new production of Christopher marlowe's Edward II. Play depicts a king whose authority and ability to rule is fatally undermined by his relationship with another man. Modern-day monarchs hold only ceremonial power, but overt queerness in the royal family remains vanishingly rare.",
             "image": "https://ychef.files.bbci.co.uk/624x351/p0ktxxs2.jpg",
             "timestamp": "2025-03-10T21:55:40.234982+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "The sweet Dutch sandwich that makes no sense",
-            "url": "https://www.bbc.com/travel/article/20250220-hageslag-dutch-sandwich",
+            "headline": "\u00e2\u0080\u0098World\u00e2\u0080\u0099s clearest lake\u00e2\u0080\u0099 is being threatened by tourists",
+            "url": "https://www.cnn.com/travel/new-zealand-blue-lake-spc-c2e/index.html",
             "sentiment": "negative",
+<<<<<<< HEAD
+            "summary": "Nelson Lakes National Park, in New Zealand\u00e2\u0080\u0099s South Island, is home to a magical blue-violet lake. It was first discovered by Ng\u00c4\u0081ti Apa, a M\u00c4\u2001ori iwi, or tribe, who named it Rotomairewhenua. It became a sacred place where they cleansed the bones of the dead."
+        },
+        {
+            "headline": "Thousands call on Christie\u00e2\u0080\u0099s to cancel AI art auction in open letter",
+            "url": "https://www.cnn.com/2025/02/11/style/christies-ai-auction-open-letter-tan/index.html",
+            "sentiment": "negative",
+            "summary": "Nearly 4,000 people have signed an online letter calling on Christie\u00e2\u0080\u0099s New York to cancel the sale. The sale is the first of its kind for a major auction house. There are concerns that the programs used to create some generative digital pieces are trained on copyrighted work and exploit human artists."
+        },
+        {
+            "headline": "3 health conditions increase risk of liver damage if you drink, study says",
+            "url": "https://www.cnn.com/2025/02/09/health/belly-fat-liver-alcohol-wellness/index.html",
+            "sentiment": "negative",
+            "summary": "Drinking alcohol if you have a large belly or diabetes more than doubles the risk of serious liver damage. Having high blood pressure and drinking nearly doubles therisk of liver damage, a new study found. Those are important health risks to consider, said Dr. Andrew Freeman, director of cardiovascular prevention."
+        },
+        {
+            "headline": "Trump officials fired nuclear staff not realizing they oversee the country\u00e2\u0080\u0099s weapons stockpile, sources say",
+            "url": "https://www.cnn.com/2025/02/14/climate/nuclear-nnsa-firings-trump/index.html",
+            "sentiment": "negative",
+            "summary": "Officials fired more than 300 staffers Thursday night at the National Nuclear Security Administration. The agency is tasked with managing the nation\u00e2\u0080\u0099s nuclear stockpile. An Energy Department spokesperson disputed the number of personnel affected. Some of the fired employees included NNSA staff who are on the ground at facilities where nuclear weapons are built."
+        },
+        {
+            "headline": "Exclusive\nFEMA firings reveal tension and confusion within the Department of Homeland Security",
+            "url": "https://www.cnn.com/2025/02/14/politics/fema-firings-homeland-security-department-tension/index.html",
+            "sentiment": "negative",
+            "summary": "Homeland Security Secretary Kristi Noem issued a directive that the Federal Emergency Management Agency should stop sending money to non-governmental organizations. FEMA personnel were directed to continue sending those payments. Four FEMA employees, including its chief financial officer, were fired and accused by the Department of Homeland Security of circumventing leadership."
+        },
+        {
+            "headline": "A mom and her child were killed in their Nebraska home 45 years ago. DNA helped authorities make an arrest in the cold case",
+            "url": "https://www.cnn.com/2025/02/15/us/omaha-nebraska-1979-double-murder-arrest/index.html",
+            "sentiment": "negative",
+            "summary": "Deroshia Matthews, 26, and her son, Kamal, 7, were found dead in their home in 1979. Abdulmalik Husain, 68, formerly known as Louis Walker, was arrested Wednesday. Husain is charged with two counts of murder in connection with the deaths."
+        },
+        {
+            "headline": "The death of 2 homeless children in frigid Detroit raises questions about a flawed system in peril",
+            "url": "https://www.cnn.com/2025/02/15/us/tateona-williams-detroit-homelessness-crisis/index.html",
+            "sentiment": "negative",
+            "summary": "Tateona Williams called the city of Detroit in November for help for her family. No one followed up, even after the city opened a new drop-in shelter for families. Two of Williams\u2019 children were found dead in a van the family had been sleeping in."
+        },
+        {
+            "headline": "Homeowner pleads guilty to shooting Black teen Ralph Yarl who rang the wrong doorbell",
+            "url": "https://www.cnn.com/2025/02/14/us/ralph-yarl-kansas-city-wrong-house-plea/index.html",
+            "sentiment": "negative",
+            "summary": "Andrew Lester was scheduled to stand trial next week on charges of first-degree assault and armed criminal action. Lester, who will be sentenced on March 7, was hunched over as he was wheeled into the courtroom, his hands folded. The then-16-year-old survived and has since graduated from high school."
+        },
+        {
+            "headline": "Black Hawk helicopter\u00e2\u0080\u0099s altimeter may have been inaccurate",
+            "url": "https://www.cnn.com/2025/02/14/us/black-hawk-altimeter-missed-tower-calls/index.html",
+            "sentiment": "negative",
+            "summary": "Preliminary analysis of flight data and voice recorder on board a Black Hawk suggests altimeter may have been inaccurate. Pilot and instructor read out two different altitudes shortly before crash, NTSB chair says. Radio altimeter on board the Black Hawk at the time of the deadly midair collision read 278 feet."
+        },
+        {
+            "headline": "At least 18 dead in crush at New Delhi train station as crowds head for religious festival, Indian media reports",
+            "url": "https://www.cnn.com/2025/02/15/india/india-crowd-crush-delhi-train-mela-int-latam/index.html",
+            "sentiment": "negative",
+            "summary": "At least 18 people were killed in a crowd crush at a New Delhi railway station Saturday as passengers tried to board trains. The crush took place late Saturday night, when delays to two train services and an influx of passengers led to overcrowding. Many of those in the crowds are thought to have been heading to the  , the world\u00e2\u0080\u0099s largest religious gathering."
+        },
+        {
+            "headline": "British couple motorbiking around the world detained in Iran",
+            "url": "https://www.cnn.com/world/iran-british-couple-motorbike-detained-intl-latam/index.html",
+            "sentiment": "negative",
+            "summary": "Craig and Lindsay Foreman are being held on suspicion of security-related charges. The couple had been on a motorcycle tour around the world. The last post from the couple was in early January. The family say they are determined to secure their safe return."
+        },
+        {
+            "headline": "Three Israeli hostages and hundreds of Palestinian detainees freed after dispute threatened Gaza ceasefire",
+            "url": "https://www.cnn.com/2025/02/15/middleeast/israel-hamas-hostage-release-feb15-intl-hnk/index.html",
+            "sentiment": "negative",
+            "summary": "The hostages were released in Khan Younis, southern Gaza. It is the sixth such exchange under the truce between Israel and Hamas. The men appeared to be in better health than the three hostages released the previous week, whose condition was not known."
+        },
+        {
+            "headline": "Man stabs 5 people in Austria killing 14-year-old in what police describe as a random attack",
+            "url": "https://www.cnn.com/2025/02/15/europe/austria-stabbing-villach-intl-latam/index.html",
+            "sentiment": "negative",
+            "summary": "The suspect is a Syrian national with legal residence in Austria, police say. The victims were all men, with two seriously injured and two sustaining minor injuries. A motive was not immediately known, police said. A 42-year-old man who witnessed the incident from his car helped to prevent things from getting worse."
+        },
+        {
+            "headline": "Video\n                    See puppy reunite with owner after being lost in snow\n                        1:36",
+            "url": "https://www.cnn.com/2025/02/12/us/video/drone-operator-locates-puppy-in-snow-digvid",
+            "sentiment": "negative",
+            "summary": "Retired New York State police investigator Chad Tavernia has been using a high-tech thermal imaging drone to help people find their missing dogs. Tavernia recently rescued a 10-month puppy after she went missing in the snow for 34 hours."
+        },
+        {
+            "headline": "Gallery\n                    Elon Musk\u00e2\u0080\u0099s son steals spotlight. Bus crash kills scores in Guatemala. The week in photos",
+            "url": "https://www.cnn.com/2025/02/13/world/gallery/photos-this-week-february-6-february-13/index.html",
+            "sentiment": "negative",
+            "summary": "The Philadelphia Eagles beat the Kansas City Chiefs 40-22. The game was a rematch of the Super Bowl two years ago, which the Chiefs won. Eagles quarterback Jalen Hurts threw for two touchdowns and ran for one on his way to winning."
+        },
+        {
+            "headline": "This uncomfortable portrait of femininity has resonated for four decades",
+            "url": "https://www.cnn.com/style/jo-ann-callis-blue-bow-photography-snap/index.html",
+            "sentiment": "negative",
+            "summary": "Jo Ann Callis took a photograph of a woman with her head thrown back, her neck taut and tied with a bow looped together from the thin baby blue straps of her white lace dress. Though she made the image four and a half decades ago, it seems strikingly contemporary, a timeless symbol on the strictures of femininity. It is currently exhibiting in the group show at Rose Gallery in Santa Monica, California."
+=======
             "summary": "Hagelslag is a sugar-based vermicelli sprinkle that is chocolate or fruit-flavoured. In the uk, an estimated hagellag sandwiches are consumed each day. The sandwich is sprinkled liberally onto buttered bread as a quick breakfast, snack or lunch.",
             "image": "https://ychef.files.bbci.co.uk/624x351/p0ksfsfc.jpg",
             "timestamp": "2025-03-10T21:57:15.780682+00:00"
@@ -1739,11 +2701,57 @@
             "summary": "Bacterial vaginosis, or BV, is currently viewed as a woman\u00e2s issue, thus leaving the sexual partner untreated. For half of all women, the infection returns after completion of a week of antibiotics, the preferred medical treatment for BV. The recurrence rate dropped by over half, according to the study in the new english journal of medicine.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1343539360.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:12:48.770700+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "5 things this ER doctor would like everyone to stop doing",
-            "url": "https://www.cnn.com/2025/03/05/health/er-doctor-stop-doing-five-things-wellness/index.html",
+            "headline": "Jane Doe drops sexual assault lawsuit against Jay-Z and Sean \u00e2\u0080\u0098Diddy\u00e2\u0080\u0099 Combs",
+            "url": "https://www.cnn.com/2025/02/14/entertainment/jay-z-sean-combs-lawsuit-dropped/index.html",
             "sentiment": "negative",
+<<<<<<< HEAD
+            "summary": "A Jane Doe who alleged Sean \u00e2\u0080\u009cDiddy\u00e2\ufffdai\u009d Combs and Jay-Z sexually assaulted her 25 years ago has withdrawn her lawsuit against them. In a notice of voluntary dismissal filed Friday, attorneys for the woman dropped the lawsuit with prejudice, preventing it from being re-filed."
+        },
+        {
+            "headline": "JD Vance\u2019s Munich speech laid bare the collapse of the transatlantic alliance",
+            "url": "https://www.theguardian.com/world/2025/feb/15/jd-vance-munich-speech-laid-bare-collapse-transatlantic-alliance-us-europe",
+            "sentiment": "negative",
+            "summary": "The US vice-president was hypocritical and insensitive, but bracingly clear in his resetting of relationships. Since 1963, the Munich Security Conference has seen many consequential speeches, notably Vladimir Putin announcing in 2007 that Russia would never accept a subordinate role in the new world order."
+        },
+        {
+            "headline": "Offshore worker Robbie Robson was bludgeoned to death on an oil rig. Was it a random attack or does the industry have questions to answer?",
+            "url": "https://www.theguardian.com/business/2025/feb/15/offshore-worker-robbie-robson-was-bludgeoned-to-death-on-an-oil-rig-was-it-a-random-attack-or-does-the-industry-have-questions-to-answer",
+            "sentiment": "negative",
+            "summary": "Robbie Robson, 38, a British offshore worker, travelled to Qatar for an eight-week contract in the oilfields of the Persian Gulf. Six weeks later, he was dead, and a co-worker charged with his murder. Now his partner is struggling to make sense of what happened."
+        },
+        {
+            "headline": "Online chefs are posting thirst traps for their followers. The internet can't get enough",
+            "url": "https://www.cnn.com/2025/03/09/us/sexy-chefs-cooking-thirst-traps-cec/index.html",
+            "sentiment": "negative",
+            "summary": "Since the launch of The Crossword in 1942, The Times has captivated solvers by providing engaging word and logic games. In 2014, we introduced The Mini Crossword, followed by Spelling Bee, Letter Boxed and Tiles. In early 2022, we proudly added Wordle to our collection. Since then we have created Connections and Strands."
+        },
+        {
+            "headline": "The US is struggling to hire air traffic controllers. A surprising age limit and grueling schedules could fuel the problem",
+            "url": "https://www.cnn.com/2025/03/08/us/air-traffic-controllers-us-shortage/index.html",
+            "sentiment": "negative",
+            "summary": "Since the launch of The Crossword in 1942, The Times has captivated solvers by providing engaging word and logic games. In 2014, we introduced The Mini Crossword, followed by Spelling Bee, Letter Boxed and Tiles. In early 2022, we proudly added Wordle to our collection. Since then we have created Connections and Strands."
+        },
+        {
+            "headline": "Four Palestinians released by Israel hospitalised in critical condition",
+            "url": "https://www.aljazeera.com/news/2025/2/15/it-was-hell-released-palestinian-prisoners-in-poor-health-conditions",
+            "sentiment": "negative",
+            "summary": "Four Palestinians released as part of a ceasefire deal are in critical condition. They have been hospitalised in the occupied West Bank city of Ramallah. Israel released 369 Palestinians   in exchange for three captives in Gaza. Many Palestinians appeared to have lost an enormous amount of weight while in custody."
+        },
+        {
+            "headline": "Russia-Ukraine war: List of key events \u2013 day 1,088",
+            "url": "https://www.aljazeera.com/news/2025/2/16/russia-ukraine-war-list-of-key-events-day-19",
+            "sentiment": "negative",
+            "summary": "Ukrainian President Volodymyr Zelensky warned that Russian President Vladimir Putin is attempting to create conditions to frame Putin as the victor over US President Donald Trump in negotiations. He made the comments during his address at the Munich Security Conference on Sunday."
+        },
+        {
+            "headline": "Children among 15 killed in crush at New Delhi train station in India",
+            "url": "https://www.aljazeera.com/news/2025/2/16/children-among-15-killed-in-crush-at-new-delhi-train-station-in-india",
+            "sentiment": "negative",
+            "summary": "Ten women and three children among at least 15 people killed in crowd crush. Thousands of Hindu pilgrims waited to board trains to attend the annual festival. Incident unfolded on Saturday night at about 8pm local time (14:30 GMT) India\u2019s Minister of Railways Ashwini Vaishnaw said four trains had been deployed to \u2018evacuate\u2019 a sudden and unprecedented surge of travellers."
+=======
             "summary": "Between 2017 and 2022, there were an estimated 360,800 ER visits related to e-scooters. Bone fracture is the most common injury, but head, neck and limb injuries also occur. People should stop using electric scooters and hoverboards without taking the necessary precautions.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1300706761.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:13:01.192180+00:00"
@@ -1779,11 +2787,81 @@
             "summary": "Prince of luxembourg died in paris on march 1 after a lifelong battle with a rare genetic disorder known as POLG mitochondrial disease. He was the youngest son of prince Robert of Luxembourg and princess Julie of Nassau. There is currently no treatment or cure for POLG, which causes progressive multiple organ dysfunction and failure.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/img-0298-1024x763.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:15:02.788048+00:00"
+>>>>>>> c110f36 (gitignore)
         },
         {
-            "headline": "Facebook enables gender discrimination in job ads, European human rights body rules",
-            "url": "https://www.cnn.com/2025/02/28/tech/facebook-gender-discrimination-europe-ruling-asequals-intl/index.html",
+            "headline": "Despite ceasefire, Israel still destroying homes in Gaza",
+            "url": "https://www.aljazeera.com/news/2025/2/15/despite-ceasefire-israel-still-destroying-homes-in-gaza",
             "sentiment": "negative",
+<<<<<<< HEAD
+            "summary": "Satellite images show Israel has built sand fortifications across the Rafah crossing. The crossing between Egypt and Gaza at Rafah was closed by Israel in May 2024. Israel has been digging in in the 14-km (8.7-mile) strip of land."
+        },
+        {
+            "headline": "Lives on the line: Low pay has US wildland firefighters quitting",
+            "url": "https://www.aljazeera.com/features/2025/2/15/lives-on-the-line-low-pay-has-us-wildland-firefighters-quitting",
+            "sentiment": "negative",
+            "summary": "A camper in Washington State\u2019s Okanogan National Forest has left a campfire unattended. The previous winter was one of the driest in decades and the summer temperature has been near record highs. The next morning, a fire crew that has spent the night mobilising to fight a 1,000-acre wildfire nearby is redirected to the emerging Thirtymile Fire."
+        },
+        {
+            "headline": "Protests over train station collapse grip Serbia, demand government action",
+            "url": "https://www.aljazeera.com/news/2025/2/15/thousands-protest-in-serbia-as-anger-over-corruption-swells",
+            "sentiment": "negative",
+            "summary": "Tens of thousands of students have descended on the town of Kragujevac. Latest in a series of protests to rock the Balkan country after the deadly collapse of a train station roof last year. Fifteen people were   were killed on November 1 when a roof collapsed at the Novi Sad train station."
+        },
+        {
+            "headline": "\u2018Over the precipice\u2019: UN chief sounds alarm on DR Congo fighting",
+            "url": "https://www.aljazeera.com/news/2025/2/15/un-chief-sounds-alarm-on-dr-congo-at-african-union-summit",
+            "sentiment": "negative",
+            "summary": "UN chief Antonio Guterres says the Democratic Republic of the Congo\u2019s (DRC) \u2018territorial integrity\u2019 must be preserved after M23 fighters. Addressing an African Union (AU) summit in the Ethiopian capital Addis Ababa on Saturday, he said a \u201cregional escalation must be avoided at all costs\u2019"
+        },
+        {
+            "headline": "What they lost: Families in terror as Israel raids West Bank camps",
+            "url": "https://www.aljazeera.com/news/2025/2/14/what-they-lost-families-fleeing-in-terror-as-israel-raids-west-bank-camps",
+            "sentiment": "negative",
+            "summary": "Hundreds of Israeli soldiers poured out of Far\u2019a refugee camp in the occupied West Bank. Orders shouted in Hebrew blared from speakers, overlapping with the soldiers\u2019 commands. \u201cOpen the door! Get out now!\u201d they yelled."
+        },
+        {
+            "headline": "Is Russia running out of weapons and manpower for its war in Ukraine?",
+            "url": "https://www.aljazeera.com/news/2025/2/14/is-russia-running-out-of-weapons-and-manpower-for-its-war-in-ukraine",
+            "sentiment": "negative",
+            "summary": "Donkeys are the newest mode of transportation some Russian military units have begun using on the front lines of eastern Ukraine. Last year, Russia began using motorcycles, dirt bikes, electric scooters and civilian cars for frontal attacks on Ukrainian positions. Observers say the downgrading reflects a growing trend that significantly hobbles Russia\u2019s already slow advance on the main theatre."
+        },
+        {
+            "headline": "Russia-Ukraine war: List of key events \u2013 day 1,088",
+            "url": "https://www.aljazeera.com/news/2025/2/16/russia-ukraine-war-list-of-key-events-day-19",
+            "sentiment": "negative",
+            "summary": "Ukrainian President Volodymyr Zelensky warned that Russian President Vladimir Putin is attempting to create conditions to frame Putin as the victor over US President Donald Trump in negotiations. He made the comments during his address at the Munich Security Conference on Sunday."
+        },
+        {
+            "headline": "Four Palestinians released by Israel hospitalised in critical condition",
+            "url": "https://www.aljazeera.com/news/2025/2/15/it-was-hell-released-palestinian-prisoners-in-poor-health-conditions",
+            "sentiment": "negative",
+            "summary": "Four Palestinians released as part of a ceasefire deal are in critical condition. They have been hospitalised in the occupied West Bank city of Ramallah. Israel released 369 Palestinians   in exchange for three captives in Gaza. Many Palestinians appeared to have lost an enormous amount of weight while in custody."
+        },
+        {
+            "headline": "Hamas frees 3 hostages, Israel releases hundreds of prisoners as fragile ceasefire holds",
+            "url": "https://www.cbc.ca/news/news/world/israel-gaza-hostage-release-feb15-1.7460415",
+            "sentiment": "negative",
+            "summary": "Iair Horn, Sagui Dekel-Chen and Sasha Troufanov arrived at a release site. They were led onto a stage with men armed with automatic rifles standing on each side. Dozens of armed militants were deployed at the site of the release. Some Hamas fighters were carrying rifles seized from the Israeli military."
+        },
+        {
+            "headline": "Why major countries can't agree on how to regulate artificial intelligence",
+            "url": "https://www.cbc.ca/news/news/business/paris-summit-artificial-intelligence-explainer-1.7456222",
+            "sentiment": "negative",
+            "summary": "More than 60 nations gathered in Paris this week for an AI summit. The European Union has pursued aggressive regulation of Big Tech. Meanwhile, the Trump administration has made tech deregulation a central part of its agenda. The U.S. opted not to\u00a0\u2014 but so did the U.K., which raised eyebrows among attendees and in the media."
+        },
+        {
+            "headline": "AFN regional chiefs accuse national chief of stoking division on child welfare reform",
+            "url": "https://www.cbc.ca/news/news/indigenous/afn-chiefs-child-welfare-division-1.7458875",
+            "sentiment": "negative",
+            "summary": "National Chief Cindy Woodhouse Nepinak asked how the society plans to improve on a $47.8-billion federal offer to overhaul the system. \"It is Canada \u2014 not the Caring Society \u2014 that must be held accountable,\" the regional chiefs wrote on Jan. 15."
+        },
+        {
+            "headline": "Hamas frees 3 hostages, Israel releases hundreds of prisoners as fragile ceasefire holds",
+            "url": "https://www.cbc.ca/news/news/world/israel-gaza-hostage-release-feb15-1.7460415",
+            "sentiment": "negative",
+            "summary": "Iair Horn, Sagui Dekel-Chen and Sasha Troufanov arrived at a release site. They were led onto a stage with men armed with automatic rifles standing on each side. Dozens of armed militants were deployed at the site of the release. Some Hamas fighters were carrying rifles seized from the Israeli military."
+=======
             "summary": "A european human rights body has ruled that facebook's algorithm shows gender bias when promoting job advertisements. The Netherlands Institute for Human Rights said in a February 18 decision that facebook\u00e2s algorithm reinforced gender stereotypes by mainly showing \u00e2typically female professions\u00e2 to female users in the Netherlands. Based on findings shared with CNN by international non-profit Global Witness, the ruling marks what activists say is a crucial step in holding big tech companies accountable for the design of their platforms.",
             "image": "https://media.cnn.com/api/v1/images/stellar/prod/2021-07-13t232848z-1207674426-rc2tjo9bhc1u-rtrmadp-3-tech-facebook.jpg?c=16x9&q=w_800,c_fill",
             "timestamp": "2025-03-10T22:18:20.553751+00:00"
@@ -2091,6 +3169,7 @@
             "summary": "A new study compiled data from 12.6 million individual butterfly counts. Populations declined 22 per cent between 2000 and 2020. \"this is really the biggest and most comprehensive study of insects in the u.s.,\" lead author says.",
             "image": "https://i.cbc.ca/1.7476511.1741282363!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_1180/regal-fritillary.jpg?im=Resize%3D620",
             "timestamp": "2025-03-10T22:41:49.064315+00:00"
+>>>>>>> c110f36 (gitignore)
         }
     ]
 }

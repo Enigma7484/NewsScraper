@@ -21,11 +21,11 @@ client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
 collection = db[COLLECTION_NAME]
 
-# Create text index on headline and summary fields if it doesn't exist
-if "headline_summary_text" not in collection.index_information():
-    collection.create_index(
-        [("headline", "text"), ("summary", "text")], name="headline_summary_text"
-    )
+# # Create text index on headline and summary fields if it doesn't exist
+# if "headline_summary_text" not in collection.index_information():
+#     collection.create_index(
+#         [("headline", "text"), ("summary", "text")], name="headline_summary_text"
+#     )
 
 # Constants
 PAGE_SIZE = 15
@@ -64,7 +64,10 @@ def get_articles():
 
     # Add keyword search if provided - search in both headline and summary
     if keyword:
-        query["$text"] = {"$search": keyword}
+        query["$or"] = [
+            {"headline": {"$regex": keyword, "$options": "i"}},
+            {"summary": {"$regex": keyword, "$options": "i"}}
+        ]
 
     # Set sort order
     order = -1 if sort_order == "desc" else 1

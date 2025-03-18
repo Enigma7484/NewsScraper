@@ -116,6 +116,15 @@ def get_article_by_id(id):
         return jsonify({"error": "Article not found"}), 404
 
 
+@app.route("/health", methods=["GET"])
+def health_check():
+    """
+    Simple health check endpoint that returns a 200 OK status.
+    Used to verify the API is running properly.
+    """
+    return "", 200
+
+
 # Ensure Flask runs on Render correctly
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))

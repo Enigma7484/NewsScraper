@@ -98,3 +98,65 @@ To add a new news source:
 - ✅ **Introduce real-time updates**
 - ✅ **Enhance summarization with more advanced LLMs**
 - ✅ **Create a web-based dashboard for visualization**
+
+## Code Formatting
+
+This project uses Black for code formatting. To format your code:
+
+1. Install Black:
+   ```bash
+   pip install black
+   ```
+
+2. Format all Python files:
+   ```bash
+   black .
+   ```
+
+3. Format a specific file:
+   ```bash
+   black path/to/file.py
+   ```
+
+The project uses the following Black settings (defined in `.black`):
+- Line length: 88 characters
+- Target Python version: 3.7+
+- String normalization: Single quotes
+- Includes: Python files (`.py`, `.pyi`) and Markdown files (`.md`)
+
+## Usage
+
+1. Start the Flask API:
+   ```bash
+   python sentiment_api.py
+   ```
+
+2. Access the API endpoints:
+   - GET `/articles` - List all articles
+   - GET `/articles/<id>` - Get a specific article
+
+## Project Structure
+
+```
+.
+├── sentiment_api.py      # Flask API server
+├── scraper.py           # News scraping module
+├── sentiment.py         # Sentiment analysis module
+├── summarizer.py        # Article summarization
+├── visualizer.py        # Sentiment visualization
+├── celery_worker.py     # Background task worker
+├── requirements.txt     # Project dependencies
+└── .env                 # Environment variables
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Format your code using Black
+5. Submit a pull request
+
+## License
+
+MIT License

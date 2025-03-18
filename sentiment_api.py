@@ -13,9 +13,9 @@ CORS(app)
 load_dotenv()
 
 # MongoDB Connection
-MONGO_URI = os.getenv('MONGO_URL')
-DB_NAME = os.getenv('DB_NAME')
-COLLECTION_NAME = os.getenv('COLLECTION_NAME')
+MONGO_URI = os.getenv("MONGO_URL")
+DB_NAME = os.getenv("DB_NAME")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME")
 
 client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
@@ -23,8 +23,9 @@ collection = db[COLLECTION_NAME]
 
 # Create text index on headline and summary fields if it doesn't exist
 if "headline_summary_text" not in collection.index_information():
-    collection.create_index([("headline", "text"), ("summary", "text")], 
-                           name="headline_summary_text")
+    collection.create_index(
+        [("headline", "text"), ("summary", "text")], name="headline_summary_text"
+    )
 
 # Constants
 PAGE_SIZE = 15
@@ -93,23 +94,24 @@ def get_articles():
 def get_article_by_id(id):
     """
     Fetch a single article by its ID.
-    
+
     Path Parameters:
     - id: The MongoDB ObjectId of the article to fetch
     """
 
     article_id = id
-    
+
     # Convert ObjectId to string for MongoDB query
     query = {"_id": ObjectId(article_id)}
-    
+
     # Execute query
     article = collection.find_one(query)
-    
+
     if article:
         return jsonify(serialize_article(article))
     else:
         return jsonify({"error": "Article not found"}), 404
+
 
 # Ensure Flask runs on Render correctly
 if __name__ == "__main__":

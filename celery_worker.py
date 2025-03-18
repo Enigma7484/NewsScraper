@@ -11,7 +11,11 @@ UPSTASH_REDIS_PASSWORD = os.getenv("UPSTASH_REDIS_PASSWORD")
 celery = Celery("news_scraper", broker=UPSTASH_REDIS_URL, backend=UPSTASH_REDIS_URL)
 
 # ✅ Set authentication for Upstash Redis
-celery.conf.broker_transport_options = {"visibility_timeout": 3600, "password": UPSTASH_REDIS_PASSWORD}
+celery.conf.broker_transport_options = {
+    "visibility_timeout": 3600,
+    "password": UPSTASH_REDIS_PASSWORD,
+}
+
 
 @celery.task
 def scrape_news():
@@ -19,6 +23,7 @@ def scrape_news():
     print("🔄 Running automated news scraping task...")
     process_news()
     print("✅ News scraping completed!")
+
 
 # ✅ Schedule the task to run every 30 minutes
 celery.conf.beat_schedule = {

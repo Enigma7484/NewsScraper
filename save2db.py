@@ -8,14 +8,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # MongoDB Connection
-MONGO_URI = os.getenv('MONGO_URL')
-DB_NAME = os.getenv('DB_NAME')
-COLLECTION_NAME = os.getenv('COLLECTION_NAME')
+MONGO_URI = os.getenv("MONGO_URL")
+DB_NAME = os.getenv("DB_NAME")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME")
 
 # Connect to MongoDB
 client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
 collection = db[COLLECTION_NAME]
+
 
 def save_articles_to_db(json_file="sentiment_results.json"):
     """
@@ -36,7 +37,9 @@ def save_articles_to_db(json_file="sentiment_results.json"):
                     "sentiment": sentiment,
                     "summary": article["summary"],
                     "image": article["image"],
-                    "timestamp": datetime.datetime.now(datetime.timezone.utc) # Store timestamp in UTC
+                    "timestamp": datetime.datetime.now(
+                        datetime.timezone.utc
+                    ),  # Store timestamp in UTC
                 }
                 articles_to_insert.append(article_entry)
 
@@ -48,6 +51,7 @@ def save_articles_to_db(json_file="sentiment_results.json"):
 
     except Exception as e:
         print(f"❌ Error saving articles to MongoDB: {e}")
+
 
 if __name__ == "__main__":
     save_articles_to_db()

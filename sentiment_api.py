@@ -28,7 +28,7 @@ if "headline_summary_text" not in collection.index_information():
 
 # Constants
 PAGE_SIZE = 15
-DEFAULT_CATEGORY = "positive"
+
 
 def serialize_article(article):
     """Converts MongoDB ObjectId to string and formats the response properly."""
@@ -36,49 +36,58 @@ def serialize_article(article):
     article["image"] = article.get("image", None)
     return article
 
+
 @app.route("/articles", methods=["GET"])
 def get_articles():
     """
     Fetch articles with pagination and filtering.
-    
+
     Query Parameters:
     - offset: Number of articles to skip (default: 0)
     - sort: Sort order for timestamp (desc or asc, default: desc)
     - keyword: Search term for headlines and summaries (optional)
+    - category: Filter by sentiment category (positive, negative, neutral, default: all)
     """
     # Get query parameters with defaults
     offset = int(request.args.get("offset", 0))
     sort_order = request.args.get("sort", "desc")
     keyword = request.args.get("keyword", "").strip()
-    
-    # Build query - always filter for positive sentiment only
-    query = {"sentiment": DEFAULT_CATEGORY}
-    
+    category = request.args.get("category", "").strip().lower()
+
+    # Build query
+    query = {}
+
+    # Add category filter if specified
+    if category in ["positive", "negative", "neutral"]:
+        query["sentiment"] = category
+
     # Add keyword search if provided - search in both headline and summary
     if keyword:
         query["$text"] = {"$search": keyword}
-    
+
     # Set sort order
     order = -1 if sort_order == "desc" else 1
-    
+
     # Execute query with pagination
-    articles = list(collection.find(query)
-                   .sort("timestamp", order)
-                   .skip(offset)
-                   .limit(PAGE_SIZE))
-    
+    articles = list(
+        collection.find(query).sort("timestamp", order).skip(offset).limit(PAGE_SIZE)
+    )
+
     # Get total count for pagination info
     total_count = collection.count_documents(query)
-    
-    return jsonify({
-        "articles": [serialize_article(a) for a in articles],
-        "pagination": {
-            "total": total_count,
-            "offset": offset,
-            "page_size": PAGE_SIZE,
-            "has_more": (offset + PAGE_SIZE) < total_count
+
+    return jsonify(
+        {
+            "articles": [serialize_article(a) for a in articles],
+            "pagination": {
+                "total": total_count,
+                "offset": offset,
+                "page_size": PAGE_SIZE,
+                "has_more": (offset + PAGE_SIZE) < total_count,
+            },
         }
-    })
+    )
+
 
 @app.route("/articles/<id>", methods=["GET"])
 def get_article_by_id(id):

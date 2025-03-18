@@ -1,7 +1,10 @@
 from transformers import pipeline
 
 # Load a more accurate RoBERTa-based sentiment model
-sentiment_model = pipeline("text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
+sentiment_model = pipeline(
+    "text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest"
+)
+
 
 def analyze_keywords(text):
     """
@@ -10,7 +13,7 @@ def analyze_keywords(text):
     """
     try:
         result = sentiment_model(text)
-        label = result[0]['label']
+        label = result[0]["label"]
 
         # Convert model's output labels into positive, neutral, negative
         if label == "negative":
@@ -26,10 +29,33 @@ def analyze_keywords(text):
         lower_text = text.lower()
 
         # 🔴 PRIORITIZE NEGATIVE WORDS OVER POSITIVE IN MIXED CASES
-        negative_words = ["violence", "conflict", "death", "crisis", "humiliation",
-                          "deadly", "attack", "assault", "killings", "murder", "disaster",
-                          "scary", "danger", "terror", "threat", "catastrophe", "fatal"]
-        positive_words = ["growth", "success", "progress", "peace", "achievement", "hope"]
+        negative_words = [
+            "violence",
+            "conflict",
+            "death",
+            "crisis",
+            "humiliation",
+            "deadly",
+            "attack",
+            "assault",
+            "killings",
+            "murder",
+            "disaster",
+            "scary",
+            "danger",
+            "terror",
+            "threat",
+            "catastrophe",
+            "fatal",
+        ]
+        positive_words = [
+            "growth",
+            "success",
+            "progress",
+            "peace",
+            "achievement",
+            "hope",
+        ]
 
         has_negative = any(word in lower_text for word in negative_words)
         has_positive = any(word in lower_text for word in positive_words)
@@ -43,14 +69,32 @@ def analyze_keywords(text):
             return {"final_sentiment": "neutral"}
 
         # ✅ Ensure neutral classification for mixed reactions
-        mixed_phrases = ["mixed reactions", "divided", "controversy", "debate", 
-                         "uncertain", "not clear", "question", "skeptical", "doubt"]
+        mixed_phrases = [
+            "mixed reactions",
+            "divided",
+            "controversy",
+            "debate",
+            "uncertain",
+            "not clear",
+            "question",
+            "skeptical",
+            "doubt",
+        ]
         if any(phrase in lower_text for phrase in mixed_phrases):
             return {"final_sentiment": "neutral"}
 
         # ✅ Detect policy or factual statements → likely neutral
-        neutral_indicators = ["policy", "strategy", "military strategy", "economic policy",
-                              "diplomatic talks", "treaty", "negotiation", "agreement", "trade policy"]
+        neutral_indicators = [
+            "policy",
+            "strategy",
+            "military strategy",
+            "economic policy",
+            "diplomatic talks",
+            "treaty",
+            "negotiation",
+            "agreement",
+            "trade policy",
+        ]
         if any(word in lower_text for word in neutral_indicators) and not has_negative:
             return {"final_sentiment": "neutral"}
 

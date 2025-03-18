@@ -35,6 +35,7 @@ def clean_text(text):
         print(f"❌ Error cleaning text: {e}")
         return text
 
+
 # ✅ Convert The Guardian's relative URLs to absolute
 def fix_guardian_link(link):
     if not link.startswith("http"):
@@ -46,19 +47,27 @@ def fix_guardian_link(link):
 def filter_headlines(headlines):
     """Filters out unwanted headlines."""
     filtered = []
-    unwanted_keywords = ["advertisement", "sponsored", "opinion", "op-ed", "video", "watch now"]
-    
+    unwanted_keywords = [
+        "advertisement",
+        "sponsored",
+        "opinion",
+        "op-ed",
+        "video",
+        "watch now",
+    ]
+
     for headline in headlines:
         cleaned_headline = clean_text(headline)
         if len(cleaned_headline.split()) <= 2:
             continue  # Skip very short headlines
-        
+
         # Skip unwanted content
         if any(word in cleaned_headline.lower() for word in unwanted_keywords):
             continue
 
         filtered.append(cleaned_headline)
     return filtered
+
 
 # ✅ Extract Article Images
 def extract_image(tree):
@@ -79,11 +88,12 @@ def extract_image(tree):
         for img in img_tags:
             if img.startswith("http"):  # Ensure absolute URL
                 return img
-        
+
         return None  # No valid image found
     except Exception as e:
         print(f"❌ Error extracting image: {e}")
         return None
+
 
 # ✅ Fetch Full Article Content & Image
 def fetch_full_article(url):
@@ -100,7 +110,7 @@ def fetch_full_article(url):
         # Handle 403 Forbidden by retrying
         if response.status_code == 403:
             print(f"⚠️ Warning: Access denied for {url}. Trying alternative method...")
-            time.sleep(2)  
+            time.sleep(2)
             response = session.get(url, headers=HEADERS, cookies=session.cookies)
 
         response.raise_for_status()
@@ -118,6 +128,7 @@ def fetch_full_article(url):
         print(f"❌ Error fetching article from {url}: {e}")
         return "Content not available", None
 
+
 def clean_summary(text):
     """Cleans up summary text, ensuring proper capitalization, punctuation, and encoding."""
     try:
@@ -134,11 +145,13 @@ def clean_summary(text):
         text = text.replace("â€˜", "'").replace("â€™", "'")  # Fix single quotes
 
         # ✅ Fix spacing issues with punctuation
-        text = re.sub(r'\s+', ' ', text)  # Remove excessive spaces
-        text = re.sub(r'\s([.,!?;:])', r'\1', text)  # Remove space before punctuation
+        text = re.sub(r"\s+", " ", text)  # Remove excessive spaces
+        text = re.sub(r"\s([.,!?;:])", r"\1", text)  # Remove space before punctuation
 
         # ✅ Capitalize the first letter of every sentence
-        text = re.sub(r'(^|[.!?]\s+)([a-z])', lambda m: m.group(1) + m.group(2).upper(), text)
+        text = re.sub(
+            r"(^|[.!?]\s+)([a-z])", lambda m: m.group(1) + m.group(2).upper(), text
+        )
 
         # ✅ Ensure summary ends properly with a period
         if text and text[-1] not in ".!?":
@@ -163,18 +176,18 @@ def generate_summary(text):
 
         input_length = len(text.split())
         if input_length < 10:
-            return text.capitalize()  
+            return text.capitalize()
 
-        input_text = "summarize: " + text[:2048]  
+        input_text = "summarize: " + text[:2048]
         summary = summarizer(input_text, max_length=150, min_length=50, do_sample=False)
-        
-        cleaned_summary = clean_summary(summary[0]["summary_text"])  
+
+        cleaned_summary = clean_summary(summary[0]["summary_text"])
         return cleaned_summary
 
     except Exception as e:
         print(f"❌ Error generating summary: {e}")
         print(traceback.format_exc())
-        return clean_summary(text[:300] + "...")  
+        return clean_summary(text[:300] + "...")
 
 
 # ✅ Sentiment Analysis & Processing
@@ -198,13 +211,17 @@ def process_news():
         filtered_articles = []
         for a in articles:
             cleaned_headline = clean_text(a["headline"])
-            cleaned_link = fix_guardian_link(a["link"]) if site == "guardian" else a["link"]
+            cleaned_link = (
+                fix_guardian_link(a["link"]) if site == "guardian" else a["link"]
+            )
 
             if cleaned_link in seen_articles:
-                continue  
+                continue
 
             seen_articles.add(cleaned_link)
-            filtered_articles.append({"headline": cleaned_headline, "link": cleaned_link})
+            filtered_articles.append(
+                {"headline": cleaned_headline, "link": cleaned_link}
+            )
 
         for article in filtered_articles:
             headline = clean_text(article["headline"])
@@ -227,7 +244,9 @@ def process_news():
                 "sentiment": sentiment,
                 "summary": summary,
                 "image": image_url,
-                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()  # ✅ Timestamp for sorting
+                "timestamp": datetime.datetime.now(
+                    datetime.timezone.utc
+                ).isoformat(),  # ✅ Timestamp for sorting
             }
 
             results[sentiment].append(article_data)
@@ -238,9 +257,10 @@ def process_news():
     with open("sentiment_results.json", "w", encoding="utf-8") as f:
         json.dump(results, f, indent=4, default=str)  # ✅ Convert datetime to string
 
-
     print("\n✅ Sentiment Analysis Complete! Results saved in `sentiment_results.json`")
 
     # save_articles_to_db(results)
+
+
 if __name__ == "__main__":
     process_news()

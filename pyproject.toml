@@ -27,6 +27,7 @@ dependencies = [
     "fake-useragent",
     "torch",
     "ftfy",
+    "black>=24.8.0",
 ]
 
 [build-system]

@@ -20,3 +20,4 @@ redis
 fake-useragent
 torch
 ftfy
+kombu

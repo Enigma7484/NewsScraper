@@ -124,7 +124,6 @@ def health_check():
     """
     return "", 200
 
-
 # Ensure Flask runs on Render correctly
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))

@@ -21,3 +21,5 @@ fake-useragent
 torch
 ftfy
 kombu
+dompurify
+tensorflow

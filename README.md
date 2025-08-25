@@ -5,7 +5,7 @@ This project scrapes news articles from multiple sources, analyzes their sentime
 
 ### **🔹 Features**
 ✅ **Scrapes news from multiple websites**  
-✅ **Filters & categorizes articles** based on sentiment (Positive, Neutral, Negative)  
+✅ **Filters & categorizes articles** based on sentiment (Positive, Neutral, Negative) using Hugging Face's `siebert/sentiment-roberta-large-english`
 ✅ **Uses an AI model for summarization** (Hugging Face's `t5-large`)  
 ✅ **Stores articles in MongoDB for further analysis**  
 ✅ **Easily extendable for new news sources**  

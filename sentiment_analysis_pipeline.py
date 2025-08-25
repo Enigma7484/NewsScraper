@@ -1,5 +1,6 @@
 import json
-import requests
+import cloudscraper
+import certifi
 import time
 import unicodedata
 import re
@@ -12,19 +13,32 @@ from transformers import pipeline
 from selector_scraper import scrape_static_website, scrape_dynamic_website
 from keyword_extractor import extract_entities
 from feed_data import analyze_keywords
+from save2db import save_articles_to_db
 
-# Load news site configurations
-with open("news_sites.json", "r", encoding="utf-8") as file:
-    WEBSITE_CONFIG = json.load(file)
+# ── Generic headline blacklist ──────────────────────────────────────────────
+# any headline matching these (case-insensitive) patterns will be skipped
+GENERIC_HEADLINE_PATTERNS = [
+    r"^live updates",        # “Live Updates: …”
+    r"\btrending\b",         # “Trending”
+    r"\bsalt deduction\b",   # “SALT deduction”
+    r"\bprime day deals\b",  # “Prime Day deals”
+]
 
-# Load the T5 Summarization Model
+# ── CONFIG ──────────────────────────────────────────────────────────────────
+with open("news_sites.json", "r", encoding="utf-8") as f:
+    WEBSITE_CONFIG = json.load(f)
+
 summarizer = pipeline("summarization", model="t5-large")
+nlp_trf     = spacy.load("en_core_web_trf", disable=["parser","lemmatizer"])
 
-# Fast spaCy pipeline (only for proper-noun capitalisation)
-nlp = spacy.load("en_core_web_sm", disable=["parser","lemmatizer","ner"])
+# ── PRECOMPILED REGEX & REPLACEMENTS ────────────────────────────────────────
+_CAP_RE = re.compile(r'(^|[.!?]["\']?\s*)([a-z])')
 
-# 🔧 PRE-COMPILED REGEXES
-_CAP_RE        = re.compile(r'(^|[.!?]\s+)([a-z])', flags=re.U)
+_MOJI_REPS = {
+    "â€™": "'",   "â€œ": '"',  "â€": '"',
+    "â€“": "-",   "â€”": "-",   "â€¦": "..."
+}
+
 _MAINT_PATTERNS = [
     r"^cbc\.ca will be undergoing scheduled maintenance.*?(\.|\n)",
     r"^bbc\.com will be undergoing scheduled maintenance.*?(\.|\n)",
@@ -32,229 +46,203 @@ _MAINT_PATTERNS = [
     r"^the guardian will be undergoing scheduled maintenance.*?(\.|\n)",
     r"^the new york times will be undergoing scheduled maintenance.*?(\.|\n)",
     r"^aljazeera\.com will be undergoing scheduled maintenance.*?(\.|\n)",
-    r"^this site will be unavailable.*?(\.|\n)"
-]
-_BOILERPLATE_PHRASES = [
-    "maintenance", "service disruption",
-    "best of", "favourite stories", "bbc reel",
-    "copyright ©", "all rights reserved"
+    r"^this site will be unavailable.*?(\.|\n)",
 ]
 
+_BOILERPLATE = [
+    "maintenance", "service disruption", "best of", "favourite stories",
+    "bbc reel", "copyright ©", "all rights reserved", "work for us",
+    "sign up for our email", "privacy policy", "terms of use",
+    "contact us", "advertise with us", "help", "accessibility"
+]
+
+# ── TEXT CLEANING ───────────────────────────────────────────────────────────
 def clean_text(text: str) -> str:
-    """
-    Cleans garbled encoding and box-characters from **headlines** and raw scraped text.
-    """
     try:
-        # 1️⃣ Unicode normalization
-        text = unicodedata.normalize("NFKC", text)
-
-        # 2️⃣ Decode any HTML entities: &amp; → &, &#39; → '
-        text = _html.unescape(text)
-
-        # 3️⃣ Common “mojibake” fixes (apostrophes, quotes, dashes, ellipses, accented chars)
-        fixes = {
-            "â€™": "’", "â€œ": "“", "â€": "”", "â€“": "–", "â€”": "—",
-            "â€¦": "…", "Ã©": "é", "Ã ": "à", "Ã¨": "è",
-            "Ã¢": "â",  "Ã¤": "ä",  "Ã¶": "ö",
-            "\ufffd": "",    # replacement-character box
-        }
-        for bad, good in fixes.items():
-            text = text.replace(bad, good)
-
-        # 4️⃣ Remove invisible/control characters
-        text = re.sub(r"[\u200B-\u200D\uFEFF]", "", text)
-
-        # 5️⃣ Fix punctuation spacing
-        text = re.sub(r"\s+([,.;:!?])", r"\1", text)     # no space BEFORE
-        text = re.sub(r"([,.;:!?])(\S)", r"\1 \2", text)  # ensure space AFTER
-
-        # 6️⃣ Collapse multiple spaces
-        text = re.sub(r"\s{2,}", " ", text).strip()
-
-        return text
-
+        txt = unicodedata.normalize("NFKC", text)
+        try:
+            txt = txt.encode("latin1").decode("utf-8")
+        except Exception:
+            pass
+        txt = _html.unescape(txt)
+        for bad, good in _MOJI_REPS.items():
+            txt = txt.replace(bad, good)
+        txt = re.sub(r'\s+([.,!?;:])', r'\1', txt)
+        txt = re.sub(r'([.,!?;:])([^\s])', r'\1 \2', txt)
+        txt = re.sub(r'\.\s+(\d)', r'.\1', txt)
+        txt = re.sub(r' {2,}', ' ', txt)
+        txt = re.sub(r'(["\'])\s+', r'\1', txt)
+        txt = re.sub(r'\s+(["\'])', r'\1', txt)
+        txt = re.sub(r'([.,!?;:])\s+(["\'])', r'\1\2', txt)
+        txt = re.sub(r'(["\'])\s+([.,!?;:])', r'\1\2', txt)
+        return re.sub(r"[ \t]{2,}", " ", txt).strip()
     except Exception as e:
-        print(f"❌ Error cleaning text: {e}")
+        print("❌ clean_text error:", e)
         return text
 
-
+# ── SUMMARY CLEANING ────────────────────────────────────────────────────────
 def clean_summary(text: str) -> str:
-    """
-    Applies the same encoding fixes as clean_text, then strips
-    boilerplate, capitalises every sentence, and ensures final punctuation.
-    """
     try:
         if not isinstance(text, str) or not text.strip():
             return ""
-
-        # 1️⃣ Base clean (re-use headline-cleaner + HTML unescape)
         txt = clean_text(text)
-
-        # 2️⃣ Drop any maintenance / promo lines
         for pat in _MAINT_PATTERNS:
             txt = re.sub(pat, "", txt, flags=re.I)
-
-        # 3️⃣ Drop lines containing common boilerplate phrases
-        lines = txt.split(". ")
-        lines = [L for L in lines if not any(bp in L.lower() for bp in _BOILERPLATE_PHRASES)]
-        txt = ". ".join(lines)
-
-        # 4️⃣ Capitalise every sentence via regex
+        parts = [
+            p for p in txt.split(". ")
+            if not any(bp in p.lower() for bp in _BOILERPLATE)
+        ]
+        txt = ". ".join(parts)
         txt = _CAP_RE.sub(lambda m: m.group(1) + m.group(2).upper(), txt)
-
-        # 5️⃣ Heuristic-boost: proper nouns that spaCy thinks are PROPN:
-        doc = nlp(txt)
-        rebuilt = []
-        for token in doc:
-            if token.text.islower() and token.pos_ == "PROPN":
-                rebuilt.append(token.text.capitalize())
+        txt = re.sub(r'\b(am|pm)\b', lambda m: m.group(1).upper(), txt, flags=re.I)
+        # spaCy proper-noun boost
+        doc = nlp_trf(txt)
+        tokens = []
+        for tok in doc:
+            if tok.text.islower() and tok.pos_ == "PROPN":
+                tokens.append(tok.text.capitalize())
             else:
-                rebuilt.append(token.text)
-        # re-join preserving spaces
-        txt = spacy.tokens.Doc(doc.vocab, words=rebuilt).text
-
-        # 6️⃣ Final punctuation
+                tokens.append(tok.text)
+        txt = " ".join(tokens)
+        txt = re.sub(r'\s+([.,!?;:])', r'\1', txt)
+        txt = re.sub(r'([.,!?;:])([^\s])', r'\1 \2', txt)
+        txt = re.sub(r'\.\s+(\d)', r'.\1', txt)
+        txt = re.sub(r' {2,}', ' ', txt)
+        txt = re.sub(r'(["\'])\s+', r'\1', txt)
+        txt = re.sub(r'\s+(["\'])', r'\1', txt)
+        txt = re.sub(r'([.,!?;:])\s+(["\'])', r'\1\2', txt)
+        txt = re.sub(r'(["\'])\s+([.,!?;:])', r'\1\2', txt)
         txt = txt.strip()
         if txt and txt[-1] not in ".!?":
             txt += "."
-
         return txt
-
     except Exception as e:
-        print(f"❌ Error cleaning summary: {e}")
+        print("❌ clean_summary error:", e)
         traceback.print_exc()
         return text.strip()
 
-
-def fix_guardian_link(link):
+# ── ARTICLE FETCH ──────────────────────────────────────────────────────────
+def fix_guardian_link(link: str) -> str:
     if not link.startswith("http"):
         return "https://www.theguardian.com" + link.split("#")[0]
     return link
 
-
-def extract_image(tree):
+def extract_image(tree) -> str | None:
     try:
-        # OpenGraph
         og = tree.xpath("//meta[@property='og:image']/@content")
         if og: return og[0]
-        # Twitter card
         tw = tree.xpath("//meta[@name='twitter:image']/@content")
         if tw: return tw[0]
-        # fallback to any <img> in article
         imgs = tree.xpath("//article//img/@src") + tree.xpath("//img/@src")
         for u in imgs:
-            if u.startswith("http"): return u
+            if u.startswith("http"):
+                return u
         return None
     except Exception as e:
-        print(f"❌ Error extracting image: {e}")
+        print("❌ extract_image error:", e)
         return None
 
-
-def fetch_full_article(url: str):
+def fetch_full_article(url: str) -> tuple[str, str | None]:
     HEADERS = {
-        "User-Agent": "Mozilla/5.0",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/117.0.0.0 Safari/537.36",
         "Accept-Language": "en-US,en;q=0.9",
         "Referer": "https://www.google.com/",
     }
     try:
-        s = requests.Session()
-        r = s.get(url, headers=HEADERS)
-        if r.status_code == 403:
-            time.sleep(2)
-            r = s.get(url, headers=HEADERS, cookies=r.cookies)
-        r.raise_for_status()
-        tree = lxml_html.fromstring(r.content)
-        paras = tree.xpath("//p/text()")
+        scraper = cloudscraper.create_scraper(
+            browser={'browser': 'chrome', 'platform': 'windows'}
+        )
+        # Option A – set once for the whole session
+        scraper.verify = certifi.where()
+
+        resp = scraper.get(url, headers=HEADERS, timeout=30)
+        resp.raise_for_status()
+
+        tree    = lxml_html.fromstring(resp.content)
+        paras   = tree.xpath("//p/text()")
         content = " ".join(paras).strip() or "Content not available"
-        img     = extract_image(tree)
-        return content, img
+        img_url = extract_image(tree)
+        return content, img_url
+
     except Exception as e:
-        print(f"❌ Error fetching article from {url}: {e}")
+        print(f"❌ fetch_full_article error for {url}: {e}")
         return "Content not available", None
 
-
-# (Your existing generate_summary, process_news, etc. all remain unchanged)
-
-def strip_boilerplate(summary: str) -> str:
-    """Remove any leftover junk lines."""
-    pieces = summary.split(". ")
-    pieces = [p for p in pieces if p and not any(bp in p.lower() for bp in _BOILERPLATE_PHRASES)]
-    return ". ".join(pieces)
-
+# ── SUMMARY GENERATION ─────────────────────────────────────────────────────
 def generate_summary(text: str) -> str:
     try:
-        if not isinstance(text, str): text = str(text)
         if len(text.split()) < 10:
-            return smart_capitalise(text)
-        input_text = "summarize: " + text[:2048]
-        out = summarizer(input_text, min_length=50, do_sample=False)[0]["summary_text"]
-        out = clean_summary(out)
-        return out
+            return clean_summary(text)
+        out = summarizer(
+            "summarize: " + text[:2048],
+            min_length=50, do_sample=False
+        )[0]["summary_text"]
+        return clean_summary(out)
     except Exception as e:
-        print(f"❌ Error generating summary: {e}")
+        print("❌ generate_summary error:", e)
         return clean_summary(text[:300] + "...")
 
-def smart_capitalise(text: str) -> str:
-    # reuse clean_summary logic for capitalisation
-    return clean_summary(text)
-
+# ── MAIN SCRAPE LOOP ───────────────────────────────────────────────────────
 def process_news():
     results = {"positive": [], "neutral": [], "negative": []}
-    for site, cfg in WEBSITE_CONFIG.items():
-        print(f"📰 Scraping: {site}")
-        base, hx, lx = cfg["base_url"], cfg["headline_xpath"], cfg["link_xpath"]
-        arts = (scrape_dynamic_website(base,hx,lx) if cfg["dynamic"]
-                else scrape_static_website(base,hx,lx))
 
-        seen, filtered = set(), []
+    for site, cfg in WEBSITE_CONFIG.items():
+        print("📰 Scraping:", site)
+        arts = (
+            scrape_dynamic_website(cfg["base_url"], cfg["headline_xpath"], cfg["link_xpath"])
+            if cfg["dynamic"]
+            else
+            scrape_static_website(cfg["base_url"], cfg["headline_xpath"], cfg["link_xpath"])
+        )
+
+        seen = set()
         for a in arts:
             head = clean_text(a["headline"])
-            link = fix_guardian_link(a["link"]) if site=="guardian" else a["link"]
-            if link in seen: continue
+            # skip obviously generic/uninteresting headlines
+            low = head.strip().lower()
+            if any(re.search(pat, low) for pat in GENERIC_HEADLINE_PATTERNS):
+                continue
+            link = fix_guardian_link(a["link"]) if site == "guardian" else a["link"]
+            if link in seen:
+                continue
             seen.add(link)
-            filtered.append({"headline":head,"link":link})
 
-        for art in filtered:
-            headline = art["headline"]
-            url      = art["link"]
-            print(f"🔍 Fetching article: {headline} ({url})")
-            full, img = fetch_full_article(url)
-            if full=="Content not available": continue
-
-            summary = generate_summary(full)
-            summary = strip_boilerplate(summary)
-
-            # headline/summary match guard
-            def match_ok(h,s):
-                hset = set(re.findall(r"\b\w+\b",h.lower()))
-                sset = set(re.findall(r"\b\w+\b",s.lower()))
-                return len(hset & sset)/ (len(hset)+1) > 0.10
-
-            if not match_ok(headline, summary):
-                print("⚠️  Discarded – headline/summary don’t line up")
+            content, img = fetch_full_article(link)
+            if content == "Content not available":
                 continue
 
-            sent = analyze_keywords(headline)["final_sentiment"]
-            ents = extract_entities(full or headline)
-            ts   = datetime.datetime.now(datetime.timezone.utc).isoformat()
+            summ = generate_summary(content)
 
-            results[sent].append({
-                "headline": headline,
-                "url": url,
-                "sentiment": sent,
-                "summary": summary,
+            # 10% token overlap guard
+            hset = set(re.findall(r"\b\w+\b", head.lower()))
+            sset = set(re.findall(r"\b\w+\b", summ.lower()))
+            if len(hset & sset) / (len(hset) + 1) < 0.10:
+                print("⚠️ Discarded – summary/headline mismatch")
+                continue
+
+            sentiment = analyze_keywords(head)["final_sentiment"]
+            entities = extract_entities(summ)
+
+            results[sentiment].append({
+                "headline": head,
+                "url": link,
+                "sentiment": sentiment,
+                "summary": summ,
                 "image": img,
-                "timestamp": ts,
-                "entities": ents
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                "entities": entities
             })
 
-            print(f"{sent.capitalize()}: {headline}")
-            time.sleep(2)
+            print(f"{sentiment.capitalize()}: {head}")
+            time.sleep(1)
 
-    with open("sentiment_results.json","w", encoding="utf-8") as f:
+    with open("sentiment_results.json", "w", encoding="utf-8") as f:
         json.dump(results, f, indent=4, default=str)
 
-    print("\n✅ Sentiment Analysis Complete! Results saved in `sentiment_results.json`")
+    save_articles_to_db(json_file="sentiment_results.json")
+    print("✅ Sentiment Analysis Complete!")
 
 if __name__ == "__main__":
     process_news()

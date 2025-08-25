@@ -1,5 +1,5 @@
 {
-    "bbc": {
+     "bbc": {
         "base_url": "https://www.bbc.com/",
         "headline_xpath": "//h2[@data-testid='card-headline']",
         "link_xpath": ".//ancestor::a/@href",
@@ -28,7 +28,7 @@
         "headline_xpath": "//a[contains(@class, 'u-clickable-card__link') or h3[@class='article-card__title']]",
         "link_xpath": "./@href",
         "dynamic": false
-    },
+    },   
     "cbc": {
         "base_url": "https://www.cbc.ca/news",
         "headline_xpath": "//a[contains(@class, 'card') and .//h3]",

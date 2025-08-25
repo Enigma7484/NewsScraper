@@ -1,36 +1,71 @@
-import spacy, wikipediaapi, functools
+import re
+import json
+import spacy
+from spacy.tokens import Span
+from typing import List, Set
 
-# load once – medium-sized transformer model, quite accurate
-nlp = spacy.load("en_core_web_trf",
-                 disable=["tagger", "lemmatizer", "parser"])
+# —————————————————————————————————————————————————————————————————————————————
+# 1) Load spaCy’s transformer‐based NER and a small cross‐lingual NER:
+nlp_trf = spacy.load("en_core_web_trf", disable=["parser", "lemmatizer"])
+nlp_xx  = spacy.load("xx_ent_wiki_sm",  disable=["parser", "lemmatizer"])
 
-USER_AGENT = "NewsScraper/1.0 (contact: omarhaque7484@gmail.com)"
+# —————————————————————————————————————————————————————————————————————————————
+# 2) Stopwords & month names we never want to highlight:
+STOPWORDS = {
+    # common small words & stopwords
+    "in","on","at","from","via","to","for","one","first","this","that","been",
+    "summer","three","day","days","about","over","more","than",
+    # month names (don’t highlight solitary “March”, “April”, etc.)
+    "january","february","march","april","may","june",
+    "july","august","september","october","november","december",
+}
 
-wiki = wikipediaapi.Wikipedia(
-    user_agent=USER_AGENT,
-    language="en",
-    extract_format=wikipediaapi.ExtractFormat.WIKI
-)
+# —————————————————————————————————————————————————————————————————————————————
+# 3) Define exactly which spaCy labels we keep:
+ALLOWED_LABELS = {
+    "PERSON", "ORG", "GPE", "LOC", "EVENT", "PRODUCT", "FAC", "NORP"
+}
 
-# cache 500 look-ups in memory; tweak as you wish
-@functools.lru_cache(maxsize=500)
-def wiki_title(term: str) -> str | None:
-    page = wiki.page(term)
-    return page.title if page.exists() else None
+def should_highlight(ent: Span) -> bool:
+    txt = ent.text.strip()
+    # 1) Must be an allowed entity type
+    if ent.label_ not in ALLOWED_LABELS:
+        return False
+    # 2) Drop pure dates/numerals that spaCy sometimes tags
+    if ent.label_ in {"DATE", "CARDINAL", "ORDINAL", "TIME", "PERCENT", "MONEY"}:
+        return False
+    # 3) No stopwords or month names
+    if txt.lower() in STOPWORDS:
+        return False
+    # 4) Require proper capitalization: Upper → lower (no ALL-CAPS unless true acronym)
+    if not re.match(r"^[A-Z][a-z]", txt):
+        return False
+    return True
 
-def extract_entities(text: str, max_per_article: int = 8) -> list[str]:
-    # run NER
-    doc  = nlp(text)
-    keep = []
-    
-    for ent in doc.ents:
-        if ent.label_ in {"PERSON","ORG","GPE","EVENT","WORK_OF_ART"}:
-            raw = ent.text.strip()
-            # cheap de-dup / casing normalisation
-            if raw.lower() in {r.lower() for r in keep}:
-                continue
-            if title := wiki_title(raw):
-                keep.append(title)
-            if len(keep) >= max_per_article:
-                break
-    return keep
+# —————————————————————————————————————————————————————————————————————————————
+# 4) Main entity extractor:
+def extract_entities(text: str) -> List[str]:
+    """
+    Extract & return a de-duplicated list of true lookup-worthy
+    entities from the given text.
+    """
+    combined: List[str] = []
+    seen: Set[str] = set()
+
+    # a) spaCy-TRF (English NER)
+    for ent in nlp_trf(text).ents:
+        if should_highlight(ent):
+            key = ent.text.lower()
+            if key not in seen:
+                seen.add(key)
+                combined.append(ent.text)
+
+    # b) spaCy-XX (multilingual NER)
+    for ent in nlp_xx(text).ents:
+        if should_highlight(ent):
+            key = ent.text.lower()
+            if key not in seen:
+                seen.add(key)
+                combined.append(ent.text)
+
+    return combined

@@ -4,50 +4,53 @@ import os
 import datetime
 from dotenv import load_dotenv
 
-# Load environment variables
+# load .env (MONGO_URL, DB_NAME, COLLECTION_NAME)
 load_dotenv()
 
-# MongoDB Connection
-MONGO_URI = os.getenv("MONGO_URL")
-DB_NAME = os.getenv("DB_NAME")
-COLLECTION_NAME = os.getenv("COLLECTION_NAME")
+MONGO_URI       = os.getenv("MONGO_URL")
+DB_NAME         = os.getenv("DB_NAME", "news_scraper")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME", "articles")
 
-# Connect to MongoDB
-client = MongoClient(MONGO_URI)
-db = client[DB_NAME]
+client     = MongoClient(MONGO_URI)
+db         = client[DB_NAME]
 collection = db[COLLECTION_NAME]
 
 
 def save_articles_to_db(json_file="sentiment_results.json"):
     """
-    Reads sentiment analysis results from JSON and saves them to MongoDB.
+    Reads sentiment analysis results from JSON and upserts them to MongoDB,
+    preserving both the 'timestamp' and 'entities' fields.
     """
     try:
-        # Load sentiment analysis results
-        with open(json_file, "r", encoding="utf-8") as file:
-            data = json.load(file)
+        with open(json_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
 
-        # Convert the structured results into MongoDB-friendly format
-        articles_to_insert = []
+        docs = []
         for sentiment, articles in data.items():
-            for article in articles:
-                article_entry = {
-                    "headline": article["headline"],
-                    "url": article["url"],
+            for art in articles:
+                # pull whatever came out of your pipeline
+                doc = {
+                    "headline":  art.get("headline"),
+                    "url":       art.get("url"),
                     "sentiment": sentiment,
-                    "summary": article["summary"],
-                    "image": article["image"],
-                    "timestamp": datetime.datetime.now(
-                        datetime.timezone.utc
-                    ),  # Store timestamp in UTC
+                    "summary":   art.get("summary"),
+                    "image":     art.get("image"),
+                    # use JSON timestamp if present, else now:
+                    "timestamp": datetime.datetime.fromisoformat(art.get("timestamp"))
+                                    if art.get("timestamp")
+                                    else datetime.datetime.now(datetime.timezone.utc),
+                    # now include entities
+                    "entities":  art.get("entities", []),
                 }
-                articles_to_insert.append(article_entry)
+                docs.append(doc)
 
-        if articles_to_insert:
-            collection.insert_many(articles_to_insert)
-            print("✅ Articles saved to MongoDB successfully with timestamps.")
-        else:
-            print("⚠️ No articles found to save.")
+        if not docs:
+            print("⚠️ No articles found in JSON; nothing to insert.")
+            return
+
+        # you can choose insert_many or upsert logic if you want dedupe:
+        collection.insert_many(docs)
+        print(f"✅ Inserted {len(docs)} articles into '{DB_NAME}.{COLLECTION_NAME}'")
 
     except Exception as e:
         print(f"❌ Error saving articles to MongoDB: {e}")

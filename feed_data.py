@@ -29,7 +29,10 @@ NEGATIVE_KEYWORDS = [
     "shelling", "air raid", "drone attack", "sabotage", "mass shooting",
     "plane crash", "bus crash", "hostages", "kidnapped", "abduction", "kidnapping",
     "abducted", "kidnap", "kidnapper", "kidnappers", "hostage crisis", "hostage situation","emergency",
-    "emergency situation", "emergency response", "emergency services", "emergency alert", "car hits"
+    "emergency situation", "emergency response", "emergency services", "emergency alert", "car hits", "don't",
+    "paedophile", "victims", "victim", "victimized", "victimization", "victimised",
+    "victimization", "victimised", "victimizing", "victimizes", "victimization", "devastated", "deal"
+
 ]
 
 POSITIVE_KEYWORDS = [
@@ -59,6 +62,8 @@ POSITIVE_KEYWORDS = [
     "celebrates", "celebrated", "celebrating", "festival", "festivals", "carnival", "carnivals", "agrees", "agreement",
     "agreed", "agreeing", "consensus", "consensual", "consensually", "consents", "consented", "consenting", "consent", "consents to", "consented to", "consenting to",
     "consent to", "consent for", "consents for", "consented for", "consenting for", "consent with", "consents with", "consented with", "consenting with",
+    "hold up", "sold out", "sold-out", "soldout", "sold out event", "sold out show", "sold out concert",
+    "sold out performance", "sold out tour", "sold out festival", "sold out event",
 ]
 
 MIXED_KEYWORDS = [
@@ -71,7 +76,7 @@ MIXED_KEYWORDS = [
     "emotional", "emotional reactions", "emotional response", "emotional responses",
     "emotional turmoil", "emotional rollercoaster", "emotional impact", "emotional fallout", "escapes", "controversial",
     "controversially", "controversies", "controversial issues", "controversial topic", "resigns", "resignation",
-    "resignations", "resigned", "resigning", "resigns amid", "resigns over", "resigns after",
+    "resignations", "resigned", "resigning", "resigns amid", "resigns over", "resigns after", "escape", "shadow"
 ]
 
 NEUTRAL_INDICATORS = [
@@ -83,7 +88,7 @@ NEUTRAL_INDICATORS = [
     "analysis", "perspective", "review", "interview", "profile", "memo", "minutes",
     "live blog", "live", "coverage", "overview", "primer", "how-to", "guide", "factbox",
     "timeline", "timeline:", "explainer", "explanation", "thoughts", "thought",
-    "commentary", "briefing", "brief", "backgrounder", "background", "background:",
+    "commentary", "briefing", "brief", "backgrounder", "background", "background:", "court"
 ]
 
 def analyze_keywords(text: str) -> dict:

@@ -14,8 +14,11 @@ load_dotenv()
 
 # MongoDB Connection
 MONGO_URI = os.getenv("MONGO_URL")
-DB_NAME = os.getenv("DB_NAME")
-COLLECTION_NAME = os.getenv("COLLECTION_NAME")
+DB_NAME = os.getenv("DB_NAME", "news_scraper")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME", "articles")
+
+if not MONGO_URI:
+    raise RuntimeError("MONGO_URL environment variable is required")
 
 client = MongoClient(MONGO_URI)
 db = client[DB_NAME]

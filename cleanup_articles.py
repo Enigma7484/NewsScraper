@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from pymongo import DeleteOne, MongoClient, UpdateOne
 
 from article_quality import clean_article_text, clean_headline, is_junk_article
+from keyword_extractor import extract_entities
 
 os.environ.setdefault("NEWS_PIPELINE_FAST", "1")
 from feed_data import analyze_keywords
@@ -42,6 +43,7 @@ def main():
             "sentiment": sentiment_result["final_sentiment"],
             "sentiment_method": sentiment_result.get("method"),
             "sentiment_score": sentiment_result.get("score"),
+            "entities": extract_entities(f"{headline}. {summary}"),
         }
 
         if timestamp and timestamp.tzinfo is None:

@@ -59,6 +59,7 @@ def compact_text(text: str | None) -> str:
     text = text or ""
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"\s+([.,!?;:])", r"\1", text)
+    text = re.sub(r"\b([A-Z])\.\s+([A-Z])\.", r"\1.\2.", text)
     text = re.sub(r"([.!?])([A-Z])", r"\1 \2", text)
     text = re.sub(r"([a-z])([A-Z][a-z])", r"\1 \2", text)
     return text.strip()
@@ -86,6 +87,24 @@ def clean_article_text(text: str | None) -> str:
         if sentence
         and not any(fragment in sentence.lower() for fragment in SENTENCE_BOILERPLATE)
     ]
+    return trim_incomplete_trailing_sentence(compact_text(" ".join(sentences)))
+
+
+def trim_incomplete_trailing_sentence(text: str) -> str:
+    if not text:
+        return ""
+    text = re.sub(r"(?:,\s*)?\b[A-Z]\.$", "", text).strip()
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    if not sentences:
+        return text
+
+    last = sentences[-1].strip()
+    if len(sentences) > 1 and (
+        not re.search(r"[.!?]$", last)
+        or re.search(r"\b[A-Z]\.$", last)
+        or len(last.split()) <= 3
+    ):
+        sentences = sentences[:-1]
     return compact_text(" ".join(sentences))
 
 

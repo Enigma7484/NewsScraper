@@ -5,8 +5,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.edge.service import Service
 from fake_useragent import UserAgent
+from urllib.parse import urljoin
+
+from article_quality import clean_headline, is_junk_article
 
 # Load news site configurations from JSON
 with open("news_sites.json", "r", encoding="utf-8") as file:
@@ -24,7 +26,7 @@ def filter_results(results):
     """Filters out unwanted entries from the scraped results."""
     filtered_results = []
     for item in results:
-        headline = item["headline"].strip()
+        headline = clean_headline(item["headline"])
         link = item["link"].strip()
 
         # ❌ Remove non-article entries
@@ -34,8 +36,10 @@ def filter_results(results):
             continue
         if "player/play/video" in link or "ad" in link:
             continue
+        if is_junk_article(headline, link):
+            continue
 
-        filtered_results.append(item)
+        filtered_results.append({"headline": headline, "link": link})
     return filtered_results
 
 
@@ -56,9 +60,7 @@ def scrape_static_website(base_url, headline_xpath, link_xpath):
             if link:
                 full_link = link[0]
                 if not full_link.startswith("http"):
-                    full_link = (
-                        base_url.rstrip("/") + full_link
-                    )  # Convert relative links to full URLs
+                    full_link = urljoin(base_url, full_link)
                 results.append({"headline": text, "link": full_link})
 
         return filter_results(results)
@@ -72,9 +74,7 @@ def scrape_static_website(base_url, headline_xpath, link_xpath):
 def scrape_dynamic_website(base_url, headline_xpath, link_xpath):
     """Uses Selenium for sites requiring JavaScript rendering."""
     try:
-        DRIVER_PATH = "C:/Users/omarh/Downloads/edgedriver_win64/msedgedriver.exe"
-        service = Service(DRIVER_PATH)
-        driver = webdriver.Edge(service=service)
+        driver = webdriver.Edge()
         driver.get(base_url)
 
         try:
@@ -96,9 +96,7 @@ def scrape_dynamic_website(base_url, headline_xpath, link_xpath):
                 text = headline[0].strip()
                 full_link = link[0].strip()
                 if not full_link.startswith("http"):
-                    full_link = (
-                        base_url.rstrip("/") + full_link
-                    )  # Convert relative URLs
+                    full_link = urljoin(base_url, full_link)
                 results.append({"headline": text, "link": full_link})
 
         return filter_results(results)

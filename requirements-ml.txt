@@ -1,0 +1,12 @@
+spacy
+torch
+transformers
+tensorflow
+textblob
+vaderSentiment
+newspaper3k
+scikit-learn
+matplotlib
+wordcloud
+nltk
+ftfy

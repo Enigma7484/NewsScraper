@@ -1,19 +1,21 @@
+from __future__ import annotations
+
 import json
 import cloudscraper
 import certifi
+import os
 import time
 import unicodedata
 import re
-import spacy
 import traceback
 import datetime
 import html as _html
 from lxml import html as lxml_html
-from transformers import pipeline
 from selector_scraper import scrape_static_website, scrape_dynamic_website
 from keyword_extractor import extract_entities
 from feed_data import analyze_keywords
 from save2db import save_articles_to_db
+from article_quality import clean_article_text, clean_headline, is_junk_article
 
 # ── Generic headline blacklist ──────────────────────────────────────────────
 # any headline matching these (case-insensitive) patterns will be skipped
@@ -22,14 +24,18 @@ GENERIC_HEADLINE_PATTERNS = [
     r"\btrending\b",         # “Trending”
     r"\bsalt deduction\b",   # “SALT deduction”
     r"\bprime day deals\b",  # “Prime Day deals”
+    r"^the guardian\b",
+    r"^view all\b",
+    r"\b(crossword|sudoku|strands|wordle|the new york times games|nyt games)\b",
+    r"\b(work for us|sign up|terms\s*&\s*conditions|careers?)\b",
 ]
 
 # ── CONFIG ──────────────────────────────────────────────────────────────────
 with open("news_sites.json", "r", encoding="utf-8") as f:
     WEBSITE_CONFIG = json.load(f)
 
-summarizer = pipeline("summarization", model="t5-large")
-nlp_trf     = spacy.load("en_core_web_trf", disable=["parser","lemmatizer"])
+summarizer = None
+nlp_trf = None
 
 # ── PRECOMPILED REGEX & REPLACEMENTS ────────────────────────────────────────
 _CAP_RE = re.compile(r'(^|[.!?]["\']?\s*)([a-z])')
@@ -86,6 +92,7 @@ def clean_summary(text: str) -> str:
         if not isinstance(text, str) or not text.strip():
             return ""
         txt = clean_text(text)
+        txt = clean_article_text(txt)
         for pat in _MAINT_PATTERNS:
             txt = re.sub(pat, "", txt, flags=re.I)
         parts = [
@@ -95,15 +102,24 @@ def clean_summary(text: str) -> str:
         txt = ". ".join(parts)
         txt = _CAP_RE.sub(lambda m: m.group(1) + m.group(2).upper(), txt)
         txt = re.sub(r'\b(am|pm)\b', lambda m: m.group(1).upper(), txt, flags=re.I)
-        # spaCy proper-noun boost
-        doc = nlp_trf(txt)
-        tokens = []
-        for tok in doc:
-            if tok.text.islower() and tok.pos_ == "PROPN":
-                tokens.append(tok.text.capitalize())
-            else:
-                tokens.append(tok.text)
-        txt = " ".join(tokens)
+        try:
+            global nlp_trf
+            if nlp_trf is None:
+                import spacy
+
+                nlp_trf = spacy.load(
+                    "en_core_web_trf", disable=["parser", "lemmatizer"]
+                )
+            doc = nlp_trf(txt)
+            tokens = []
+            for tok in doc:
+                if tok.text.islower() and tok.pos_ == "PROPN":
+                    tokens.append(tok.text.capitalize())
+                else:
+                    tokens.append(tok.text)
+            txt = " ".join(tokens)
+        except Exception:
+            pass
         txt = re.sub(r'\s+([.,!?;:])', r'\1', txt)
         txt = re.sub(r'([.,!?;:])([^\s])', r'\1 \2', txt)
         txt = re.sub(r'\.\s+(\d)', r'.\1', txt)
@@ -162,7 +178,7 @@ def fetch_full_article(url: str) -> tuple[str, str | None]:
 
         tree    = lxml_html.fromstring(resp.content)
         paras   = tree.xpath("//p/text()")
-        content = " ".join(paras).strip() or "Content not available"
+        content = clean_article_text(" ".join(paras).strip()) or "Content not available"
         img_url = extract_image(tree)
         return content, img_url
 
@@ -175,6 +191,18 @@ def generate_summary(text: str) -> str:
     try:
         if len(text.split()) < 10:
             return clean_summary(text)
+        fast_summary = (
+            os.getenv("NEWS_SUMMARY_FAST")
+            or os.getenv("NEWS_PIPELINE_FAST", "")
+        ).lower() in {"1", "true", "yes"}
+        if fast_summary:
+            sentences = re.split(r"(?<=[.!?])\s+", text)
+            return clean_summary(" ".join(sentences[:2])[:450])
+        global summarizer
+        if summarizer is None:
+            from transformers import pipeline
+
+            summarizer = pipeline("summarization", model="t5-large")
         out = summarizer(
             "summarize: " + text[:2048],
             min_length=50, do_sample=False
@@ -187,6 +215,14 @@ def generate_summary(text: str) -> str:
 # ── MAIN SCRAPE LOOP ───────────────────────────────────────────────────────
 def process_news():
     results = {"positive": [], "neutral": [], "negative": []}
+    max_articles_per_site = int(os.getenv("MAX_ARTICLES_PER_SITE", "0") or 0)
+    max_attempts_per_site = int(
+        os.getenv(
+            "MAX_ATTEMPTS_PER_SITE",
+            str(max(max_articles_per_site * 6, 30) if max_articles_per_site else 0),
+        )
+        or 0
+    )
 
     for site, cfg in WEBSITE_CONFIG.items():
         print("📰 Scraping:", site)
@@ -198,13 +234,22 @@ def process_news():
         )
 
         seen = set()
+        processed_for_site = 0
+        attempts_for_site = 0
         for a in arts:
-            head = clean_text(a["headline"])
+            if max_articles_per_site and processed_for_site >= max_articles_per_site:
+                break
+            if max_attempts_per_site and attempts_for_site >= max_attempts_per_site:
+                break
+            attempts_for_site += 1
+            head = clean_headline(clean_text(a["headline"]))
             # skip obviously generic/uninteresting headlines
             low = head.strip().lower()
             if any(re.search(pat, low) for pat in GENERIC_HEADLINE_PATTERNS):
                 continue
             link = fix_guardian_link(a["link"]) if site == "guardian" else a["link"]
+            if is_junk_article(head, link):
+                continue
             if link in seen:
                 continue
             seen.add(link)
@@ -214,6 +259,8 @@ def process_news():
                 continue
 
             summ = generate_summary(content)
+            if is_junk_article(head, link, summ):
+                continue
 
             # 10% token overlap guard
             hset = set(re.findall(r"\b\w+\b", head.lower()))
@@ -222,18 +269,22 @@ def process_news():
                 print("⚠️ Discarded – summary/headline mismatch")
                 continue
 
-            sentiment = analyze_keywords(head)["final_sentiment"]
+            sentiment_result = analyze_keywords(head, summ)
+            sentiment = sentiment_result["final_sentiment"]
             entities = extract_entities(summ)
 
             results[sentiment].append({
                 "headline": head,
                 "url": link,
                 "sentiment": sentiment,
+                "sentiment_method": sentiment_result.get("method"),
+                "sentiment_score": sentiment_result.get("score"),
                 "summary": summ,
                 "image": img,
                 "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
                 "entities": entities
             })
+            processed_for_site += 1
 
             print(f"{sentiment.capitalize()}: {head}")
             time.sleep(1)

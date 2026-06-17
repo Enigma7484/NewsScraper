@@ -1,9 +1,8 @@
-from transformers import pipeline
+import os
+import re
 
-# ✅ Load improved RoBERTa sentiment model
-sentiment_model = pipeline(
-    "sentiment-analysis", model="siebert/sentiment-roberta-large-english"
-)
+sentiment_model = None
+DEFAULT_SENTIMENT_MODEL = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 
 # ✅ Override keywords for better classification
 NEGATIVE_KEYWORDS = [
@@ -31,7 +30,8 @@ NEGATIVE_KEYWORDS = [
     "abducted", "kidnap", "kidnapper", "kidnappers", "hostage crisis", "hostage situation","emergency",
     "emergency situation", "emergency response", "emergency services", "emergency alert", "car hits", "don't",
     "paedophile", "victims", "victim", "victimized", "victimization", "victimised",
-    "victimization", "victimised", "victimizing", "victimizes", "victimization", "devastated", "deal"
+    "victimization", "victimised", "victimizing", "victimizes", "victimization", "devastated",
+    "unleashed", "no peace", "can be no peace", "cannot be peace", "without peace"
 
 ]
 
@@ -91,37 +91,71 @@ NEUTRAL_INDICATORS = [
     "commentary", "briefing", "brief", "backgrounder", "background", "background:", "court"
 ]
 
-def analyze_keywords(text: str) -> dict:
+STRONG_NEGATIVE_KEYWORDS = [
+    "war", "killed", "kill", "death", "dead", "deadly", "crash", "attack",
+    "assault", "fraud", "threat", "devastated", "bomb", "strike", "shooting",
+    "murder", "rape", "detained", "arrested", "outbreak", "dies", "died",
+    "unleashed", "no peace", "can be no peace", "cannot be peace",
+]
+
+
+def _contains_phrase(text: str, phrases: list[str]) -> bool:
+    return any(re.search(rf"(?<!\w){re.escape(phrase)}(?!\w)", text) for phrase in phrases)
+
+def analyze_keywords(text: str, context: str = "") -> dict:
     """
     Robust sentiment classifier using a hybrid of model + rules.
     """
     try:
-        result = sentiment_model(text)
-        label = result[0]["label"].lower()  # 'positive' or 'negative'
-
-        lower_text = text.lower()
+        full_text = f"{text}. {context}".strip()
+        lower_text = full_text.lower()
         has_negative = any(word in lower_text for word in NEGATIVE_KEYWORDS)
         has_positive = any(word in lower_text for word in POSITIVE_KEYWORDS)
         has_mixed = any(w in lower_text for w in MIXED_KEYWORDS)
         has_neutral = any(w in lower_text for w in NEUTRAL_INDICATORS)
+        has_strong_negative = _contains_phrase(lower_text, STRONG_NEGATIVE_KEYWORDS)
 
-        # 🔴 Rules override model when necessary
+        if has_strong_negative:
+            return {"final_sentiment": "negative", "method": "strong_negative_rules"}
         if has_negative and not has_positive:
-            return {"final_sentiment": "negative"}
-        if has_positive and not has_negative:
-            return {"final_sentiment": "positive"}
-        if has_negative and has_positive or has_mixed:
-            return {"final_sentiment": "neutral"}
-        if has_neutral and not has_negative:
-            return {"final_sentiment": "neutral"}
-        
-         # ✅ Model fallback
+            return {"final_sentiment": "negative", "method": "negative_rules"}
+        if (has_negative and has_positive) or has_mixed:
+            return {"final_sentiment": "neutral", "method": "mixed_rules"}
+        if has_neutral and not has_negative and not has_positive:
+            return {"final_sentiment": "neutral", "method": "neutral_rules"}
+
+        fast_sentiment = (
+            os.getenv("NEWS_SENTIMENT_FAST")
+            or os.getenv("NEWS_PIPELINE_FAST", "")
+        ).lower() in {"1", "true", "yes"}
+
+        if fast_sentiment:
+            if has_positive and not has_negative:
+                return {"final_sentiment": "positive", "method": "positive_rules"}
+            return {"final_sentiment": "neutral", "method": "fast_default"}
+
+        global sentiment_model
+        if sentiment_model is None:
+            from transformers import pipeline
+
+            sentiment_model = pipeline(
+                "sentiment-analysis",
+                model=os.getenv("SENTIMENT_MODEL_NAME", DEFAULT_SENTIMENT_MODEL),
+            )
+
+        result = sentiment_model(full_text[:512])
+        label = result[0]["label"].lower()
+        score = result[0].get("score")
+
+        # ✅ Model fallback
         if "positive" in label:
-            return {"final_sentiment": "positive"}
+            return {"final_sentiment": "positive", "score": score, "method": "model"}
+        elif "neutral" in label:
+            return {"final_sentiment": "neutral", "score": score, "method": "model"}
         elif "negative" in label:
-            return {"final_sentiment": "negative"}
+            return {"final_sentiment": "negative", "score": score, "method": "model"}
         else:
-            return {"final_sentiment": "neutral"}
+            return {"final_sentiment": "neutral", "score": score, "method": "model"}
         
     except Exception as e:
         print(f"❌ Sentiment analysis failed: {e}")

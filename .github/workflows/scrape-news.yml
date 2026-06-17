@@ -1,0 +1,39 @@
+name: Scrape news
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      MONGO_URL: ${{ secrets.MONGO_URL }}
+      DB_NAME: ${{ vars.DB_NAME || 'news_scraper' }}
+      COLLECTION_NAME: ${{ vars.COLLECTION_NAME || 'articles' }}
+      NEWS_SUMMARY_FAST: "1"
+      NEWS_SENTIMENT_FAST: "1"
+      MAX_ARTICLES_PER_SITE: "8"
+      MAX_ATTEMPTS_PER_SITE: "30"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python sentiment_analysis_pipeline.py
+
+      - name: Upload JSON snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: sentiment-results
+          path: sentiment_results.json

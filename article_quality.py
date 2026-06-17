@@ -1,0 +1,123 @@
+from __future__ import annotations
+
+import re
+from datetime import datetime, timedelta, timezone
+from urllib.parse import urlparse
+
+
+JUNK_PATTERNS = [
+    r"\b(crossword|mini crossword|midi crossword|sudoku|sudoblock|strands|wordle)\b",
+    r"\b(the new york times games|nyt games|games hub)\b",
+    r"\b(work for us|careers?|jobs?|sign up|newsletter|terms (?:&|and) conditions)\b",
+    r"\b(privacy policy|help|contact us|advertise with us|accessibility)\b",
+    r"^the athletic(?:sports coverage)?$",
+    r"^the guardian(?:\s+-\s+back to home)?$",
+    r"^view all\b",
+    r"^(tip us off|sign up for our email)$",
+]
+
+JUNK_URL_PATTERNS = [
+    r"/games?/",
+    r"/crosswords?/",
+    r"/puzzles?/",
+    r"/careers?/",
+    r"/jobs?/",
+    r"/work-for-us",
+]
+
+BYLINE_ONLY_PATTERNS = [
+    r"^[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,4}\s+for\s+The\s+New\s+York\s+Times$",
+    r"^[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,4}/The\s+New\s+York\s+Times$",
+]
+
+HEADLINE_GLUED_PATTERNS = [
+    r"\d+\s+min\s+read",
+    r"Getty Images",
+    r"From The Athletic",
+    r"The New York Times Games",
+]
+
+BOILERPLATE_PREFIXES = [
+    r"^save share\s+",
+    r"^listen to this article\s+",
+    r"^advertisement\s+",
+]
+
+SENTENCE_BOILERPLATE = [
+    "sign up for our email",
+    "work for us",
+    "terms & conditions",
+    "terms and conditions",
+    "privacy policy",
+    "all rights reserved",
+    "copyright",
+    "this article is more than",
+]
+
+
+def compact_text(text: str | None) -> str:
+    text = text or ""
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s+([.,!?;:])", r"\1", text)
+    text = re.sub(r"([.!?])([A-Z])", r"\1 \2", text)
+    text = re.sub(r"([a-z])([A-Z][a-z])", r"\1 \2", text)
+    return text.strip()
+
+
+def clean_headline(headline: str | None) -> str:
+    text = compact_text(headline)
+    text = re.sub(r"\b(double|single)\s*quotation\s*mark", "", text, flags=re.I)
+    text = text.replace("‘ ", "‘").replace(" “", " “")
+    text = re.sub(r"\s*\d+\s+min\s+read.*$", "", text, flags=re.I)
+    text = re.sub(r"\s*From The Athletic.*$", "", text, flags=re.I)
+    text = re.sub(r"\s*[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,4}\s+for\s+The\s+New\s+York\s+Times$", "", text)
+    return compact_text(text)
+
+
+def clean_article_text(text: str | None) -> str:
+    cleaned = compact_text(text)
+    for pattern in BOILERPLATE_PREFIXES:
+        cleaned = re.sub(pattern, "", cleaned, flags=re.I)
+
+    sentences = re.split(r"(?<=[.!?])\s+", cleaned)
+    sentences = [
+        sentence
+        for sentence in sentences
+        if sentence
+        and not any(fragment in sentence.lower() for fragment in SENTENCE_BOILERPLATE)
+    ]
+    return compact_text(" ".join(sentences))
+
+
+def is_junk_article(headline: str | None, url: str | None = "", summary: str | None = "") -> bool:
+    title = compact_text(headline).lower()
+    body = compact_text(summary).lower()
+    path = urlparse(url or "").path.lower()
+    combined = f"{title} {body}"
+
+    if len(title.split()) < 4:
+        return True
+    if any(re.search(pattern, title, re.I) for pattern in JUNK_PATTERNS):
+        return True
+    if any(re.search(pattern, url or "", re.I) for pattern in JUNK_URL_PATTERNS):
+        return True
+    if any(re.search(pattern, compact_text(headline), re.I) for pattern in BYLINE_ONLY_PATTERNS):
+        return True
+    if any(pattern.lower() in combined for pattern in ["work for us", "sign up for our email"]):
+        return True
+    if re.search(r"/(video|games|play|puzzle|crossword)", path):
+        return True
+    return False
+
+
+def is_recent(timestamp, days: int = 2) -> bool:
+    if not timestamp:
+        return False
+    if isinstance(timestamp, str):
+        try:
+            timestamp = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+        except ValueError:
+            return False
+    if timestamp.tzinfo is None:
+        timestamp = timestamp.replace(tzinfo=timezone.utc)
+    return timestamp >= datetime.now(timezone.utc) - timedelta(days=days)

@@ -3,7 +3,9 @@ from flask_cors import CORS
 from pymongo import MongoClient
 from bson import ObjectId
 import os
+import json
 from dotenv import load_dotenv
+from article_quality import is_junk_article
 
 # Flask App Initialization
 app = Flask(__name__)
@@ -17,12 +19,8 @@ MONGO_URI = os.getenv("MONGO_URL")
 DB_NAME = os.getenv("DB_NAME", "news_scraper")
 COLLECTION_NAME = os.getenv("COLLECTION_NAME", "articles")
 
-if not MONGO_URI:
-    raise RuntimeError("MONGO_URL environment variable is required")
-
-client = MongoClient(MONGO_URI)
-db = client[DB_NAME]
-collection = db[COLLECTION_NAME]
+client = MongoClient(MONGO_URI) if MONGO_URI else None
+collection = client[DB_NAME][COLLECTION_NAME] if client else None
 
 # # Create text index on headline and summary fields if it doesn't exist
 # if "headline_summary_text" not in collection.index_information():
@@ -32,6 +30,33 @@ collection = db[COLLECTION_NAME]
 
 # Constants
 PAGE_SIZE = 15
+DEFAULT_RECENT_DAYS = int(os.getenv("DEFAULT_RECENT_DAYS", "2"))
+
+
+def quality_query():
+    return {
+        "$and": [
+            {"headline": {"$not": {"$regex": r"(crossword|sudoku|sudoblock|strands|wordle|work for us|sign up|terms\s*&\s*conditions)", "$options": "i"}}},
+            {"summary": {"$not": {"$regex": r"(work for us|sign up for our email|privacy policy|terms\s*&\s*conditions)", "$options": "i"}}},
+            {"url": {"$not": {"$regex": r"/(games|play|crossword|puzzle|careers|jobs)/", "$options": "i"}}},
+        ]
+    }
+
+
+def load_json_articles():
+    with open("sentiment_results.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+    articles = []
+    for sentiment, items in data.items():
+        for index, article in enumerate(items):
+            articles.append(
+                {
+                    "_id": f"{sentiment}-{index}",
+                    "sentiment": sentiment,
+                    **article,
+                }
+            )
+    return articles
 
 
 def serialize_article(article):
@@ -57,13 +82,57 @@ def get_articles():
     sort_order = request.args.get("sort", "desc")
     keyword = request.args.get("keyword", "").strip()
     category = request.args.get("category", "").strip().lower()
+    recent_days = request.args.get("recent_days", str(DEFAULT_RECENT_DAYS)).strip()
+    all_time = request.args.get("all_time", "").strip().lower() in {"1", "true", "yes"}
+
+    if collection is None:
+        articles = load_json_articles()
+        articles = [
+            a for a in articles
+            if not is_junk_article(a.get("headline"), a.get("url"), a.get("summary"))
+        ]
+        if category in ["positive", "negative", "neutral"]:
+            articles = [a for a in articles if a.get("sentiment") == category]
+        if keyword:
+            needle = keyword.lower()
+            articles = [
+                a
+                for a in articles
+                if needle in a.get("headline", "").lower()
+                or needle in a.get("summary", "").lower()
+            ]
+        reverse = sort_order != "asc"
+        articles.sort(key=lambda a: a.get("timestamp", ""), reverse=reverse)
+        page = articles[offset : offset + PAGE_SIZE]
+        return jsonify(
+            {
+                "articles": page,
+                "pagination": {
+                    "total": len(articles),
+                    "offset": offset,
+                    "page_size": PAGE_SIZE,
+                    "has_more": (offset + PAGE_SIZE) < len(articles),
+                },
+            }
+        )
 
     # Build query
-    query = {}
+    query = quality_query()
 
     # Add category filter if specified
     if category in ["positive", "negative", "neutral"]:
         query["sentiment"] = category
+
+    if not all_time and recent_days:
+        from datetime import datetime, timedelta, timezone
+
+        try:
+            days = max(1, int(recent_days))
+            query["timestamp"] = {
+                "$gte": datetime.now(timezone.utc) - timedelta(days=days)
+            }
+        except ValueError:
+            pass
 
     # Add keyword search if provided - search in both headline and summary
     if keyword:
@@ -104,6 +173,12 @@ def get_article_by_id(id):
     Path Parameters:
     - id: The MongoDB ObjectId of the article to fetch
     """
+
+    if collection is None:
+        article = next((a for a in load_json_articles() if a["_id"] == id), None)
+        if article:
+            return jsonify(article)
+        return jsonify({"error": "Article not found"}), 404
 
     article_id = id
 

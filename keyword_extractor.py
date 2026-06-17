@@ -1,13 +1,13 @@
 import re
-import json
-import spacy
-from spacy.tokens import Span
 from typing import List, Set
 
-# —————————————————————————————————————————————————————————————————————————————
-# 1) Load spaCy’s transformer‐based NER and a small cross‐lingual NER:
-nlp_trf = spacy.load("en_core_web_trf", disable=["parser", "lemmatizer"])
-nlp_xx  = spacy.load("xx_ent_wiki_sm",  disable=["parser", "lemmatizer"])
+try:
+    from spacy.tokens import Span
+except Exception:
+    Span = object
+
+nlp_trf = None
+nlp_xx = None
 
 # —————————————————————————————————————————————————————————————————————————————
 # 2) Stopwords & month names we never want to highlight:
@@ -51,6 +51,20 @@ def extract_entities(text: str) -> List[str]:
     """
     combined: List[str] = []
     seen: Set[str] = set()
+
+    global nlp_trf, nlp_xx
+    if nlp_trf is None or nlp_xx is None:
+        try:
+            import spacy
+
+            nlp_trf = spacy.load("en_core_web_trf", disable=["parser", "lemmatizer"])
+            nlp_xx = spacy.load("xx_ent_wiki_sm", disable=["parser", "lemmatizer"])
+        except Exception:
+            for match in re.findall(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\b", text):
+                if match.lower() not in STOPWORDS and match.lower() not in seen:
+                    seen.add(match.lower())
+                    combined.append(match)
+            return combined[:12]
 
     # a) spaCy-TRF (English NER)
     for ent in nlp_trf(text).ents:

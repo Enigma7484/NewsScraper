@@ -17,6 +17,7 @@ jobs:
       NEWS_SENTIMENT_FAST: "1"
       MAX_ARTICLES_PER_SITE: "8"
       MAX_ATTEMPTS_PER_SITE: "30"
+      ARTICLE_RETENTION_DAYS: "365"
 
     steps:
       - uses: actions/checkout@v4
@@ -34,6 +35,9 @@ jobs:
 
       - name: Run scraper
         run: python sentiment_analysis_pipeline.py
+
+      - name: Clean and retain article archive
+        run: python cleanup_articles.py
 
       - name: Upload JSON snapshot
         uses: actions/upload-artifact@v4

@@ -17,11 +17,14 @@ def main():
     collection = client[
         os.getenv("DB_NAME", "news_scraper")
     ][os.getenv("COLLECTION_NAME", "articles")]
+    retention_days = max(1, int(os.getenv("ARTICLE_RETENTION_DAYS", "365")))
 
     scanned = 0
     deleted = 0
+    expired = 0
     updated = 0
     recent_cutoff = datetime.now(timezone.utc) - timedelta(days=2)
+    retention_cutoff = datetime.now(timezone.utc) - timedelta(days=retention_days)
     operations = []
 
     for article in collection.find({}):
@@ -30,6 +33,15 @@ def main():
         summary = clean_article_text(article.get("summary"))
         url = article.get("url")
         timestamp = article.get("timestamp")
+
+        if timestamp and timestamp.tzinfo is None:
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
+
+        if timestamp and timestamp < retention_cutoff:
+            operations.append(DeleteOne({"_id": article["_id"]}))
+            deleted += 1
+            expired += 1
+            continue
 
         if is_junk_article(headline, url, summary):
             operations.append(DeleteOne({"_id": article["_id"]}))
@@ -46,9 +58,6 @@ def main():
             "entities": extract_entities(f"{headline}. {summary}"),
         }
 
-        if timestamp and timestamp.tzinfo is None:
-            timestamp = timestamp.replace(tzinfo=timezone.utc)
-
         if timestamp and timestamp < recent_cutoff:
             update["is_stale"] = True
         else:
@@ -64,7 +73,10 @@ def main():
     if operations:
         collection.bulk_write(operations, ordered=False)
 
-    print(f"Scanned {scanned}; deleted {deleted}; updated {updated}.")
+    print(
+        f"Scanned {scanned}; deleted {deleted} ({expired} expired after "
+        f"{retention_days} days); updated {updated}."
+    )
 
 
 if __name__ == "__main__":

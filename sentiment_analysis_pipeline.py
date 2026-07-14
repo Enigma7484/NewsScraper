@@ -37,6 +37,19 @@ with open("news_sites.json", "r", encoding="utf-8") as f:
 summarizer = None
 nlp_trf = None
 
+
+def transformer_device():
+    try:
+        import torch
+
+        if torch.backends.mps.is_available():
+            return "mps"
+        if torch.cuda.is_available():
+            return 0
+    except Exception:
+        pass
+    return -1
+
 # ── PRECOMPILED REGEX & REPLACEMENTS ────────────────────────────────────────
 _CAP_RE = re.compile(r'(^|[.!?]["\']?\s*)([a-z])')
 
@@ -107,6 +120,7 @@ def clean_summary(text: str) -> str:
             if nlp_trf is None:
                 import spacy
 
+                spacy.prefer_gpu()
                 nlp_trf = spacy.load(
                     "en_core_web_trf", disable=["parser", "lemmatizer"]
                 )
@@ -202,7 +216,11 @@ def generate_summary(text: str) -> str:
         if summarizer is None:
             from transformers import pipeline
 
-            summarizer = pipeline("summarization", model="t5-large")
+            summarizer = pipeline(
+                "summarization",
+                model="t5-large",
+                device=transformer_device(),
+            )
         out = summarizer(
             "summarize: " + text[:2048],
             min_length=50, do_sample=False

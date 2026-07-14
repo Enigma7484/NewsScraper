@@ -26,6 +26,9 @@ STOPWORDS = {
 }
 
 TRAILING_PUNCTUATION = " \t\r\n,;:"
+BOILERPLATE_ENTITY_PATTERNS = (
+    re.compile(r"\bsave\s+share\b", re.I),
+)
 
 # —————————————————————————————————————————————————————————————————————————————
 # 3) Define exactly which spaCy labels we keep:
@@ -48,6 +51,8 @@ def should_highlight(ent: Span) -> bool:
         return False
     if len(txt.split()) == 1 and txt.lower() in STOPWORDS:
         return False
+    if is_boilerplate_entity(txt):
+        return False
     # 4) Keep real acronyms like PWHL/MMIWG/U.S.; otherwise require a proper name.
     if is_acronym(txt):
         return len(re.sub(r"[^A-Z]", "", txt)) >= 2
@@ -58,6 +63,10 @@ def should_highlight(ent: Span) -> bool:
 
 def normalize_entity(text: str) -> str:
     return re.sub(r"\s+", " ", (text or "").strip(TRAILING_PUNCTUATION)).strip()
+
+
+def is_boilerplate_entity(text: str) -> bool:
+    return any(pattern.search(text or "") for pattern in BOILERPLATE_ENTITY_PATTERNS)
 
 
 def is_acronym(text: str) -> bool:
@@ -87,7 +96,11 @@ def extract_entities(text: str) -> List[str]:
             )
             for match in fallback_matches:
                 clean = normalize_entity(match)
-                if clean.lower() not in STOPWORDS and clean.lower() not in seen:
+                if (
+                    clean.lower() not in STOPWORDS
+                    and not is_boilerplate_entity(clean)
+                    and clean.lower() not in seen
+                ):
                     seen.add(clean.lower())
                     combined.append(clean)
             return combined[:12]

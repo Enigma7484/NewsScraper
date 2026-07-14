@@ -4,6 +4,7 @@ import json
 import cloudscraper
 import certifi
 import os
+import subprocess
 import time
 import unicodedata
 import re
@@ -11,7 +12,11 @@ import traceback
 import datetime
 import html as _html
 from lxml import html as lxml_html
-from selector_scraper import scrape_static_website, scrape_dynamic_website
+from selector_scraper import (
+    scrape_dynamic_website,
+    scrape_rss_feed,
+    scrape_static_website,
+)
 from keyword_extractor import extract_entities
 from feed_data import analyze_keywords
 from save2db import save_articles_to_db
@@ -36,6 +41,19 @@ with open("news_sites.json", "r", encoding="utf-8") as f:
 
 summarizer = None
 nlp_trf = None
+
+
+def transformer_device():
+    try:
+        import torch
+
+        if torch.backends.mps.is_available():
+            return "mps"
+        if torch.cuda.is_available():
+            return 0
+    except Exception:
+        pass
+    return -1
 
 # ── PRECOMPILED REGEX & REPLACEMENTS ────────────────────────────────────────
 _CAP_RE = re.compile(r'(^|[.!?]["\']?\s*)([a-z])')
@@ -107,6 +125,7 @@ def clean_summary(text: str) -> str:
             if nlp_trf is None:
                 import spacy
 
+                spacy.prefer_gpu()
                 nlp_trf = spacy.load(
                     "en_core_web_trf", disable=["parser", "lemmatizer"]
                 )
@@ -158,6 +177,34 @@ def extract_image(tree) -> str | None:
         print("❌ extract_image error:", e)
         return None
 
+
+def parse_article_html(content: bytes) -> tuple[str, str | None]:
+    tree = lxml_html.fromstring(content)
+    article_paras = tree.xpath(
+        "//article//p//text() | "
+        "//div[contains(@class, 'article__content')]//p//text()"
+    )
+    paras = article_paras or tree.xpath("//p//text()")
+    text = clean_article_text(" ".join(paras).strip()) or "Content not available"
+    return text, extract_image(tree)
+
+
+def fetch_with_curl(url: str) -> bytes:
+    command = [
+        "/usr/bin/curl" if os.path.exists("/usr/bin/curl") else "curl",
+        "--fail",
+        "--location",
+        "--silent",
+        "--show-error",
+        "--max-time",
+        "30",
+        "--user-agent",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
+        url,
+    ]
+    return subprocess.run(command, check=True, capture_output=True).stdout
+
 def fetch_full_article(url: str) -> tuple[str, str | None]:
     HEADERS = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -176,13 +223,14 @@ def fetch_full_article(url: str) -> tuple[str, str | None]:
         resp = scraper.get(url, headers=HEADERS, timeout=30)
         resp.raise_for_status()
 
-        tree    = lxml_html.fromstring(resp.content)
-        paras   = tree.xpath("//p/text()")
-        content = clean_article_text(" ".join(paras).strip()) or "Content not available"
-        img_url = extract_image(tree)
-        return content, img_url
+        return parse_article_html(resp.content)
 
     except Exception as e:
+        if "cnn.com" in url:
+            try:
+                return parse_article_html(fetch_with_curl(url))
+            except Exception as curl_error:
+                print(f"❌ CNN curl fallback failed for {url}: {curl_error}")
         print(f"❌ fetch_full_article error for {url}: {e}")
         return "Content not available", None
 
@@ -202,7 +250,11 @@ def generate_summary(text: str) -> str:
         if summarizer is None:
             from transformers import pipeline
 
-            summarizer = pipeline("summarization", model="t5-large")
+            summarizer = pipeline(
+                "summarization",
+                model="t5-large",
+                device=transformer_device(),
+            )
         out = summarizer(
             "summarize: " + text[:2048],
             min_length=50, do_sample=False
@@ -215,6 +267,11 @@ def generate_summary(text: str) -> str:
 # ── MAIN SCRAPE LOOP ───────────────────────────────────────────────────────
 def process_news():
     results = {"positive": [], "neutral": [], "negative": []}
+    selected_sites = {
+        site.strip().lower()
+        for site in os.getenv("NEWS_SITES", "").split(",")
+        if site.strip()
+    }
     max_articles_per_site = int(os.getenv("MAX_ARTICLES_PER_SITE", "0") or 0)
     max_attempts_per_site = int(
         os.getenv(
@@ -225,13 +282,19 @@ def process_news():
     )
 
     for site, cfg in WEBSITE_CONFIG.items():
+        if selected_sites and site.lower() not in selected_sites:
+            continue
         print("📰 Scraping:", site)
-        arts = (
-            scrape_dynamic_website(cfg["base_url"], cfg["headline_xpath"], cfg["link_xpath"])
-            if cfg["dynamic"]
-            else
-            scrape_static_website(cfg["base_url"], cfg["headline_xpath"], cfg["link_xpath"])
-        )
+        if cfg.get("rss_url"):
+            arts = scrape_rss_feed(cfg["rss_url"])
+        elif cfg["dynamic"]:
+            arts = scrape_dynamic_website(
+                cfg["base_url"], cfg["headline_xpath"], cfg["link_xpath"]
+            )
+        else:
+            arts = scrape_static_website(
+                cfg["base_url"], cfg["headline_xpath"], cfg["link_xpath"]
+            )
 
         seen = set()
         processed_for_site = 0
@@ -254,18 +317,25 @@ def process_news():
                 continue
             seen.add(link)
 
-            content, img = fetch_full_article(link)
+            content = a.get("content")
+            img = a.get("image")
+            if not content:
+                content, img = fetch_full_article(link)
             if content == "Content not available":
                 continue
 
-            summ = generate_summary(content)
+            uses_editorial_summary = bool(a.get("editorial_summary"))
+            summ = clean_summary(content) if uses_editorial_summary else generate_summary(content)
             if is_junk_article(head, link, summ):
                 continue
 
             # 10% token overlap guard
             hset = set(re.findall(r"\b\w+\b", head.lower()))
             sset = set(re.findall(r"\b\w+\b", summ.lower()))
-            if len(hset & sset) / (len(hset) + 1) < 0.10:
+            if (
+                not uses_editorial_summary
+                and len(hset & sset) / (len(hset) + 1) < 0.10
+            ):
                 print("⚠️ Discarded – summary/headline mismatch")
                 continue
 
@@ -281,7 +351,8 @@ def process_news():
                 "sentiment_score": sentiment_result.get("score"),
                 "summary": summ,
                 "image": img,
-                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                "timestamp": a.get("timestamp")
+                or datetime.datetime.now(datetime.timezone.utc).isoformat(),
                 "entities": entities
             })
             processed_for_site += 1

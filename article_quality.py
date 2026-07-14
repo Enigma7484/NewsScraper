@@ -10,7 +10,11 @@ JUNK_PATTERNS = [
     r"\b(the new york times games|nyt games|games hub)\b",
     r"\b(work for us|careers?|jobs?|sign up|newsletter|terms (?:&|and) conditions)\b",
     r"\b(privacy policy|help|contact us|advertise with us|accessibility)\b",
-    r"^the athletic(?:sports coverage)?$",
+    r"^the athletic(?: sports coverage)?$",
+    r"^cooking recipes and guides$",
+    r"^stream the best of british tv$",
+    r"^the best of the bbc,? delivered to you$",
+    r"^catch up on today(?:'|’)s headlines$",
     r"^the guardian(?:\s+-\s+back to home)?$",
     r"^view all\b",
     r"^(tip us off|sign up for our email)$",
@@ -23,6 +27,8 @@ JUNK_URL_PATTERNS = [
     r"/careers?/",
     r"/jobs?/",
     r"/work-for-us",
+    r"/newsletters?",
+    r"/cnn-underscored/",
 ]
 
 BYLINE_ONLY_PATTERNS = [
@@ -67,6 +73,12 @@ def compact_text(text: str | None) -> str:
 
 def clean_headline(headline: str | None) -> str:
     text = compact_text(headline)
+    text = re.sub(r"^(?:Analysis\s+)?For Subscribers\s+", "", text, flags=re.I)
+    text = re.sub(
+        r"^Analysisby\s+[A-Z][A-Za-z'-]+\s+[A-Z][A-Za-z'-]+\s+",
+        "",
+        text,
+    )
     text = re.sub(r"\b(double|single)\s*quotation\s*mark", "", text, flags=re.I)
     text = text.replace("‘ ", "‘").replace(" “", " “")
     text = re.sub(r"\s*\d+\s+min\s+read.*$", "", text, flags=re.I)

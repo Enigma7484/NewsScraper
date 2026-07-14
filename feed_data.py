@@ -4,6 +4,19 @@ import re
 sentiment_model = None
 DEFAULT_SENTIMENT_MODEL = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 
+
+def _transformer_device():
+    try:
+        import torch
+
+        if torch.backends.mps.is_available():
+            return "mps"
+        if torch.cuda.is_available():
+            return 0
+    except Exception:
+        pass
+    return -1
+
 # ✅ Override keywords for better classification
 NEGATIVE_KEYWORDS = [
     "violence", "conflict", "death", "crisis", "humiliation", "deadly", "attack", "assault",
@@ -141,6 +154,7 @@ def analyze_keywords(text: str, context: str = "") -> dict:
             sentiment_model = pipeline(
                 "sentiment-analysis",
                 model=os.getenv("SENTIMENT_MODEL_NAME", DEFAULT_SENTIMENT_MODEL),
+                device=_transformer_device(),
             )
 
         result = sentiment_model(full_text[:512])

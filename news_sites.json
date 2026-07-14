@@ -19,6 +19,7 @@
     },
     "nytimes": {
         "base_url": "https://www.nytimes.com/",
+        "rss_url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
         "headline_xpath": "//a[contains(@class, 'css-9mylee')]",
         "link_xpath": "./@href",
         "dynamic": false

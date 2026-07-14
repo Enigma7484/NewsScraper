@@ -1,6 +1,7 @@
 import json
 import requests
-from lxml import html
+from email.utils import parsedate_to_datetime
+from lxml import etree, html
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -67,6 +68,49 @@ def scrape_static_website(base_url, headline_xpath, link_xpath):
 
     except Exception as e:
         print(f"❌ Error scraping static website: {e}")
+        return []
+
+
+def scrape_rss_feed(feed_url):
+    """Read article metadata from a publisher's official RSS feed."""
+    try:
+        response = requests.get(feed_url, headers=HEADERS, timeout=30)
+        response.raise_for_status()
+        root = etree.fromstring(response.content)
+        namespaces = {"media": "http://search.yahoo.com/mrss/"}
+        results = []
+
+        for item in root.xpath("//item"):
+            headline = clean_headline(item.findtext("title"))
+            link = (item.findtext("link") or "").strip()
+            summary = (item.findtext("description") or "").strip()
+            published = (item.findtext("pubDate") or "").strip()
+            image = item.xpath(
+                "string(media:content/@url | media:thumbnail/@url)",
+                namespaces=namespaces,
+            )
+            if not headline or not link or is_junk_article(headline, link, summary):
+                continue
+
+            timestamp = None
+            if published:
+                try:
+                    timestamp = parsedate_to_datetime(published).isoformat()
+                except (TypeError, ValueError):
+                    pass
+
+            results.append({
+                "headline": headline,
+                "link": link,
+                "content": summary,
+                "editorial_summary": True,
+                "image": image or None,
+                "timestamp": timestamp,
+            })
+
+        return results
+    except Exception as e:
+        print(f"❌ Error scraping RSS feed: {e}")
         return []
 
 

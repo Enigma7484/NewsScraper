@@ -49,6 +49,10 @@ BOILERPLATE_PREFIXES = [
     r"^advertisement\s+",
 ]
 
+INLINE_BOILERPLATE = [
+    r"\bsave\s+share\b",
+]
+
 SENTENCE_BOILERPLATE = [
     "sign up for our email",
     "work for us",
@@ -91,6 +95,8 @@ def clean_article_text(text: str | None) -> str:
     cleaned = compact_text(text)
     for pattern in BOILERPLATE_PREFIXES:
         cleaned = re.sub(pattern, "", cleaned, flags=re.I)
+    for pattern in INLINE_BOILERPLATE:
+        cleaned = re.sub(pattern, " ", cleaned, flags=re.I)
 
     sentences = re.split(r"(?<=[.!?])\s+", cleaned)
     sentences = [

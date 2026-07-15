@@ -50,6 +50,8 @@ def should_highlight(ent: Span) -> bool:
         return False
     if len(txt) < 2:
         return False
+    if any(character.isdigit() for character in txt):
+        return False
     if len(txt.split()) == 1 and txt.lower() in STOPWORDS:
         return False
     if is_boilerplate_entity(txt):
@@ -65,7 +67,25 @@ def should_highlight(ent: Span) -> bool:
 
 
 def normalize_entity(text: str) -> str:
-    return re.sub(r"\s+", " ", (text or "").strip(TRAILING_PUNCTUATION)).strip()
+    value = re.sub(r"\s+", " ", (text or "").strip(TRAILING_PUNCTUATION)).strip()
+    value = re.sub(r"^(?:the|a|an)\s+", "", value)
+    return re.sub(r"(?:'s|’s)$", "", value).strip()
+
+
+def is_boilerplate_entity(text: str) -> bool:
+    return any(pattern.search(text or "") for pattern in BOILERPLATE_ENTITY_PATTERNS)
+
+
+def is_roman_numeral(text: str) -> bool:
+    value = (text or "").strip().upper()
+    if not value:
+        return False
+    return bool(
+        re.fullmatch(
+            r"M{0,4}(?:CM|CD|D?C{0,3})(?:XC|XL|L?X{0,3})(?:IX|IV|V?I{0,3})",
+            value,
+        )
+    )
 
 
 def is_boilerplate_entity(text: str) -> bool:
@@ -98,44 +118,51 @@ def extract_entities(text: str) -> List[str]:
     seen: Set[str] = set()
 
     global nlp_trf, nlp_xx
-    if nlp_trf is None or nlp_xx is None:
+    if nlp_trf is None:
         try:
             import spacy
 
+            spacy.prefer_gpu()
             nlp_trf = spacy.load("en_core_web_trf", disable=["parser", "lemmatizer"])
+        except Exception:
+            nlp_trf = False
+
+    if nlp_xx is None:
+        try:
+            import spacy
+
             nlp_xx = spacy.load("xx_ent_wiki_sm", disable=["parser", "lemmatizer"])
         except Exception:
-            fallback_matches = re.findall(
-                r"\b(?:[A-Z]{2,}(?:\.[A-Z]+)*|[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\b",
-                text,
-            )
-            for match in fallback_matches:
-                clean = normalize_entity(match)
-                if (
-                    clean.lower() not in STOPWORDS
-                    and not is_boilerplate_entity(clean)
-                    and clean.lower() not in seen
-                ):
-                    seen.add(clean.lower())
+            nlp_xx = False
+
+    if not nlp_trf and not nlp_xx:
+        fallback_matches = re.findall(
+            r"\b(?:[A-Z]{2,}(?:\.[A-Z]+)*|[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\b",
+            text,
+        )
+        for match in fallback_matches:
+            clean = normalize_entity(match)
+            if (
+                clean.lower() not in STOPWORDS
+                and not is_boilerplate_entity(clean)
+                and not is_roman_numeral(clean)
+                and clean.lower() not in seen
+            ):
+                seen.add(clean.lower())
+                combined.append(clean)
+        return combined[:12]
+
+    for model in (nlp_trf, nlp_xx):
+        if not model:
+            continue
+        for ent in model(text).ents:
+            if should_highlight(ent):
+                clean = normalize_entity(ent.text)
+                key = clean.lower()
+                if key not in seen:
+                    seen.add(key)
                     combined.append(clean)
-            return combined[:12]
 
-    # a) spaCy-TRF (English NER)
-    for ent in nlp_trf(text).ents:
-        if should_highlight(ent):
-            clean = normalize_entity(ent.text)
-            key = clean.lower()
-            if key not in seen:
-                seen.add(key)
-                combined.append(clean)
-
-    # b) spaCy-XX (multilingual NER)
-    for ent in nlp_xx(text).ents:
-        if should_highlight(ent):
-            clean = normalize_entity(ent.text)
-            key = clean.lower()
-            if key not in seen:
-                seen.add(key)
-                combined.append(clean)
+                    combined.append(clean)
 
     return combined

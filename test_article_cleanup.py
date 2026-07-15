@@ -1,7 +1,8 @@
 import unittest
 
 from article_quality import clean_article_text, clean_headline, repair_joined_quotes
-from keyword_extractor import is_boilerplate_entity, is_roman_numeral
+from keyword_extractor import is_boilerplate_entity, is_roman_numeral, normalize_entity
+
 
 
 class ArticleCleanupTests(unittest.TestCase):
@@ -53,6 +54,11 @@ class ArticleCleanupTests(unittest.TestCase):
         self.assertTrue(is_roman_numeral("III"))
         self.assertFalse(is_roman_numeral("PWHL"))
         self.assertFalse(is_roman_numeral("CDC"))
+
+    def test_normalizes_entity_articles_and_possessives(self):
+        self.assertEqual(normalize_entity("the World Cup"), "World Cup")
+        self.assertEqual(normalize_entity("BBC Sport's"), "BBC Sport")
+        self.assertEqual(normalize_entity("The Hague"), "The Hague")
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ python sentiment_api.py
 Endpoints:
 
 - `GET /health`
-- `GET /articles?offset=0&sort=desc&keyword=&category=`
+- `GET /articles?offset=0&sort=desc&keyword=&category=&bias=`
 - `GET /articles/<id>`
 
 Each article includes a bias meter payload:

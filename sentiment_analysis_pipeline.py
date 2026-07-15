@@ -312,12 +312,22 @@ def process_news():
 
             content = a.get("content")
             img = a.get("image")
-            if not content:
+            uses_editorial_summary = bool(a.get("editorial_summary"))
+            bias_content = content
+            if uses_editorial_summary:
+                full_content, fetched_img = fetch_full_article(link)
+                if full_content != "Content not available":
+                    bias_content = full_content
+                    img = img or fetched_img
+                    if not content:
+                        content = full_content
+                        uses_editorial_summary = False
+            elif not content:
                 content, img = fetch_full_article(link)
-            if content == "Content not available":
+                bias_content = content
+            if not content or content == "Content not available":
                 continue
 
-            uses_editorial_summary = bool(a.get("editorial_summary"))
             summ = clean_summary(content) if uses_editorial_summary else generate_summary(content)
             if is_junk_article(head, link, summ):
                 continue
@@ -334,7 +344,7 @@ def process_news():
 
             sentiment_result = analyze_keywords(head, summ)
             sentiment = sentiment_result["final_sentiment"]
-            bias_result = analyze_political_bias(content, head)
+            bias_result = analyze_political_bias(bias_content or content, head)
             entities = extract_entities(summ)
 
             results[sentiment].append({

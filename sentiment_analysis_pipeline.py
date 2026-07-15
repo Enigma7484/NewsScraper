@@ -95,10 +95,6 @@ def clean_text(text: str) -> str:
         txt = re.sub(r'([.,!?;:])([^\s])', r'\1 \2', txt)
         txt = re.sub(r'\.\s+(\d)', r'.\1', txt)
         txt = re.sub(r' {2,}', ' ', txt)
-        txt = re.sub(r'(["\'])\s+', r'\1', txt)
-        txt = re.sub(r'\s+(["\'])', r'\1', txt)
-        txt = re.sub(r'([.,!?;:])\s+(["\'])', r'\1\2', txt)
-        txt = re.sub(r'(["\'])\s+([.,!?;:])', r'\1\2', txt)
         return re.sub(r"[ \t]{2,}", " ", txt).strip()
     except Exception as e:
         print("❌ clean_text error:", e)

@@ -28,6 +28,7 @@ STOPWORDS = {
 TRAILING_PUNCTUATION = " \t\r\n,;:"
 BOILERPLATE_ENTITY_PATTERNS = (
     re.compile(r"\bsave\s+share\b", re.I),
+    re.compile(r"\bthis video can\s*not be played\b", re.I),
 )
 
 # —————————————————————————————————————————————————————————————————————————————
@@ -53,6 +54,8 @@ def should_highlight(ent: Span) -> bool:
         return False
     if is_boilerplate_entity(txt):
         return False
+    if is_roman_numeral(txt):
+        return False
     # 4) Keep real acronyms like PWHL/MMIWG/U.S.; otherwise require a proper name.
     if is_acronym(txt):
         return len(re.sub(r"[^A-Z]", "", txt)) >= 2
@@ -67,6 +70,18 @@ def normalize_entity(text: str) -> str:
 
 def is_boilerplate_entity(text: str) -> bool:
     return any(pattern.search(text or "") for pattern in BOILERPLATE_ENTITY_PATTERNS)
+
+
+def is_roman_numeral(text: str) -> bool:
+    value = (text or "").strip().upper()
+    if not value:
+        return False
+    return bool(
+        re.fullmatch(
+            r"M{0,4}(?:CM|CD|D?C{0,3})(?:XC|XL|L?X{0,3})(?:IX|IV|V?I{0,3})",
+            value,
+        )
+    )
 
 
 def is_acronym(text: str) -> bool:

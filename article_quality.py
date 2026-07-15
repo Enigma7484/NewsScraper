@@ -51,6 +51,7 @@ BOILERPLATE_PREFIXES = [
 
 INLINE_BOILERPLATE = [
     r"\bsave\s+share\b",
+    r"\bthis video can\s*not be played\b",
 ]
 
 SENTENCE_BOILERPLATE = [
@@ -65,8 +66,67 @@ SENTENCE_BOILERPLATE = [
 ]
 
 
+CONTRACTION_SUFFIXES = {"s", "t", "re", "ve", "ll", "d", "m"}
+
+
+def _is_contraction_apostrophe(text: str, index: int) -> bool:
+    if index <= 0 or index + 1 >= len(text):
+        return False
+    if not (text[index - 1].isalpha() and text[index + 1].isalpha()):
+        return False
+    suffix = re.match(r"[A-Za-z]+", text[index + 1:])
+    return bool(suffix and suffix.group(0).lower() in CONTRACTION_SUFFIXES)
+
+
+def repair_joined_quotes(text: str | None) -> str:
+    """Restore spaces removed around quotation marks without splitting contractions."""
+    value = text or ""
+    insert_before: set[int] = set()
+    insert_after: set[int] = set()
+
+    for quote in ('"', "'"):
+        opening = None
+        unmatched = []
+        for index, char in enumerate(value):
+            if char != quote:
+                continue
+            if quote == "'" and _is_contraction_apostrophe(value, index):
+                continue
+
+            previous = value[index - 1] if index else ""
+            following = value[index + 1] if index + 1 < len(value) else ""
+            if opening is None:
+                if following.isalnum() and (not previous or previous.isspace() or previous.isalnum()):
+                    opening = index
+                    unmatched.append(index)
+            else:
+                if previous.isalnum():
+                    if value[opening - 1:opening].isalnum():
+                        insert_before.add(opening)
+                    if following.isalnum():
+                        insert_after.add(index)
+                    unmatched.remove(opening)
+                    opening = None
+
+        # The destructive normalizer also joined plural possessives: reporters'homes.
+        for index in unmatched:
+            previous = value[index - 1] if index else ""
+            following = value[index + 1] if index + 1 < len(value) else ""
+            if quote == "'" and previous.lower() == "s" and following.islower():
+                insert_after.add(index)
+
+    repaired = []
+    for index, char in enumerate(value):
+        if index in insert_before and repaired and repaired[-1] != " ":
+            repaired.append(" ")
+        repaired.append(char)
+        if index in insert_after and index + 1 < len(value) and value[index + 1] != " ":
+            repaired.append(" ")
+    return "".join(repaired)
+
+
 def compact_text(text: str | None) -> str:
-    text = text or ""
+    text = repair_joined_quotes(text)
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"\s+([.,!?;:])", r"\1", text)
     text = re.sub(r"\b([A-Z])\.\s+([A-Z])\.", r"\1.\2.", text)

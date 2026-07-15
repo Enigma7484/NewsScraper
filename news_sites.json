@@ -35,5 +35,19 @@
         "headline_xpath": "//a[contains(@class, 'card') and .//h3]",
         "link_xpath": "./@href",
         "dynamic": true
+    },
+    "fox_politics": {
+        "base_url": "https://www.foxnews.com/politics",
+        "rss_url": "https://moxie.foxnews.com/google-publisher/politics.xml",
+        "headline_xpath": "//h2 | //h3",
+        "link_xpath": ".//ancestor::a/@href",
+        "dynamic": false
+    },
+    "fox_opinion": {
+        "base_url": "https://www.foxnews.com/opinion",
+        "rss_url": "https://moxie.foxnews.com/google-publisher/opinion.xml",
+        "headline_xpath": "//h2 | //h3",
+        "link_xpath": ".//ancestor::a/@href",
+        "dynamic": false
     }
 }

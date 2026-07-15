@@ -85,12 +85,14 @@ def get_articles():
     - sort: Sort order for timestamp (desc or asc, default: desc)
     - keyword: Search term for headlines and summaries (optional)
     - category: Filter by sentiment category (positive, negative, neutral, default: all)
+    - bias: Filter by political framing (left, centrist, right, default: all)
     """
     # Get query parameters with defaults
     offset = int(request.args.get("offset", 0))
     sort_order = request.args.get("sort", "desc")
     keyword = request.args.get("keyword", "").strip()
     category = request.args.get("category", "").strip().lower()
+    bias = request.args.get("bias", "").strip().lower()
     recent_days = request.args.get("recent_days", str(DEFAULT_RECENT_DAYS)).strip()
     all_time = request.args.get("all_time", "").strip().lower() in {"1", "true", "yes"}
 
@@ -102,6 +104,9 @@ def get_articles():
         ]
         if category in ["positive", "negative", "neutral"]:
             articles = [a for a in articles if a.get("sentiment") == category]
+        articles = [serialize_article(a) for a in articles]
+        if bias in ["left", "centrist", "right"]:
+            articles = [a for a in articles if a.get("bias") == bias]
         if keyword:
             needle = keyword.lower()
             articles = [
@@ -112,7 +117,7 @@ def get_articles():
             ]
         reverse = sort_order != "asc"
         articles.sort(key=lambda a: a.get("timestamp", ""), reverse=reverse)
-        page = [serialize_article(a) for a in articles[offset : offset + PAGE_SIZE]]
+        page = articles[offset : offset + PAGE_SIZE]
         return jsonify(
             {
                 "articles": page,
@@ -131,6 +136,9 @@ def get_articles():
     # Add category filter if specified
     if category in ["positive", "negative", "neutral"]:
         query["sentiment"] = category
+
+    if bias in ["left", "centrist", "right"]:
+        query["bias"] = bias
 
     if not all_time and recent_days:
         from datetime import datetime, timedelta, timezone

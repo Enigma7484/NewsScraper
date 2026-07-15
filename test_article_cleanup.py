@@ -1,7 +1,7 @@
 import unittest
 
-from article_quality import clean_article_text
-from keyword_extractor import is_boilerplate_entity
+from article_quality import clean_article_text, clean_headline, repair_joined_quotes
+from keyword_extractor import is_boilerplate_entity, is_roman_numeral
 
 
 class ArticleCleanupTests(unittest.TestCase):
@@ -21,6 +21,38 @@ class ArticleCleanupTests(unittest.TestCase):
         self.assertTrue(is_boilerplate_entity("Save Share Cuba"))
         self.assertTrue(is_boilerplate_entity("Save Share An Israeli"))
         self.assertFalse(is_boilerplate_entity("Cuba"))
+
+    def test_removes_bbc_video_player_fallback(self):
+        self.assertEqual(
+            clean_article_text(
+                "This video can not be played Spain reached the World Cup final."
+            ),
+            "Spain reached the World Cup final.",
+        )
+        self.assertTrue(is_boilerplate_entity("This video cannot be played"))
+
+    def test_repairs_joined_quote_spacing_without_splitting_contractions(self):
+        self.assertEqual(
+            clean_headline("Who'came alive'in the semi-final?"),
+            "Who 'came alive' in the semi-final?",
+        )
+        self.assertEqual(
+            clean_headline("'Miracle on the Hudson'pilot Captain Sully"),
+            "'Miracle on the Hudson' pilot Captain Sully",
+        )
+        self.assertEqual(
+            repair_joined_quotes("Captain Chesley'Sully'Sullenberger has Alzheimer's"),
+            "Captain Chesley 'Sully' Sullenberger has Alzheimer's",
+        )
+        self.assertEqual(
+            repair_joined_quotes("He's sure reporters'homes were searched."),
+            "He's sure reporters' homes were searched.",
+        )
+
+    def test_rejects_standalone_roman_numerals(self):
+        self.assertTrue(is_roman_numeral("III"))
+        self.assertFalse(is_roman_numeral("PWHL"))
+        self.assertFalse(is_roman_numeral("CDC"))
 
 
 if __name__ == "__main__":

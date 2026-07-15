@@ -139,10 +139,6 @@ def clean_summary(text: str) -> str:
         txt = re.sub(r'([.,!?;:])([^\s])', r'\1 \2', txt)
         txt = re.sub(r'\.\s+(\d)', r'.\1', txt)
         txt = re.sub(r' {2,}', ' ', txt)
-        txt = re.sub(r'(["\'])\s+', r'\1', txt)
-        txt = re.sub(r'\s+(["\'])', r'\1', txt)
-        txt = re.sub(r'([.,!?;:])\s+(["\'])', r'\1\2', txt)
-        txt = re.sub(r'(["\'])\s+([.,!?;:])', r'\1\2', txt)
         txt = txt.strip()
         if txt and txt[-1] not in ".!?":
             txt += "."

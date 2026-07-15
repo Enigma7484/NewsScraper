@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from bson import ObjectId
 import os
 import json
+import re
 from dotenv import load_dotenv
 from article_quality import is_junk_article
 from political_bias import analyze_political_bias
@@ -86,6 +87,7 @@ def get_articles():
     - keyword: Search term for headlines and summaries (optional)
     - category: Filter by sentiment category (positive, negative, neutral, default: all)
     - bias: Filter by political framing (left, centrist, right, default: all)
+    - source: Filter by publisher hostname (for example, bbc.com or foxnews.com)
     """
     # Get query parameters with defaults
     offset = int(request.args.get("offset", 0))
@@ -93,6 +95,7 @@ def get_articles():
     keyword = request.args.get("keyword", "").strip()
     category = request.args.get("category", "").strip().lower()
     bias = request.args.get("bias", "").strip().lower()
+    source = request.args.get("source", "").strip().lower()[:80]
     recent_days = request.args.get("recent_days", str(DEFAULT_RECENT_DAYS)).strip()
     all_time = request.args.get("all_time", "").strip().lower() in {"1", "true", "yes"}
 
@@ -107,6 +110,12 @@ def get_articles():
         articles = [serialize_article(a) for a in articles]
         if bias in ["left", "centrist", "right"]:
             articles = [a for a in articles if a.get("bias") == bias]
+        if source and re.fullmatch(r"[a-z0-9.-]+", source):
+            articles = [
+                a for a in articles
+                if source in a.get("url", "").lower()
+                or source in a.get("source_url", "").lower()
+            ]
         if keyword:
             needle = keyword.lower()
             articles = [
@@ -139,6 +148,17 @@ def get_articles():
 
     if bias in ["left", "centrist", "right"]:
         query["bias"] = bias
+
+    if source and re.fullmatch(r"[a-z0-9.-]+", source):
+        escaped_source = re.escape(source)
+        query["$and"].append(
+            {
+                "$or": [
+                    {"url": {"$regex": escaped_source, "$options": "i"}},
+                    {"source_url": {"$regex": escaped_source, "$options": "i"}},
+                ]
+            }
+        )
 
     if not all_time and recent_days:
         from datetime import datetime, timedelta, timezone

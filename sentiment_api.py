@@ -86,7 +86,7 @@ def get_articles():
     - sort: Sort order for timestamp (desc or asc, default: desc)
     - keyword: Search term for headlines and summaries (optional)
     - category: Filter by sentiment category (positive, negative, neutral, default: all)
-    - bias: Filter by political framing (left, centrist, right, default: all)
+    - bias: Filter by political framing (left, centrist, right, apolitical, default: all)
     - source: Filter by publisher hostname (for example, bbc.com or foxnews.com)
     """
     # Get query parameters with defaults
@@ -108,7 +108,15 @@ def get_articles():
         if category in ["positive", "negative", "neutral"]:
             articles = [a for a in articles if a.get("sentiment") == category]
         articles = [serialize_article(a) for a in articles]
-        if bias in ["left", "centrist", "right"]:
+        if bias == "apolitical":
+            articles = [a for a in articles if a.get("bias_is_political") is False]
+        elif bias == "centrist":
+            articles = [
+                a for a in articles
+                if a.get("bias") == "centrist"
+                and a.get("bias_is_political") is not False
+            ]
+        elif bias in ["left", "right"]:
             articles = [a for a in articles if a.get("bias") == bias]
         if source and re.fullmatch(r"[a-z0-9.-]+", source):
             articles = [
@@ -146,7 +154,12 @@ def get_articles():
     if category in ["positive", "negative", "neutral"]:
         query["sentiment"] = category
 
-    if bias in ["left", "centrist", "right"]:
+    if bias == "apolitical":
+        query["bias_is_political"] = False
+    elif bias == "centrist":
+        query["bias"] = "centrist"
+        query["bias_is_political"] = {"$ne": False}
+    elif bias in ["left", "right"]:
         query["bias"] = bias
 
     if source and re.fullmatch(r"[a-z0-9.-]+", source):

@@ -26,7 +26,8 @@ Endpoints:
 - `GET /articles?offset=0&sort=desc&keyword=&category=&bias=&source=`
 - `GET /articles/<id>`
 
-Each article includes a bias meter payload:
+Each article includes a bias meter payload. Records with
+`bias_is_political: false` should be presented as `apolitical`, not centrist:
 
 - `bias`: `left`, `centrist`, or `right`
 - `bias_score`: normalized from `-1` (left) to `1` (right)

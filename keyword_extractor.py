@@ -50,6 +50,8 @@ def should_highlight(ent: Span) -> bool:
         return False
     if len(txt) < 2:
         return False
+    if any(character.isdigit() for character in txt):
+        return False
     if len(txt.split()) == 1 and txt.lower() in STOPWORDS:
         return False
     if is_boilerplate_entity(txt):
@@ -65,7 +67,9 @@ def should_highlight(ent: Span) -> bool:
 
 
 def normalize_entity(text: str) -> str:
-    return re.sub(r"\s+", " ", (text or "").strip(TRAILING_PUNCTUATION)).strip()
+    value = re.sub(r"\s+", " ", (text or "").strip(TRAILING_PUNCTUATION)).strip()
+    value = re.sub(r"^(?:the|a|an)\s+", "", value)
+    return re.sub(r"(?:'s|’s)$", "", value).strip()
 
 
 def is_boilerplate_entity(text: str) -> bool:

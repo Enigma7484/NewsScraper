@@ -11,6 +11,8 @@ jobs:
     timeout-minutes: 45
     env:
       MONGO_URL: ${{ secrets.MONGO_URL }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_BIAS_MODEL: ${{ vars.GEMINI_BIAS_MODEL || 'gemini-3.1-flash-lite' }}
       DB_NAME: ${{ vars.DB_NAME || 'news_scraper' }}
       COLLECTION_NAME: ${{ vars.COLLECTION_NAME || 'articles' }}
       NEWS_SUMMARY_FAST: "1"
@@ -38,6 +40,9 @@ jobs:
 
       - name: Clean and retain article archive
         run: python cleanup_articles.py
+
+      - name: Upgrade legacy bias records
+        run: python backfill_bias.py --limit 30
 
       - name: Upload JSON snapshot
         uses: actions/upload-artifact@v4

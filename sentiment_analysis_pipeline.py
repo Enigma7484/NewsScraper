@@ -19,6 +19,7 @@ from selector_scraper import (
 )
 from keyword_extractor import extract_entities
 from feed_data import analyze_keywords
+from political_bias import analyze_political_bias
 from save2db import save_articles_to_db
 from article_quality import clean_article_text, clean_headline, is_junk_article
 
@@ -337,6 +338,7 @@ def process_news():
 
             sentiment_result = analyze_keywords(head, summ)
             sentiment = sentiment_result["final_sentiment"]
+            bias_result = analyze_political_bias(content, head)
             entities = extract_entities(summ)
 
             results[sentiment].append({
@@ -345,6 +347,7 @@ def process_news():
                 "sentiment": sentiment,
                 "sentiment_method": sentiment_result.get("method"),
                 "sentiment_score": sentiment_result.get("score"),
+                **bias_result,
                 "summary": summ,
                 "image": img,
                 "timestamp": a.get("timestamp")

@@ -6,6 +6,7 @@ from pymongo import DeleteOne, MongoClient, UpdateOne
 
 from article_quality import clean_article_text, clean_headline, is_junk_article
 from keyword_extractor import extract_entities
+from political_bias import analyze_political_bias
 
 os.environ.setdefault("NEWS_PIPELINE_FAST", "1")
 from feed_data import analyze_keywords
@@ -57,6 +58,15 @@ def main():
             "sentiment_score": sentiment_result.get("score"),
             "entities": extract_entities(f"{headline}. {summary}"),
         }
+
+        # Never downgrade a full-article result during archive cleanup. Legacy
+        # records have only summaries, so mark their backfill method explicitly.
+        if not str(article.get("bias_method", "")).endswith("framing_v2"):
+            bias_result = analyze_political_bias(
+                summary, headline, allow_remote=False
+            )
+            bias_result["bias_method"] = "summary_framing_v2"
+            update.update(bias_result)
 
         if timestamp and timestamp < recent_cutoff:
             update["is_stale"] = True

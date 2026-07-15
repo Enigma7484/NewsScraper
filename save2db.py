@@ -4,6 +4,7 @@ import os
 import datetime
 from dotenv import load_dotenv
 from article_quality import clean_article_text, clean_headline, is_junk_article
+from political_bias import analyze_political_bias
 
 # load .env (MONGO_URL, DB_NAME, COLLECTION_NAME)
 load_dotenv()
@@ -30,6 +31,21 @@ def save_articles_to_db(json_file="sentiment_results.json"):
                 url = art.get("url")
                 if is_junk_article(headline, url, summary):
                     continue
+                if "bias" in art and "bias_score" in art:
+                    bias_result = {
+                        "bias": art.get("bias"),
+                        "bias_score": art.get("bias_score"),
+                        "bias_confidence": art.get("bias_confidence"),
+                        "bias_method": art.get("bias_method"),
+                        "bias_signals": art.get("bias_signals", []),
+                        "bias_rationale": art.get("bias_rationale"),
+                        "bias_is_political": art.get("bias_is_political"),
+                    }
+                else:
+                    bias_result = analyze_political_bias(
+                        summary, headline, allow_remote=False
+                    )
+                    bias_result["bias_method"] = "summary_framing_v2"
                 # pull whatever came out of your pipeline
                 doc = {
                     "headline":  headline,
@@ -39,6 +55,7 @@ def save_articles_to_db(json_file="sentiment_results.json"):
                     "image":     art.get("image"),
                     "sentiment_method": art.get("sentiment_method"),
                     "sentiment_score": art.get("sentiment_score"),
+                    **bias_result,
                     # use JSON timestamp if present, else now:
                     "timestamp": datetime.datetime.fromisoformat(art.get("timestamp"))
                                     if art.get("timestamp")

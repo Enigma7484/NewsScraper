@@ -6,6 +6,7 @@ import os
 import json
 from dotenv import load_dotenv
 from article_quality import is_junk_article
+from political_bias import analyze_political_bias
 
 # Flask App Initialization
 app = Flask(__name__)
@@ -63,6 +64,14 @@ def serialize_article(article):
     """Converts MongoDB ObjectId to string and formats the response properly."""
     article["_id"] = str(article["_id"])  # Convert ObjectId to string
     article["image"] = article.get("image", None)
+    if "bias" not in article:
+        fallback = analyze_political_bias(
+            article.get("content") or article.get("summary", ""),
+            article.get("headline", ""),
+            allow_remote=False,
+        )
+        fallback["bias_method"] = "api_summary_fallback_v2"
+        article.update(fallback)
     return article
 
 
@@ -103,7 +112,7 @@ def get_articles():
             ]
         reverse = sort_order != "asc"
         articles.sort(key=lambda a: a.get("timestamp", ""), reverse=reverse)
-        page = articles[offset : offset + PAGE_SIZE]
+        page = [serialize_article(a) for a in articles[offset : offset + PAGE_SIZE]]
         return jsonify(
             {
                 "articles": page,
@@ -177,7 +186,7 @@ def get_article_by_id(id):
     if collection is None:
         article = next((a for a in load_json_articles() if a["_id"] == id), None)
         if article:
-            return jsonify(article)
+            return jsonify(serialize_article(article))
         return jsonify({"error": "Article not found"}), 404
 
     article_id = id

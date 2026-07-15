@@ -1,6 +1,7 @@
 # NewsScraper
 
-Python backend for scraping news, assigning sentiment, summarizing articles, and serving them to the `news-dashboard` frontend.
+Python backend for scraping news, assigning sentiment and political framing,
+summarizing articles, and serving them to the `news-dashboard` frontend.
 
 ## Local refresh
 
@@ -24,6 +25,33 @@ Endpoints:
 - `GET /health`
 - `GET /articles?offset=0&sort=desc&keyword=&category=`
 - `GET /articles/<id>`
+
+Each article includes a bias meter payload:
+
+- `bias`: `left`, `centrist`, or `right`
+- `bias_score`: normalized from `-1` (left) to `1` (right)
+- `bias_confidence`: confidence in the designation from `0` to `1`
+- `bias_method`: whether the full article or a legacy summary fallback was used
+- `bias_signals`: up to five framing phrases that influenced the result
+
+The pipeline computes the designation from the complete fetched article. Weak or
+balanced evidence is marked centrist rather than forcing a directional lean.
+
+Set `GEMINI_API_KEY` to use Gemini structured-output analysis. The production
+default is `gemini-3.1-flash-lite`, chosen for reliable, low-cost scheduled
+classification. Set `GEMINI_BIAS_MODEL=gemini-3.5-flash` when maximum nuance is
+more important than throughput. Without a key—or when Gemini fails—the pipeline
+uses the local framing scorer as a fallback.
+
+To upgrade existing MongoDB records using their complete article text:
+
+```bash
+.venv/bin/python backfill_bias.py --dry-run --limit 10
+.venv/bin/python backfill_bias.py
+```
+
+The scheduled scraper also upgrades 30 legacy records per run, staying within
+the free-tier request budget while the historical archive migrates gradually.
 
 ## No-cost live setup
 

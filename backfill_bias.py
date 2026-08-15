@@ -18,6 +18,11 @@ def parse_args():
     parser.add_argument("--limit", type=int, default=0, help="Maximum records; 0 is all")
     parser.add_argument("--force", action="store_true", help="Reanalyze completed records")
     parser.add_argument("--dry-run", action="store_true", help="Analyze without updating MongoDB")
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Fail the process when Gemini analysis fails instead of stopping safely",
+    )
     return parser.parse_args()
 
 
@@ -47,6 +52,7 @@ def main():
 
     analyzed = 0
     skipped = 0
+    failed = 0
     for article in cursor:
         content, _image = fetch_full_article(article.get("url", ""))
         if not content or content == "Content not available":
@@ -59,9 +65,19 @@ def main():
         else:
             source = "full article"
 
-        result = analyze_political_bias_with_gemini(
-            content, article.get("headline", "")
-        )
+        try:
+            result = analyze_political_bias_with_gemini(
+                content, article.get("headline", "")
+            )
+        except Exception as exc:
+            if args.strict:
+                raise
+            failed += 1
+            print(
+                "WARNING: Bias backfill stopped after Gemini analysis failed: "
+                f"{type(exc).__name__}: {exc}"
+            )
+            break
         if source == "summary fallback":
             result["bias_method"] = result["bias_method"].replace(
                 "full_article", "summary_fallback"
@@ -77,7 +93,10 @@ def main():
         # that ceiling by default; paid projects can lower this delay.
         time.sleep(float(os.getenv("BIAS_BACKFILL_DELAY", "4.2")))
 
-    print(f"Analyzed {analyzed}; skipped {skipped}; dry_run={args.dry_run}")
+    print(
+        f"Analyzed {analyzed}; skipped {skipped}; failed {failed}; "
+        f"dry_run={args.dry_run}"
+    )
 
 
 if __name__ == "__main__":
